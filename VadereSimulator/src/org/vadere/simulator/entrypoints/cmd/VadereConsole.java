@@ -55,9 +55,9 @@ public class VadereConsole {
 	// TODO: Move this method to "VadereArgumentParser".
 	private static void addSubCommandsToParser(ArgumentParser parser) {
 		Subparsers subparsers = parser.addSubparsers()
-										.title("subcommands")
-										.description("valid subcommands")
-										.metavar("COMMAND");
+				.title("subcommands")
+				.description("valid subcommands")
+				.metavar("COMMAND");
 
 		// Run Project
 		Subparser projectRun = subparsers

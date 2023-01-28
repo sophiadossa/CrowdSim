@@ -34,7 +34,7 @@ public class PostvisualizationModel extends SimulationModel<PostvisualizationCon
 
 	private static Logger logger = Logger.getLogger(PostvisualizationModel.class);
 
-	private boolean outputChanged;
+    private boolean outputChanged;
 
 	//private Step step;
 

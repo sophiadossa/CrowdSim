@@ -113,8 +113,8 @@ def find_scenario_files(path, scenario_search_pattern="*.scenario", exclude_patt
 
 
 def run_scenario_files_with_vadere_console(scenario_files, vadere_console="VadereSimulator/target/vadere-console.jar",
-                                           scenario_timeout_in_sec=short_timeout_in_seconds, config_filepath=None):
-    output_dir = "output"
+                                           scenario_timeout_in_sec=short_timeout_in_seconds, config_filepath=None, output_dir="output", is_keep_output=False):
+
     log_base_dir = "vadere_logs"
 
     makedirs_if_non_existing(output_dir)
@@ -152,6 +152,7 @@ def run_scenario_files_with_vadere_console(scenario_files, vadere_console="Vader
                                "-enableassertions",
                                "-jar", vadere_console,
                                "--logname", log_file]
+
             # add config file if required
             if config_filepath is not None:
                 subprocess_args += ["--config-file", config_filepath]
@@ -165,7 +166,8 @@ def run_scenario_files_with_vadere_console(scenario_files, vadere_console="Vader
                                                timeout=scenario_timeout_in_sec,
                                                check=True,
                                                stdout=subprocess.PIPE,
-                                               stderr=subprocess.PIPE)
+                                               stderr=subprocess.PIPE
+                                               )
 
             wall_time_end = time.time()
             wall_time_delta = wall_time_end - wall_time_start
@@ -191,7 +193,7 @@ def run_scenario_files_with_vadere_console(scenario_files, vadere_console="Vader
 
             failed_scenarios_with_exception.append((scenario_file, exception))
 
-    if os.path.exists(output_dir):
+    if os.path.exists(output_dir) and is_keep_output == False:
         shutil.rmtree(output_dir)
 
     return result_dict_create(passed_scenarios, failed_scenarios_with_exception, failed_summary)

@@ -26,7 +26,7 @@ public class Player implements Runnable {
 		return instance;
 	}
 
-	private Player(final PostvisualizationModel model) {
+	protected Player(final PostvisualizationModel model) {
 		this.model = model;
 		this.currentThread = null;
 		state = State.STOPPED;
@@ -38,7 +38,7 @@ public class Player implements Runnable {
 
 	public void stop() {
 		state = State.STOPPED;
-		running = false;
+		setRunning(false);
 
 		if (currentThread != null) {
 			currentThread.interrupt();
@@ -54,8 +54,8 @@ public class Player implements Runnable {
 
 	public void start() {
 		synchronized (model) {
-			if (!running) {
-				running = true;
+			if (!isRunning()) {
+				setRunning(true);
 				currentThread = new Thread(this);
 				currentThread.start();
 			}
@@ -74,14 +74,13 @@ public class Player implements Runnable {
 		}
 	}
 
-	private boolean isRunnable() {
+	protected boolean isRunnable() {
 		return !model.isEmpty();
 	}
 
 	@Override
 	public void run() {
-		long diffMs = 0;
-		while (running) {
+		while (isRunning()) {
 			long ms = System.currentTimeMillis();
 			// synchronized (model) {
 			switch (state) {
@@ -92,6 +91,7 @@ public class Player implements Runnable {
 							newSimeTimeInSec = 0;
 						}
 						model.setVisTime(newSimeTimeInSec);
+
 					}
 				}
 				model.notifyObservers();
@@ -110,16 +110,32 @@ public class Player implements Runnable {
 				default: break;
 			}
 			// }
-			diffMs = System.currentTimeMillis() - ms;
-			sleepTimeMS = (int) Math.round((1000.0 / model.config.getFps() - diffMs));
-			if(sleepTimeMS > 0) {
-				try {
-					Thread.sleep(Math.max(0, sleepTimeMS));
-				} catch (InterruptedException e) {
-					logger.info("Player interrupted while sleeping");
-				}
+			sleep(ms);
+		}
+	}
+
+	protected void sleep(long ms) {
+		long diffMs = System.currentTimeMillis() - ms;
+		sleepTimeMS = (int) Math.round((1000.0 / model.config.getFps() - diffMs));
+		if(sleepTimeMS > 0) {
+			try {
+				Thread.sleep(Math.max(0, sleepTimeMS));
+			} catch (InterruptedException e) {
+				logger.info("Player interrupted while sleeping");
 			}
 		}
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
+
+	public Thread getCurrentThread() {
+		return currentThread;
 	}
 
 }

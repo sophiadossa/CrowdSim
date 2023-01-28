@@ -5,6 +5,7 @@ import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.internal.HelpScreenException;
 import org.vadere.util.config.VadereConfig;
 import org.vadere.util.version.Version;
 
@@ -42,7 +43,14 @@ public class VadereArgumentParser {
             System.exit(0);
         }
 
-        Namespace namespace = argumentParser.parseArgs(args);
+        Namespace namespace = null;
+        try {
+            namespace = argumentParser.parseArgs(args);
+        } catch (HelpScreenException helpScreenException){
+            System.exit(0);
+        }
+
+
 
         String configFile = namespace.getString("configfile");
         if (configFile != null) {

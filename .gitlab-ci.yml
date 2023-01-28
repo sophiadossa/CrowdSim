@@ -33,6 +33,7 @@ stages:
     - integration_test
     - seed_test
     - deploy
+    - generate_video
 
 # PLEASE, OMIT FOLLOWING GITLAB PITFALLS:
 #
@@ -91,6 +92,20 @@ stages:
             - "vadere_logs"
         expire_in: 1 week
     when: on_success
+    
+.template_generate_videos:
+    stage: generate_video
+    script:
+        - rm -f ~/.config/vadere.conf
+        - mvn clean
+        - mvn -Dmaven.test.skip=true package
+        - python3 Tools/ContinuousIntegration/run_vadere_video.py -d Scenarios --scenarios-specified-in-config-only 
+    artifacts:
+        paths:
+            - "VideoOutput"
+            - "vadere_logs"
+        expire_in: 1 week
+    when: manual
 
 .template_deploy_master_automatically:
     stage: deploy
@@ -146,6 +161,8 @@ stages:
 # Job Definitions
 
 ## Jobs for GNU/Linux runner (which is labeled with tag "linux")
+
+## Jobs for GNU/Linux runner (which is labeled with tag "linux")
 run_unit_tests_on_linux:
     extends: .template_unit_tests
     tags:
@@ -185,7 +202,14 @@ deploy_branch_on_linux:
         name: branches/${CI_COMMIT_REF_NAME}/linux
         url: ${VADERE_DEPLOYMENT_BASE_URL}/branches/vadere.${CI_COMMIT_REF_NAME}.${CI_RUNNER_TAGS}.zip
 
+    
+generate_videos_on_linux:
+    extends: .template_generate_videos
+    tags:
+        - linux
+
 ## Jobs for Windows runner (which is labeled with tag "windows")
+
 run_unit_tests_on_windows:
     extends: .template_unit_tests
     tags:
@@ -224,3 +248,8 @@ deploy_branch_on_windows:
     environment:
         name: branches/${CI_COMMIT_REF_NAME}/windows
         url: ${VADERE_DEPLOYMENT_BASE_URL}/branches/vadere.${CI_COMMIT_REF_NAME}.${CI_RUNNER_TAGS}.zip
+
+generate_videos_on_windows:
+    extends: .template_generate_videos
+    tags:
+        - windows

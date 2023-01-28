@@ -6,6 +6,7 @@ import org.vadere.gui.components.control.IMode;
 import org.vadere.gui.components.utils.Resources;
 import org.vadere.gui.components.view.ScaleablePanel;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -45,4 +46,11 @@ public class ScenarioPanel extends ScaleablePanel implements Observer {
 		setMouseSelectionMode(renderer.getModel().getMouseSelectionMode());
 		SwingUtilities.invokeLater(() -> repaint());
 	}
+
+
+
+
+
+
+
 }
