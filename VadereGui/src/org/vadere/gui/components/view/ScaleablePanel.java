@@ -17,8 +17,10 @@ public abstract class ScaleablePanel extends JPanel implements IScaleChangeListe
 	private VPoint newRelMousePos;
 
 
+
+
 	public ScaleablePanel(final IDefaultModel defaultModel, final DefaultRenderer renderer,
-			final JScrollPane scrollPane) {
+						  final JScrollPane scrollPane) {
 		this.renderer = renderer;
 		this.model = defaultModel;
 		this.scrollPane = scrollPane;
@@ -110,5 +112,4 @@ public abstract class ScaleablePanel extends JPanel implements IScaleChangeListe
 		}
 		super.paintComponent(g);
 	}
-
 }

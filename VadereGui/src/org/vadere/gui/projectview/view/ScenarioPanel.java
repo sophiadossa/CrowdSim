@@ -4,7 +4,7 @@ package org.vadere.gui.projectview.view;
 import org.vadere.gui.components.control.HelpTextView;
 import org.vadere.gui.components.utils.Messages;
 import org.vadere.gui.onlinevisualization.OnlineVisualization;
-import org.vadere.gui.postvisualization.view.PostvisualizationWindow;
+import org.vadere.gui.postvisualization.view.PostvisualizationWindowInterActive;
 import org.vadere.gui.projectview.control.IProjectChangeListener;
 import org.vadere.gui.projectview.model.ProjectViewModel;
 import org.vadere.gui.topographycreator.view.TopographyWindow;
@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -47,7 +46,7 @@ public class ScenarioPanel extends JPanel implements IProjectChangeListener, Pro
 	private TextView perceptionFileView; // Stimulus tab
 	private DataProcessingView dataProcessingGUIview; // DataProcessing
 	private TopographyWindow topographyCreatorView; // Topography creator tab... OR:
-	private final PostvisualizationWindow postVisualizationView; // Post-Visualization tab, replaces Topography tab if output is selected
+	private final PostvisualizationWindowInterActive postVisualizationView; // Post-Visualization tab, replaces Topography tab if output is selected
 
 	// during simulation-run, only this is shown instead of the tabs above:
 	private final OnlineVisualization onlineVisualization;
@@ -65,7 +64,8 @@ public class ScenarioPanel extends JPanel implements IProjectChangeListener, Pro
 
 	ScenarioPanel(ProjectViewModel model) {
 		this.onlineVisualization = new OnlineVisualization(true);
-		this.postVisualizationView = new PostvisualizationWindow(model.getCurrentProjectPath());
+		this.postVisualizationView = new PostvisualizationWindowInterActive();
+		this.postVisualizationView.init(false, model.getCurrentProjectPath());
         this.model = model;
 
 		setBorder(new EmptyBorder(0, 0, 0, 0));

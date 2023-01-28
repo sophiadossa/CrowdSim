@@ -3,7 +3,7 @@ package org.vadere.gui.postvisualization;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import org.vadere.gui.components.utils.Messages;
-import org.vadere.gui.postvisualization.view.PostvisualizationWindow;
+import org.vadere.gui.postvisualization.view.PostvisualizationWindowInterActive;
 import org.vadere.gui.projectview.VadereApplication;
 import org.vadere.util.io.VadereArgumentParser;
 import org.vadere.util.logging.Logger;
@@ -34,6 +34,6 @@ public class PostVisualisation {
 
 		Messages.loadLanguageFromPreferences(VadereApplication.class);
 
-		PostvisualizationWindow.start();
+		PostvisualizationWindowInterActive.start();
 	}
 }

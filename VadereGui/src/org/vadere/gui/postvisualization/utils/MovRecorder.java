@@ -65,7 +65,7 @@ public class MovRecorder implements IRecorder {
 				Rectangle2D.Double oldViewport = model.getViewportBound();
 				model.setViewportBound(viewport);
 				BufferedImage bi = generator.generateImage(imageSize);
-				logger.info(this + " add picture " + bi.getWidth() + " (width), " + bi.getHeight() + " (height).");
+				logger.info(this + " Sim time: " + String.format("%6.2f",simTimeInSec) + "s. Add picture " + bi.getWidth() + " (width), " + bi.getHeight() + " (height).");
 				enc.encodeImage(bi);
 				model.setViewportBound(oldViewport);
 			}
@@ -130,8 +130,28 @@ public class MovRecorder implements IRecorder {
 		}
 	}
 
+	public void startRecording(File outputFile) throws IOException {
+		this.outputFile = outputFile;
+		synchronized(model) {
+			try {
+				enc = new SequenceEncoder(outputFile);
+			} catch (IOException e) {
+				enc = null;
+				throw e;
+			}
+		}
+	}
+
 	@Override
 	public String toString() {
 		return "Mov Recorder";
 	}
+	public void setImageSize(Rectangle2D.Double imageSize) {
+		this.imageSize = imageSize;
+	}
+
+	public void setViewport(Rectangle2D.Double viewport) {
+		this.viewport = viewport;
+	}
+
 }
