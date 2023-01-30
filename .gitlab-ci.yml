@@ -23,9 +23,9 @@
 # Variable Definitions
 variables:
     VADERE_DEPLOYMENT_BASE_URL: "http://www.vadere.org/builds"
-    VADERE_PACKAGE_NAME_BRANCHES: "vadere.${CI_COMMIT_REF_NAME}.${CI_RUNNER_TAGS}.zip"
-    VADERE_PACKAGE_NAME_RELEASES: "vadere.${CI_COMMIT_TAG}.${CI_RUNNER_TAGS}.zip"
-    EIKMESH_PACKAGE_NAME_BRANCHES: "eikmesh.${CI_COMMIT_REF_NAME}.${CI_RUNNER_TAGS}.zip"
+    VADERE_PACKAGE_NAME_BRANCHES: "vadere.${CI_COMMIT_REF_NAME}.${OPERATING_SYSTEM}.zip"
+    VADERE_PACKAGE_NAME_RELEASES: "vadere.${CI_COMMIT_TAG}.${OPERATING_SYSTEM}.zip"
+    EIKMESH_PACKAGE_NAME_BRANCHES: "eikmesh.${CI_COMMIT_REF_NAME}.${OPERATING_SYSTEM}.zip"
 
 # Stage Definitions
 stages:
@@ -162,7 +162,6 @@ stages:
 
 ## Jobs for GNU/Linux runner (which is labeled with tag "linux")
 
-## Jobs for GNU/Linux runner (which is labeled with tag "linux")
 run_unit_tests_on_linux:
     extends: .template_unit_tests
     tags:
@@ -180,27 +179,33 @@ run_seed_test_on_linux:
 
 deploy_master_on_linux:
     extends: .template_deploy_master_automatically
+    variables:
+        OPERATING_SYSTEM: "linux"
     tags:
         - linux        
     environment:
         name: master/linux
-        url: ${VADERE_DEPLOYMENT_BASE_URL}/master/vadere.${CI_COMMIT_REF_NAME}.${CI_RUNNER_TAGS}.zip
+        url: ${VADERE_DEPLOYMENT_BASE_URL}/master/vadere.${CI_COMMIT_REF_NAME}.${OPERATING_SYSTEM}.zip
 
 deploy_stable_on_linux:
     extends: .template_deploy_stable_automatically
+    variables:
+        OPERATING_SYSTEM: "linux"
     tags:
         - linux
     environment:
         name: stable/linux
-        url: ${VADERE_DEPLOYMENT_BASE_URL}/stable/vadere.${CI_COMMIT_TAG}.${CI_RUNNER_TAGS}.zip
+        url: ${VADERE_DEPLOYMENT_BASE_URL}/stable/vadere.${CI_COMMIT_TAG}.${OPERATING_SYSTEM}.zip
 
 deploy_branch_on_linux:
     extends: .template_deploy_branch_manually
+    variables:
+        OPERATING_SYSTEM: "linux"
     tags:
         - linux        
     environment:
         name: branches/${CI_COMMIT_REF_NAME}/linux
-        url: ${VADERE_DEPLOYMENT_BASE_URL}/branches/vadere.${CI_COMMIT_REF_NAME}.${CI_RUNNER_TAGS}.zip
+        url: ${VADERE_DEPLOYMENT_BASE_URL}/branches/vadere.${CI_COMMIT_REF_NAME}.${OPERATING_SYSTEM}.zip
 
     
 generate_videos_on_linux:
@@ -227,27 +232,33 @@ run_seed_test_on_windows:
 
 deploy_master_on_windows:
     extends: .template_deploy_master_automatically
+    variables:
+        OPERATING_SYSTEM: "windows"
     tags:
         - windows        
     environment:
         name: master/windows
-        url: ${VADERE_DEPLOYMENT_BASE_URL}/master/vadere.${CI_COMMIT_REF_NAME}.${CI_RUNNER_TAGS}.zip
+        url: ${VADERE_DEPLOYMENT_BASE_URL}/master/vadere.${CI_COMMIT_REF_NAME}.${OPERATING_SYSTEM}.zip
 
 deploy_stable_on_windows:
     extends: .template_deploy_stable_automatically
+    variables:
+        OPERATING_SYSTEM: "windows"
     tags:
         - windows
     environment:
         name: stable/windows
-        url: ${VADERE_DEPLOYMENT_BASE_URL}/stable/vadere.${CI_COMMIT_TAG}.${CI_RUNNER_TAGS}.zip
+        url: ${VADERE_DEPLOYMENT_BASE_URL}/stable/vadere.${CI_COMMIT_TAG}.${OPERATING_SYSTEM}.zip
 
 deploy_branch_on_windows:
     extends: .template_deploy_branch_manually
+    variables:
+        OPERATING_SYSTEM: "windows"
     tags:
         - windows        
     environment:
         name: branches/${CI_COMMIT_REF_NAME}/windows
-        url: ${VADERE_DEPLOYMENT_BASE_URL}/branches/vadere.${CI_COMMIT_REF_NAME}.${CI_RUNNER_TAGS}.zip
+        url: ${VADERE_DEPLOYMENT_BASE_URL}/branches/vadere.${CI_COMMIT_REF_NAME}.${OPERATING_SYSTEM}.zip
 
 generate_videos_on_windows:
     extends: .template_generate_videos
