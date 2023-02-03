@@ -215,7 +215,7 @@
         "shape" : {
           "x" : 7.5,
           "y" : 4.82,
-          "width" : 0.1,
+          "width" : 0.5,
           "height" : 0.8,
           "type" : "RECTANGLE"
         },
