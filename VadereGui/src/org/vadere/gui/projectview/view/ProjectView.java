@@ -649,8 +649,6 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 		outputListPopupMenu.add(new JMenuItem(
 				new ActionOutputToScenario(Messages.getString("ProjectView.mntmOutputToSceneario.text"), model)));
 		outputListPopupMenu
-				.add(new JMenuItem(new ActionRunOutput(Messages.getString("ProjectView.mntmRunOutput.text"), model)));
-		outputListPopupMenu
 				.add(new JMenuItem(new ActionOpenInExplorer(Messages.getString("ProjectView.OpenInExplorer.text"), model)));
 
 		JMenu copyPath = new JMenu(Messages.getString("ProjectView.mntmCopyOutputDir.text"));
