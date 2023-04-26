@@ -15,7 +15,7 @@ import javax.swing.*;
 
 public class ActionOpenInExplorer extends AbstractAction {
 
-    private static Logger logger = Logger.getLogger(ActionRunOutput.class);
+    private static Logger logger = Logger.getLogger(ActionOpenInExplorer.class);
 
     private ProjectViewModel model;
 
