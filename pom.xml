@@ -10,9 +10,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <auto-service.version>1.0-rc2</auto-service.version>
     <maven-compiler.version>3.5</maven-compiler.version>
-    <maven-compiler.source.version>11</maven-compiler.source.version>
-    <maven-compiler.target.version>11</maven-compiler.target.version>
-    <maven.compiler.release>11</maven.compiler.release>
+    <maven-compiler.source.version>17</maven-compiler.source.version>
+    <maven-compiler.target.version>17</maven-compiler.target.version>
+    <maven-compiler.release>17</maven-compiler.release>
   </properties>
 
     <build>
@@ -50,7 +50,7 @@
                         <forceJavacCompilerUse>true</forceJavacCompilerUse>
                         <source>${maven-compiler.source.version}</source>
                         <target>${maven-compiler.target.version}</target>
-                        <release>${maven.compiler.release}</release>
+                        <release>${maven-compiler.release}</release>
                     </configuration>
                 </plugin>
                 <!--  Maven Surefire is used to run unit tests. -->
