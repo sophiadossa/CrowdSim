@@ -1,8 +1,8 @@
 package org.vadere.simulator.models.potential.solver;
 
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.potential.solver.calculators.EikonalSolver;
 import org.vadere.simulator.models.potential.solver.calculators.cartesian.EikonalSolverFIM;
 import org.vadere.simulator.models.potential.solver.calculators.cartesian.EikonalSolverFMM;
@@ -22,7 +22,7 @@ import org.vadere.util.math.IDistanceFunction;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Benedikt Zoennchen
@@ -55,7 +55,7 @@ public class TestEikonalSolver {
 
 	private double weight = 1.0;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		cellGrid = new CellGrid(gridWidth, gridHeight, potentialFieldResolution, new CellState(Double.MAX_VALUE, PathFindingTag.Undefined));
 		FloorDiscretizer.setGridValuesForShape(cellGrid, targetShape, new CellState(0.0, PathFindingTag.Target));

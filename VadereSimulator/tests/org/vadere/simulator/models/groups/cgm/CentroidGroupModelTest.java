@@ -1,9 +1,9 @@
 package org.vadere.simulator.models.groups.cgm;
 
 import org.apache.commons.lang3.tuple.Pair;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.groups.Group;
 import org.vadere.simulator.projects.Domain;
 import org.vadere.simulator.utils.CentroidGroupListBuilder;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CentroidGroupModelTest {
 
@@ -32,7 +32,7 @@ public class CentroidGroupModelTest {
 	private AttributesAgent attributesAgent;
 
 
-	@Before
+	@BeforeEach
 	public void init() {
 		cgm = new CentroidGroupModel();
 		rnd = new Random();
@@ -42,7 +42,7 @@ public class CentroidGroupModelTest {
 		topography = new Topography();
 	}
 
-	@After
+	@AfterEach
 	public void cleanup() {
 		cgm = null;
 	}

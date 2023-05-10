@@ -1,7 +1,7 @@
 package org.vadere.geometry.mesh;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.mesh.gen.PFace;
 import org.vadere.meshing.mesh.gen.PHalfEdge;
 import org.vadere.meshing.mesh.gen.PMesh;
@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPFace {
 
@@ -36,7 +36,7 @@ public class TestPFace {
 	private PHalfEdge yw;
 	private PHalfEdge zy;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		mesh = new PMesh();
 		border = mesh.createFace(true);

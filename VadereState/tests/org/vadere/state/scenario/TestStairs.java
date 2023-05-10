@@ -1,12 +1,12 @@
 package org.vadere.state.scenario;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.scenario.AttributesStairs;
 import org.vadere.state.scenario.Stairs.Tread;
 import org.vadere.state.util.StateJsonConverter;
 import org.vadere.util.geometry.GeometryUtils;
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestStairs {
 
@@ -17,7 +17,7 @@ public class TestStairs {
 	private AttributesStairs attributes2;
 	private Stairs stairs2;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		attributesStore1 =
 				"{\"shape\":{\"x\": 2.0,    \"y\": 0.0,    \"width\": 10.0,    \"height\": 5.0,"

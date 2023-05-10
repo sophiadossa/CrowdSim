@@ -1,6 +1,6 @@
 package org.vadere.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.mesh.impl.PSLG;
 import org.vadere.meshing.utils.io.poly.PSLGGenerator;
 import org.vadere.meshing.utils.io.tex.TexGraphGenerator;
@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPoyGenerator {
 

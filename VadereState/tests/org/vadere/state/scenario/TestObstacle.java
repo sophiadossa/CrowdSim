@@ -1,14 +1,14 @@
 package org.vadere.state.scenario;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
 import org.vadere.util.geometry.GeometryUtils;
 import org.vadere.util.geometry.shapes.VPolygon;
 import org.vadere.util.geometry.shapes.VRectangle;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertNotEquals;
 /**
  * @author Benedikt Zoennchen
  */
@@ -20,7 +20,7 @@ public class TestObstacle {
 	private Obstacle obstacle4;
 	private Obstacle obstacle5;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		VRectangle rectangle1 = new VRectangle(0, 0, 10, 10);
 		VRectangle rectangle2 = new VRectangle(0, 0, 10, 10);
@@ -41,9 +41,9 @@ public class TestObstacle {
 
 	@Test
 	public void testEquals() {
-		assertEquals("equals() does not work properly.", obstacle1, obstacle2);
-		assertEquals("equals() does not work properly.", obstacle1, obstacle3);
-		assertNotEquals("equals() does not work properly.", obstacle1, obstacle4);
-		assertEquals("equals() does not work properly.", obstacle4, obstacle5);
+		assertEquals(obstacle1, obstacle2, "equals() does not work properly.");
+		assertEquals(obstacle1, obstacle3, "equals() does not work properly.");
+		assertNotEquals(obstacle1, obstacle4, "equals() does not work properly.");
+		assertEquals(obstacle4, obstacle5, "equals() does not work properly.");
 	}
 }

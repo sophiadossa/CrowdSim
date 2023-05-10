@@ -1,9 +1,9 @@
 package org.vadere.simulator.models.infection;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.context.VadereContext;
 import org.vadere.simulator.control.scenarioelements.TopographyController;
 import org.vadere.simulator.models.MainModel;
@@ -36,7 +36,7 @@ public class AirTransmissionModelTest {
     Random rdm;
     double simStartTime;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         attributesList = new ArrayList<>();
         attributesList.add(new AttributesAirTransmissionModel());
@@ -52,19 +52,19 @@ public class AirTransmissionModelTest {
         initializeTransmissionModel();
     }
 
-    @After
+    @AfterEach
     public void after() {
         attributesList.clear();
     }
 
     @Test
     public void testInitializeFindsAttributesList() {
-        Assert.assertEquals(attributesList.get(0), airTransmissionModel.attrAirTransmissionModel);
+        assertEquals(attributesList.get(0), airTransmissionModel.attrAirTransmissionModel);
     }
 
     @Test
     public void testInitializeGetsSimTimeStepLength() {
-        Assert.assertEquals(ctx.get(AirTransmissionModel.simStepLength), airTransmissionModel.simTimeStepLength);
+        assertEquals(ctx.get(AirTransmissionModel.simStepLength), airTransmissionModel.simTimeStepLength);
     }
 
     // TODO test not completed yet
@@ -94,7 +94,7 @@ public class AirTransmissionModelTest {
 
         Pedestrian pedestrian = airTransmissionModel.topographyControllerEvent(getTopographyController(new OptimalStepsModel()), simStartTime, agent);
 
-        Assert.assertTrue(pedestrian.isInfectious());
+        assertTrue(pedestrian.isInfectious());
     }
 
     @Test
@@ -108,8 +108,8 @@ public class AirTransmissionModelTest {
         pedestrian = airTransmissionModel.topographyControllerEvent(getTopographyController(new OptimalStepsModel()), simStartTime, pedestrian);
         ExposureModelHealthStatus instantiatedHealthStatus = pedestrian.getHealthStatus();
 
-        Assert.assertNotEquals(defaultHealthState, instantiatedHealthStatus);
-        Assert.assertSame(instantiatedHealthStatus.getClass(), AirTransmissionModelHealthStatus.class);
+        assertNotEquals(defaultHealthState, instantiatedHealthStatus);
+        assertSame(instantiatedHealthStatus.getClass(), AirTransmissionModelHealthStatus.class);
     }
 
     private TopographyController getTopographyController(MainModel mainModel) {
@@ -139,7 +139,7 @@ public class AirTransmissionModelTest {
         double simTime = getUpdateSimTime();
         initUpdate(simTime);
         runUpdate(simTime);
-        Assert.assertEquals(0, topography.getAerosolClouds().size());
+        assertEquals(0, topography.getAerosolClouds().size());
     }
 
     @Test
@@ -148,7 +148,7 @@ public class AirTransmissionModelTest {
         double simTime = getUpdateSimTime();
         initUpdate(simTime);
         runUpdate(simTime);
-        Assert.assertEquals(0, topography.getDroplets().size());
+        assertEquals(0, topography.getDroplets().size());
     }
 
     @Test
@@ -158,7 +158,7 @@ public class AirTransmissionModelTest {
         initUpdate(simTime);
         runUpdate(simTime);
 
-        Assert.assertTrue(topography.getAerosolClouds().size() > 0);
+        assertTrue(topography.getAerosolClouds().size() > 0);
     }
 
     @Test
@@ -168,7 +168,7 @@ public class AirTransmissionModelTest {
         initUpdate(simTime);
         runUpdate(simTime);
 
-        Assert.assertTrue(topography.getDroplets().size() > 0);
+        assertTrue(topography.getDroplets().size() > 0);
     }
 
     @Test
@@ -184,7 +184,7 @@ public class AirTransmissionModelTest {
 
         runUpdate(simTime);
 
-        Assert.assertEquals(expectedStatus, actualStatus);
+        assertEquals(expectedStatus, actualStatus);
     }
 
     @Test
@@ -200,7 +200,7 @@ public class AirTransmissionModelTest {
 
         runUpdate(simTime);
 
-        Assert.assertNotEquals(unexpectedStatus, actualStatus);
+        assertNotEquals(unexpectedStatus, actualStatus);
     }
 
     @Test
@@ -217,7 +217,7 @@ public class AirTransmissionModelTest {
 
         runUpdate(simTime);
 
-        Assert.assertNotEquals(unexpectedStatus, actualStatus);
+        assertNotEquals(unexpectedStatus, actualStatus);
     }
 
     private double getUpdateSimTime() {
@@ -275,7 +275,7 @@ public class AirTransmissionModelTest {
             airTransmissionModel.updatePedestriansHealthStatus(simTimeInSec);
         }
 
-        Assert.assertTrue(topography.getAerosolClouds().size()>0);
+        assertTrue(topography.getAerosolClouds().size()>0);
     }
 
     @Test
@@ -301,7 +301,7 @@ public class AirTransmissionModelTest {
             expectedPathogenLoad /= 2;
         }
 
-        Assert.assertArrayEquals(expectedPathogenLoads, modelPathogenLoads, ALLOWED_DOUBLE_TOLERANCE);
+        assertArrayEquals(expectedPathogenLoads, modelPathogenLoads, ALLOWED_DOUBLE_TOLERANCE);
     }
 
     @Test
@@ -319,7 +319,7 @@ public class AirTransmissionModelTest {
         double radius = calculateAerosolCloudRadius(airTransmissionModel, nSimSteps);
         double expectedRadius = airTransmissionModel.attrAirTransmissionModel.getAerosolCloudInitialRadius() + simEndTime * dispersionFactor;
 
-        Assert.assertEquals(expectedRadius, radius, ALLOWED_DOUBLE_TOLERANCE);
+        assertEquals(expectedRadius, radius, ALLOWED_DOUBLE_TOLERANCE);
     }
 
     @Test
@@ -352,7 +352,7 @@ public class AirTransmissionModelTest {
         double radius = calculateAerosolCloudRadius(airTransmissionModel, nSimSteps);
         double radius2 = calculateAerosolCloudRadius(airTransmissionModel2, nSimSteps2);
 
-        Assert.assertEquals(radius, radius2, ALLOWED_DOUBLE_TOLERANCE);
+        assertEquals(radius, radius2, ALLOWED_DOUBLE_TOLERANCE);
     }
 
     private double calculateAerosolCloudRadius(AirTransmissionModel airTransmissionModel, int nSimSteps) {
@@ -379,7 +379,7 @@ public class AirTransmissionModelTest {
         double radius = calculateAerosolCloudRadius(airTransmissionModel, nSimSteps);
         double expectedRadius = airTransmissionModel.attrAirTransmissionModel.getAerosolCloudInitialRadius() + nSimSteps * velocity.getLength() * simTimeStepLength * airTransmissionModel.attrAirTransmissionModel.getAerosolCloudPedestrianDispersionWeight();
 
-        Assert.assertEquals(expectedRadius, radius, ALLOWED_DOUBLE_TOLERANCE);
+        assertEquals(expectedRadius, radius, ALLOWED_DOUBLE_TOLERANCE);
     }
 
     @Test
@@ -391,7 +391,7 @@ public class AirTransmissionModelTest {
 
         airTransmissionModel.deleteExpiredAerosolClouds();
 
-        Assert.assertTrue(topography.getAerosolClouds().stream().collect(Collectors.toSet()).isEmpty());
+        assertTrue(topography.getAerosolClouds().stream().collect(Collectors.toSet()).isEmpty());
     }
 
     private Pedestrian testUpdatePedestriansExposureToAerosolClouds(boolean pedestrianOutsideCloud) {
@@ -421,14 +421,14 @@ public class AirTransmissionModelTest {
     public void testUpdatePedestriansExposureWithinAerosolClouds() {
         Pedestrian pedestrian = testUpdatePedestriansExposureToAerosolClouds(false);
 
-        Assert.assertTrue(pedestrian.getDegreeOfExposure() > 0);
+        assertTrue(pedestrian.getDegreeOfExposure() > 0);
     }
 
     @Test
     public void testUpdatePedestriansExposureOutsideAerosolClouds() {
         Pedestrian pedestrian = testUpdatePedestriansExposureToAerosolClouds(true);
 
-        Assert.assertEquals(0, pedestrian.getDegreeOfExposure(), ALLOWED_DOUBLE_TOLERANCE);
+        assertEquals(0, pedestrian.getDegreeOfExposure(), ALLOWED_DOUBLE_TOLERANCE);
     }
 
     @Test
@@ -459,8 +459,8 @@ public class AirTransmissionModelTest {
         Vector2D normDropletsDirection = topography.getDroplets().stream().findFirst().get().getDirection().normalize(1);
         Vector2D normExpectedDirection = walkingDirection.normalize(1);
 
-        Assert.assertEquals(normExpectedDirection.x, normDropletsDirection.x, ALLOWED_DOUBLE_TOLERANCE);
-        Assert.assertEquals(normExpectedDirection.y, normDropletsDirection.y, ALLOWED_DOUBLE_TOLERANCE);
+        assertEquals(normExpectedDirection.x, normDropletsDirection.x, ALLOWED_DOUBLE_TOLERANCE);
+        assertEquals(normExpectedDirection.y, normDropletsDirection.y, ALLOWED_DOUBLE_TOLERANCE);
     }
 
     @Test
@@ -471,7 +471,7 @@ public class AirTransmissionModelTest {
 
         airTransmissionModel.deleteExpiredDroplets(simTimeInSec);
 
-        Assert.assertTrue(topography.getDroplets().size() > 0);
+        assertTrue(topography.getDroplets().size() > 0);
     }
 
     @Test
@@ -482,7 +482,7 @@ public class AirTransmissionModelTest {
 
         airTransmissionModel.deleteExpiredDroplets(simTimeInSec);
 
-        Assert.assertTrue(topography.getDroplets().size() == 0);
+        assertTrue(topography.getDroplets().size() == 0);
     }
 
     public void initTestDeleteExpiredDroplets(double lifeTime) {
@@ -495,14 +495,14 @@ public class AirTransmissionModelTest {
     public void testUpdatePedestriansExposureWithinDroplets() {
         Pedestrian pedestrian = testUpdatePedestriansExposureToDroplets(false);
 
-        Assert.assertTrue(pedestrian.getDegreeOfExposure() > 0);
+        assertTrue(pedestrian.getDegreeOfExposure() > 0);
     }
 
     @Test
     public void testUpdatePedestriansExposureOutsideDroplets() {
         Pedestrian pedestrian = testUpdatePedestriansExposureToDroplets(true);
 
-        Assert.assertTrue(pedestrian.getDegreeOfExposure() == 0);
+        assertTrue(pedestrian.getDegreeOfExposure() == 0);
     }
 
     private Pedestrian testUpdatePedestriansExposureToDroplets(boolean pedestrianOutsideDroplets) {

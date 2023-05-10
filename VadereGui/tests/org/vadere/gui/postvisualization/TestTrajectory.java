@@ -8,7 +8,8 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.scenario.Agent;
 import org.vadere.state.scenario.Pedestrian;
@@ -16,17 +17,18 @@ import org.vadere.state.simulation.Step;
 import org.vadere.state.simulation.Trajectory;
 import org.vadere.util.geometry.shapes.VPoint;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * Unit test for {@link org.vadere.state.simulation.Trajectory}
  *
  */
-public class TestTrajectory extends TestCase {
+public class TestTrajectory {
 
 	private Map<Step, List<Agent>> pedestriansByStep;
 
-	@Override
+	@BeforeEach
 	protected void setUp() throws Exception {
 		pedestriansByStep = new HashMap<>();
 		List<Step> steps = Arrays.asList(new Step(1), new Step(4), new Step(5), new Step(7));
@@ -68,9 +70,10 @@ public class TestTrajectory extends TestCase {
 	public void testGetPositionReverse() {
 		Trajectory trajectory = new Trajectory(pedestriansByStep, 2, 0.4);
 		trajectory.fill();
-		IntStream.rangeClosed(1, 7).forEach(stepNumber -> assertTrue(
-				trajectory.getPositionsReverse(stepNumber).count() + "!=" + stepNumber,
-				trajectory.getPositionsReverse(stepNumber).count() == stepNumber));
+		IntStream.rangeClosed(1, 7).forEach(stepNumber -> {
+			assertTrue(trajectory.getPositionsReverse(stepNumber).count() == stepNumber,
+					trajectory.getPositionsReverse(stepNumber).count() + "!=" + stepNumber);
+		});
 		List<VPoint> reversePositions = trajectory.getPositionsReverse(12).collect(Collectors.toList());
 		IntStream.rangeClosed(0, reversePositions.size() - 1)
 				.forEach(index -> assertEquals(

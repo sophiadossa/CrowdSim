@@ -1,9 +1,12 @@
 package org.vadere.util.geometry.shapes;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
-import static org.junit.Assert.*;
+import java.util.concurrent.TimeUnit;
+
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class VShapeTest {
 
@@ -15,7 +18,8 @@ public class VShapeTest {
 		assertTrue(a.intersects(b));
 	}
 
-	@Test(timeout = 1000) //ms
+	@Timeout(value = 1000,unit = TimeUnit.MILLISECONDS)
+	@Test
 	public void loopAtEdgeCase1(){
 		VRectangle rec = new VRectangle(0.0, 114.0, 44.0, 5.0);
 		VCircle circle = new VCircle(new VPoint(0.005096532915902063, 118.69364126200188), 0.2);
@@ -23,7 +27,8 @@ public class VShapeTest {
 		assertFalse(contains);
 	}
 
-	@Test(timeout = 1000) //ms
+	@Timeout(value = 1000,unit = TimeUnit.MILLISECONDS)
+	@Test
 	public void loopAtEdgeCase2(){
 		VRectangle rec = new VRectangle(0.0, 114.0, 44.0, 5.0);
 		VCircle circle = new VCircle(new VPoint(0.008096532915902063, 118.69364126200188), 0.2);
@@ -31,8 +36,9 @@ public class VShapeTest {
 		assertFalse(contains);
 	}
 
-	@Ignore
-	@Test(timeout = 1000) //ms
+	@Disabled
+	@Timeout(value = 1000,unit = TimeUnit.MILLISECONDS)
+	@Test
 	/**
 	 * Error at magic number. With given Shapes in this test the AWT Area equals comparision
 	 * will start loop forever. Small changes (0.005 --> 0.008) will fix this.
@@ -50,7 +56,8 @@ public class VShapeTest {
 		assertFalse(contains);
 	}
 
-	@Test(timeout = 1000)
+	@Timeout(value = 1000,unit = TimeUnit.MILLISECONDS)
+	@Test
 	public void loopAtEdgeCase_asVPolygon2(){
 		VRectangle rec = new VRectangle(0.0, 114.0, 44.0, 5.0);
 		VCircle circle = new VCircle(new VPoint(0.008096532915902063, 118.69364126200188), 0.2);
@@ -59,7 +66,8 @@ public class VShapeTest {
 		assertFalse(contains);
 	}
 
-	@Test(timeout = 1000) //ms
+	@Timeout(value = 1000,unit = TimeUnit.MILLISECONDS)
+	@Test()
 	public void loopAtEdgeCase_asVRectangle(){
 		VRectangle rec = new VRectangle(0.0, 114.0, 44.0, 5.0);
 		VCircle circle = new VCircle(new VPoint(0.005096532915902063, 118.69364126200188), 0.2);

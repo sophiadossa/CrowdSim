@@ -2,13 +2,14 @@ package org.vadere.simulator.projects.migration.jsontranformation;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.version.Version;
 import org.vadere.simulator.projects.migration.MigrationException;
 
 import java.nio.file.Path;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class JoltTransformV1toV2Test extends JsonTransformationTest {
 
@@ -43,7 +44,7 @@ public class JoltTransformV1toV2Test extends JsonTransformationTest {
 		JsonTransformation t = AbstractJsonTransformation.get(Version.V0_1);
 		JsonNode node = t.applyAll(getJsonFromResource("/migration/v0.1_to_v0.2_Test3.scenario"));
 		pathMustExist(node, "scenario/attributesModel");
-		assertEquals("should be empty", 0, pathMustExist(node, "scenario/attributesModel").size());
+		assertEquals(0, pathMustExist(node, "scenario/attributesModel").size(), "should be empty");
 		assertThat(pathMustExist(node, "name"), nodeHasText("XXXX"));
 	}
 

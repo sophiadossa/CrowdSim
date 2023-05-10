@@ -5,9 +5,6 @@ import com.github.davidmoten.rtree.geometry.internal.RectangleDouble;
 
 import org.vadere.util.geometry.GeometryUtils;
 
-import java.awt.geom.Rectangle2D;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * A {@link IPoint} represents a point in the 2D Euclidean space. Note that an {@link IPoint} might

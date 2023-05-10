@@ -1,25 +1,27 @@
 package org.vadere.state.scenario;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 import java.util.NoSuchElementException;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.vadere.state.scenario.Pedestrian;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TestDeprecatedPedestrian extends TestPedestrian {
 
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		pedestrian = createDeprecatedPedestrian();
 	}
 
 	@Override
-	@Test(expected = IllegalStateException.class)
+	@Test
 	public void testIncrementNextTargetListIndex() {
-		pedestrian.incrementNextTargetListIndex();
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			pedestrian.incrementNextTargetListIndex();
+		});
 	}
 
 	@Override
@@ -31,10 +33,12 @@ public class TestDeprecatedPedestrian extends TestPedestrian {
 	}
 
 	@Override
-	@Test(expected = NoSuchElementException.class)
+	@Test
 	public void testGetNextTargetIdFail() {
-		pedestrian.getTargets().clear();
-		pedestrian.getNextTargetId();
+		Assertions.assertThrows( NoSuchElementException.class, ()->{
+			pedestrian.getTargets().clear();
+			pedestrian.getNextTargetId();
+		});
 	}
 
 	@Override

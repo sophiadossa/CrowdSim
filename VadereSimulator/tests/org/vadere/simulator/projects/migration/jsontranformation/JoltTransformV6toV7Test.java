@@ -3,7 +3,7 @@ package org.vadere.simulator.projects.migration.jsontranformation;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import org.hamcrest.core.Is;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.version.Version;
 import org.vadere.simulator.projects.migration.MigrationException;
 import org.vadere.state.attributes.models.AttributesOSM;
@@ -11,9 +11,9 @@ import org.vadere.state.attributes.models.AttributesOSM;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.fail;
 
 public class JoltTransformV6toV7Test extends JsonTransformationTest {
 

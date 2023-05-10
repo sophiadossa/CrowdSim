@@ -1,11 +1,12 @@
 package org.vadere.state.scenario.distribution.registry;
 
 import com.google.common.collect.ImmutableSet;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DistributionRegistryTest {
 
@@ -36,9 +37,11 @@ public class DistributionRegistryTest {
 
 	}
 
-	@Test(expected = Exception.class)
+	@Test
 	public void testGetWithNotExistingDist() throws Exception {
-		DistributionRegistry.get("some random text");
+		Assertions.assertThrows(Exception.class, ()->{
+			DistributionRegistry.get("some random text");
+		});
 	}
 
 }

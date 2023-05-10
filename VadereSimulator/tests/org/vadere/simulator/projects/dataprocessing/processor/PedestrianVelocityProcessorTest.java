@@ -1,16 +1,16 @@
 package org.vadere.simulator.projects.dataprocessing.processor;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.processor.AttributesPedestrianVelocityProcessor;
 
 import java.util.LinkedList;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class PedestrianVelocityProcessorTest extends ProcessorTest {
 
-	@Before
+	@BeforeEach
 	public void setup(){
 		processorTestEnv = new PedestrianVelocityProcessorTestEnv();
 		super.setup();
@@ -19,8 +19,8 @@ public class PedestrianVelocityProcessorTest extends ProcessorTest {
 	@Override
 	public void assertInit(DataProcessor p) throws NoSuchFieldException, IllegalAccessException {
 		AttributesPedestrianVelocityProcessor attr = (AttributesPedestrianVelocityProcessor) p.getAttributes();
-		assertEquals("Must be zero after init.", 0, p.getData().size());
-		assertEquals("Must be zero after init.", 0, (int) r.valOfField("lastStep"));
+		assertEquals(0, p.getData().size(), "Must be zero after init.");
+		assertEquals(0, (int) r.valOfField("lastStep"), "Must be zero after init.");
 		assertEquals(attr.getBackSteps(), (int)r.valOfField("backSteps"));
 		assertEquals(1, ((LinkedList<Double>)r.valOfField("lastSimTimes")).size());
 		assertEquals(0.0, ((LinkedList<Double>)r.valOfField("lastSimTimes")).getFirst(), 0.000001);

@@ -1,7 +1,7 @@
 package org.vadere.simulator.dataprocessing;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.MainModel;
 import org.vadere.simulator.models.MainModelBuilder;
 import org.vadere.simulator.projects.Scenario;
@@ -15,8 +15,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestOutputFile {
 
@@ -24,7 +24,7 @@ public class TestOutputFile {
 	private MainModel mainModel;
 	private Topography topography;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		try {
 			String json = IOUtils
@@ -57,8 +57,8 @@ public class TestOutputFile {
 		manager.initOutputFiles();
 		outputFiles.forEach(f -> headerAfterSecondRun.add(f.getHeaderLine()));
 
-		assertEquals("Duplicated Processors in OutputFile after multiple Simulations",
-				headerAfterFirstRun, headerAfterSecondRun);
+		assertEquals(headerAfterFirstRun,
+				headerAfterSecondRun, "Duplicated Processors in OutputFile after multiple Simulations");
 	}
 
 	@Test

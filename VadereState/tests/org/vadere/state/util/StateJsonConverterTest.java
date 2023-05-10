@@ -3,7 +3,7 @@ package org.vadere.state.util;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.distributions.AttributesBinomialDistribution;
 import org.vadere.state.attributes.models.AttributesFloorField;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
@@ -21,8 +21,8 @@ import org.vadere.util.geometry.shapes.VRectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class StateJsonConverterTest {
 

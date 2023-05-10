@@ -1,6 +1,7 @@
 package org.vadere.simulator.utils.topography;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.SpeedAdjuster;
 import org.vadere.simulator.models.osm.PedestrianOSM;
 import org.vadere.simulator.models.potential.fields.IPotentialFieldTargetGrid;
@@ -21,7 +22,7 @@ import org.vadere.util.geometry.shapes.VRectangle;
 
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class TopographyHelperTest {
 
@@ -392,22 +393,24 @@ public class TopographyHelperTest {
         assertEquals(expectedAngle, actualAngle, ALLOWED_DOUBLE_TOLERANCE);
     }
 
-    @Test(expected = ClassCastException.class)
+    @Test
     public void calculateAngleBetweenWalkingDirectionsThrowsExceptionIfByGradientIsSelectedButNoPedestrianOsm() {
-        createTwoTargetsAndTwoPedestrians(
-                new VPoint(1, 0), // target1
-                new VPoint(1, -1), // target2
-                new VPoint(0, 0), // pedestrian1
-                new VPoint(1, 0)  // pedestrian2
-        );
+        Assertions.assertThrows(ClassCastException.class, ()->{
+            createTwoTargetsAndTwoPedestrians(
+                    new VPoint(1, 0), // target1
+                    new VPoint(1, -1), // target2
+                    new VPoint(0, 0), // pedestrian1
+                    new VPoint(1, 0)  // pedestrian2
+            );
 
-        boolean usePedIdAsTargetId = false;
-        List<Pedestrian> pedestrians = createPedestrians(1, usePedIdAsTargetId);
-        pedestrians.stream().forEach(pedestrian -> topography.addElement(pedestrian));
+            boolean usePedIdAsTargetId = false;
+            List<Pedestrian> pedestrians = createPedestrians(1, usePedIdAsTargetId);
+            pedestrians.stream().forEach(pedestrian -> topography.addElement(pedestrian));
 
-        pedestrians.get(0).getAttributes().setWalkingDirectionCalculation(AttributesAgent.WalkingDirectionCalculation.BY_GRADIENT);
+            pedestrians.get(0).getAttributes().setWalkingDirectionCalculation(AttributesAgent.WalkingDirectionCalculation.BY_GRADIENT);
 
-        TopographyHelper.calculateAngleBetweenWalkingDirections(pedestrians.get(0), pedestrian1, topography);
+            TopographyHelper.calculateAngleBetweenWalkingDirections(pedestrians.get(0), pedestrian1, topography);
+        });
     }
 
 }

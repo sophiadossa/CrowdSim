@@ -2,9 +2,9 @@ package org.vadere.simulator.entrypoints;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.entrypoints.cmd.SubCommand;
 import org.vadere.simulator.entrypoints.cmd.VadereConsole;
 import org.vadere.simulator.projects.migration.MigrationAssistant;
@@ -16,9 +16,9 @@ import org.vadere.util.version.Version;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertFalse;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MigrationSubCommandTest implements TestJsonNodeExplorer, TestJsonNodeHelper, TestResourceHandlerScenario {
 
@@ -36,7 +36,7 @@ public class MigrationSubCommandTest implements TestJsonNodeExplorer, TestJsonNo
 		return getPathFromResources("/migration/VadererConsole");
 	}
 
-	@Before
+	@BeforeEach
 	public void init() {
 		backupTestDir();
 
@@ -53,7 +53,7 @@ public class MigrationSubCommandTest implements TestJsonNodeExplorer, TestJsonNo
 		ignore[3] = rootIgnore.resolve("1/2/3/4").resolve("4.scenario");
 	}
 
-	@After
+	@AfterEach
 	public void clenaup() {
 		loadFromBackup();
 	}
@@ -70,7 +70,7 @@ public class MigrationSubCommandTest implements TestJsonNodeExplorer, TestJsonNo
 		String[] args = new String[]{SubCommand.MIGRATE.getCmdName(), scenario1.toString()};
 		VadereConsole.main(args);
 		Path legacyFile = MigrationAssistant.getBackupPath(scenario1);
-		assertTrue("There must be legacyFile", legacyFile.toFile().exists());
+		assertTrue(legacyFile.toFile().exists(), "There must be legacyFile");
 
 		scenario1Json = getJsonFromPath(scenario1);
 		assertLatestReleaseVersion(scenario1Json);
@@ -81,7 +81,7 @@ public class MigrationSubCommandTest implements TestJsonNodeExplorer, TestJsonNo
 
 		scenario1Json = getJsonFromPath(scenario1);
 		assertReleaseVersion(scenario1Json, Version.V0_1, "After revert the version must be 0.1");
-		assertFalse("legacy file should be deleted after revert", legacyFile.toFile().exists());
+		assertFalse(legacyFile.toFile().exists(), "legacy file should be deleted after revert");
 	}
 
 	@Test
@@ -101,8 +101,8 @@ public class MigrationSubCommandTest implements TestJsonNodeExplorer, TestJsonNo
 
 		Path legacyFile1 = MigrationAssistant.getBackupPath(scenario1);
 		Path legacyFile2 = MigrationAssistant.getBackupPath(scenario2);
-		assertTrue("There must be legacyFile1", legacyFile1.toFile().exists());
-		assertTrue("There must be legacyFile2", legacyFile2.toFile().exists());
+		assertTrue(legacyFile1.toFile().exists(), "There must be legacyFile1");
+		assertTrue(legacyFile2.toFile().exists(), "There must be legacyFile2");
 
 
 		args = new String[]{SubCommand.MIGRATE.getCmdName(), "--revert-migration", scenario1.toString(), scenario2.toString()};
@@ -113,8 +113,8 @@ public class MigrationSubCommandTest implements TestJsonNodeExplorer, TestJsonNo
 		assertReleaseVersion(scenario1Json, Version.V0_1, "After revert Version must be 0.1");
 		assertReleaseVersion(scenario2Json, Version.V0_1, "After revert Version must be 0.1");
 
-		assertFalse("File 1: legacy file should be deleted after revert", legacyFile1.toFile().exists());
-		assertFalse("File 2: legacy file should be deleted after revert", legacyFile2.toFile().exists());
+		assertFalse(legacyFile1.toFile().exists(), "File 1: legacy file should be deleted after revert");
+		assertFalse(legacyFile2.toFile().exists(), "File 2: legacy file should be deleted after revert");
 
 	}
 
@@ -130,7 +130,7 @@ public class MigrationSubCommandTest implements TestJsonNodeExplorer, TestJsonNo
 		scenario1Json = getJsonFromPath(scenario1);
 		assertReleaseVersion(scenario1Json, Version.V0_1, "NewVersion Version must be 0.1");
 
-		assertFalse("No Transformation performed thus the should not be a legacyFile", legacyFile.toFile().exists());
+		assertFalse(legacyFile.toFile().exists(), "No Transformation performed thus the should not be a legacyFile");
 	}
 
 	/**
@@ -152,7 +152,8 @@ public class MigrationSubCommandTest implements TestJsonNodeExplorer, TestJsonNo
 					versions[i],
 					"(" + String.valueOf(i + 1) + ") Version of file not as accepted");
 			Path legacy = MigrationAssistant.getBackupPath(ignore[i]);
-			assertEquals("(" + String.valueOf(i + 1) + ") Existence of Backup File not as accented", legacy.toFile().exists(), hasLegacyFile[i]);
+			assertEquals(legacy.toFile().exists(), hasLegacyFile[i],
+					"(" + String.valueOf(i + 1) + ") Existence of Backup File not as accented");
 		}
 
 	}

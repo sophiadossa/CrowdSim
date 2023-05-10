@@ -1,8 +1,8 @@
 package org.vadere.manager.traci;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.manager.traci.reader.TraCIByteBuffer;
 import org.vadere.manager.traci.sumo.LightPhase;
 import org.vadere.manager.traci.sumo.RoadMapPosition;
@@ -18,20 +18,20 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertThat;
 
 public class TraCIReaderTest {
 
 	ByteArrayOutputStreamTraCIWriter writer;
 	TraCIByteBuffer reader;
 
-	@Before
+	@BeforeEach
 	public void before(){
 		writer = new ByteArrayOutputStreamTraCIWriter();
 	}
 
-	@After
+	@AfterEach
 	public void after(){
 		writer.rest();
 	}

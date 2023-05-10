@@ -1,6 +1,6 @@
 package org.vadere.simulator.imageprocessing;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.vadere.simulator.dataprocessing.CreatePoints;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.scenario.Pedestrian;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -21,7 +21,7 @@ public class TestPedestrianGaussianFilter {
 	private VRectangle topographyBounds;
 	private VPoint center;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		topographyBounds = new VRectangle(0, 0, 10, 10);
 		List<VPoint> pedestrianPositions = new ArrayList<>();

@@ -8,8 +8,6 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.fail;
-
 /**
  *  Manage resource directory used within a unit test. Implement {@link #getTestDir()} method
  *  and use default implementation to access resources.
@@ -46,7 +44,7 @@ public interface TestResourceHandler {
 	default Path getPathFromResources(String resource) {
 		URL resource1 = getClass().getResource(resource);
 		if (resource1 == null){
-			fail("Resource not found: " + resource);
+			new AssertionError("Resource not found: " + resource);
 		}
 		File f = new File(resource1.getFile());
 		return Paths.get(f.toString());
@@ -61,7 +59,7 @@ public interface TestResourceHandler {
 		try {
 			ret = IOUtils.readTextFile(getRelativeTestPath(fileName));
 		} catch (IOException e) {
-			fail("File not Found: " + e.getMessage());
+			new AssertionError("File not Found: " + e.getMessage());
 		}
 		return ret;
 	}

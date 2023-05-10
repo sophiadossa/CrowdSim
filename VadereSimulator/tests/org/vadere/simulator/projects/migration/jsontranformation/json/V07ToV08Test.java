@@ -2,7 +2,7 @@ package org.vadere.simulator.projects.migration.jsontranformation.json;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.version.Version;
 import org.vadere.simulator.projects.migration.MigrationException;
 import org.vadere.simulator.projects.migration.jsontranformation.JsonTransformationTest;
@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class V07ToV08Test extends JsonTransformationTest {
 

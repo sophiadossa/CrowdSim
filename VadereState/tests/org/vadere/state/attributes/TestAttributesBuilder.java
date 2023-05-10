@@ -1,7 +1,7 @@
 package org.vadere.state.attributes;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 
 import static junit.framework.TestCase.assertTrue;

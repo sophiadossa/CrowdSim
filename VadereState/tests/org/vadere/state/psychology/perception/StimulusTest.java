@@ -1,7 +1,7 @@
 package org.vadere.state.psychology.perception;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.psychology.perception.types.ElapsedTime;
 import org.vadere.state.psychology.perception.types.Stimulus;
 import org.vadere.state.psychology.perception.types.Wait;
@@ -9,7 +9,7 @@ import org.vadere.state.psychology.perception.types.Wait;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class StimulusTest {
 
@@ -18,7 +18,7 @@ public class StimulusTest {
     List<Stimulus> multipleElapsedTimeStimuli;
     List<Stimulus> mixedStimuli;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         double time = 0;
         ElapsedTime elapsedTime1 = new ElapsedTime(time);

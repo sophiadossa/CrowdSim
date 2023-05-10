@@ -1,15 +1,15 @@
 package org.vadere.simulator.projects.dataprocessing.processor;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.control.simulation.SimulationState;
 import org.vadere.state.attributes.processor.AttributesPedestrianWaitingTimeProcessor;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class PedestrianWaitingTimeProcessorTest extends ProcessorTest{
 
-	@Before
+	@BeforeEach
 	public void setup(){
 		processorTestEnv = new PedestrianWaitingTimeProcessorTestEnv();
 		super.setup();
@@ -17,8 +17,8 @@ public class PedestrianWaitingTimeProcessorTest extends ProcessorTest{
 
 	@Override
 	public void assertInit(DataProcessor p) throws NoSuchFieldException, IllegalAccessException {
-		assertEquals("Must be zero after init.", 0, p.getData().size());
-		assertEquals("Must be zero after init.", 0, (int) r.valOfField("lastStep"));
+		assertEquals(0, p.getData().size(), "Must be zero after init.");
+		assertEquals(0, (int) r.valOfField("lastStep"), "Must be zero after init.");
 		assertEquals(0.0, r.valOfField("lastSimTime"), 0.001);
 	}
 

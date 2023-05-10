@@ -1,6 +1,6 @@
 package org.vadere.simulator.utils.cache;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.projects.Scenario;
 import org.vadere.simulator.utils.reflection.TestResourceHandlerScenario;
 import org.vadere.state.attributes.models.AttributesFloorField;
@@ -12,8 +12,8 @@ import java.nio.file.Path;
 import java.util.HashMap;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static  org.junit.jupiter.api.Assertions.fail;
 
 public class ScenarioCacheTest implements TestResourceHandlerScenario {
 

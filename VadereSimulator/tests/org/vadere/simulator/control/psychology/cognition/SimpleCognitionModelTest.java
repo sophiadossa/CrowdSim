@@ -1,6 +1,6 @@
 package org.vadere.simulator.control.psychology.cognition;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.control.psychology.cognition.models.SimpleCognitionModel;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesAgent;
@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SimpleCognitionModelTest {
 

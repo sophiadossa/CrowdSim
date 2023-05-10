@@ -1,13 +1,13 @@
 package org.vadere.simulator.projects.dataprocessing.processor;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class PedestrianEndTimeProcessorTest extends ProcessorTest {
 
-	@Before
+	@BeforeEach
 	public void setup(){
 		processorTestEnv = new PedestrianEndTimeProcessorTestEnv();
 		super.setup();

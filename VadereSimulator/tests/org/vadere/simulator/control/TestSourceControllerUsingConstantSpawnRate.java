@@ -1,6 +1,6 @@
 package org.vadere.simulator.control;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.control.scenarioelements.SourceController;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.SourceTestAttributesBuilder;
@@ -10,7 +10,7 @@ import org.vadere.util.geometry.shapes.VRectangle;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestSourceControllerUsingConstantSpawnRate extends TestSourceController {
 
@@ -31,7 +31,7 @@ public class TestSourceControllerUsingConstantSpawnRate extends TestSourceContro
 		first().sourceController.update(1);
 		first().sourceController.update(2);
 
-		assertEquals("wrong pedestrian number", 1, countPedestrians(0));
+		assertEquals(1, countPedestrians(0), "wrong pedestrian number");
 	}
 
 
@@ -51,11 +51,11 @@ public class TestSourceControllerUsingConstantSpawnRate extends TestSourceContro
 
 		first().sourceController.update(startTime);
 		// one at the beginning
-		assertEquals("wrong pedestrian number.", 1, countPedestrians(0));
+		assertEquals(1, countPedestrians(0), "wrong pedestrian number.");
 
 		first().sourceController.update(endTime);
 		// and one at the end
-		assertEquals("wrong pedestrian number.", 2, countPedestrians(0));
+		assertEquals(2, countPedestrians(0), "wrong pedestrian number.");
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class TestSourceControllerUsingConstantSpawnRate extends TestSourceContro
 			first().sourceController.update(simTimeInSec);
 		}
 
-		assertEquals("wrong pedestrian number.", 3, countPedestrians(0));
+		assertEquals(3, countPedestrians(0), "wrong pedestrian number.");
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class TestSourceControllerUsingConstantSpawnRate extends TestSourceContro
 			first().sourceController.update(simTimeInSec);
 		}
 
-		assertEquals("Wrong pedestrian number.", 11, countPedestrians(0));
+		assertEquals(11, countPedestrians(0), "Wrong pedestrian number.");
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class TestSourceControllerUsingConstantSpawnRate extends TestSourceContro
 
 		// if the first ped does not move away, there should no more pedestrians
 		// be created
-		assertEquals("wrong pedestrian number.", 1, countPedestrians(0));
+		assertEquals(1, countPedestrians(0), "wrong pedestrian number.");
 
 		// now, move the peds away after creating them
 		for (double simTimeInSec = 1000; simTimeInSec < 2000; simTimeInSec += 1.0) {
@@ -130,7 +130,7 @@ public class TestSourceControllerUsingConstantSpawnRate extends TestSourceContro
 		}
 
 		// now, all pedestrians should have been created
-		assertEquals("wrong pedestrian number.", 100, countPedestrians(0));
+		assertEquals(100, countPedestrians(0), "wrong pedestrian number.");
 	}
 
 

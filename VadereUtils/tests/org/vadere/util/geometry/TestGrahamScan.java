@@ -1,15 +1,15 @@
 package org.vadere.util.geometry;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VPolygon;
 
 import java.util.List;
 import java.util.Stack;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertFalse;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Basic unit test for the {@link org.vadere.util.geometry.GrahamScan} class.
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class TestGrahamScan {
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {}
 
 	@Test
@@ -33,14 +33,14 @@ public class TestGrahamScan {
 
 
 		Stack<VPoint> stack = grahamScan.getConvexHull();
-		assertTrue("convex hull triangleContains to many points", stack.size() == 4);
-		assertTrue("convex hull does not contain " + new VPoint(2.0, 2.0), stack.contains(new VPoint(2.0, 2.0)));
-		assertTrue("convex hull does not contain " + new VPoint(-2.0, -2.0), stack.contains(new VPoint(-2.0, -2.0)));
-		assertTrue("convex hull does not contain " + new VPoint(2.0, -2.0), stack.contains(new VPoint(2.0, -2.0)));
-		assertTrue("convex hull does not contain " + new VPoint(-2.0, 2.0), stack.contains(new VPoint(-2.0, 2.0)));
+		assertTrue(stack.size() == 4, "convex hull triangleContains to many points");
+		assertTrue(stack.contains(new VPoint(2.0, 2.0)), "convex hull does not contain " + new VPoint(2.0, 2.0));
+		assertTrue(stack.contains(new VPoint(-2.0, -2.0)), "convex hull does not contain " + new VPoint(-2.0, -2.0));
+		assertTrue(stack.contains(new VPoint(2.0, -2.0)), "convex hull does not contain " + new VPoint(2.0, -2.0));
+		assertTrue(stack.contains(new VPoint(-2.0, 2.0)), "convex hull does not contain " + new VPoint(-2.0, 2.0));
 
-		assertFalse("convex hull does contain " + new VPoint(0.0, 0.0), stack.contains(new VPoint(0.0, 0.0)));
-		assertFalse("convex hull does contain " + new VPoint(1.0, 2.0), stack.contains(new VPoint(1.0, 2.0)));
+		assertFalse(stack.contains(new VPoint(0.0, 0.0)), "convex hull does contain " + new VPoint(0.0, 0.0));
+		assertFalse(stack.contains(new VPoint(1.0, 2.0)), "convex hull does contain " + new VPoint(1.0, 2.0));
 
 
 
@@ -58,24 +58,24 @@ public class TestGrahamScan {
 
 		VPolygon polytope = grahamScan.getPolytope();
 
-		assertTrue("polytope does not contain " + new VPoint(1.9999, 1.999),
-				polytope.contains(new VPoint(1.9999, 1.999)));
-		assertTrue("polytope does not contain " + new VPoint(-1.999, -1.999),
-				polytope.contains(new VPoint(-1.999, -1.999)));
-		assertTrue("polytope does not contain " + new VPoint(1.999, -1.999),
-				polytope.contains(new VPoint(1.999, -1.999)));
-		assertTrue("polytope does not contain " + new VPoint(-1.999, 1.999),
-				polytope.contains(new VPoint(-1.999, 1.999)));
+		assertTrue(polytope.contains(new VPoint(1.9999, 1.999)),
+				"polytope does not contain " + new VPoint(1.9999, 1.999));
+		assertTrue(polytope.contains(new VPoint(-1.999, -1.999)),
+				"polytope does not contain " + new VPoint(-1.999, -1.999));
+		assertTrue(polytope.contains(new VPoint(1.999, -1.999)),
+				"polytope does not contain " + new VPoint(1.999, -1.999));
+		assertTrue(polytope.contains(new VPoint(-1.999, 1.999)),
+				"polytope does not contain " + new VPoint(-1.999, 1.999));
 
-		assertFalse("polytope does contain " + new VPoint(1.999, 2.001), polytope.contains(new VPoint(1.999, 2.001)));
-		assertFalse("polytope does contain " + new VPoint(2.0001, 2.0), polytope.contains(new VPoint(2.0001, 2.0)));
-		assertFalse("polytope does contain " + new VPoint(-2.001, -2.0), polytope.contains(new VPoint(-2.001, -2.0)));
-		assertFalse("polytope does contain " + new VPoint(-2.0, -2.00001),
-				polytope.contains(new VPoint(-2.0, -2.00001)));
-		assertFalse("polytope does contain " + new VPoint(-2.0001, 2.0), polytope.contains(new VPoint(-2.0001, 2.0)));
-		assertFalse("polytope does contain " + new VPoint(-2.0, 2.00001), polytope.contains(new VPoint(-2.0, 2.00001)));
+		assertFalse(polytope.contains(new VPoint(1.999, 2.001)), "polytope does contain " + new VPoint(1.999, 2.001));
+		assertFalse(polytope.contains(new VPoint(2.0001, 2.0)), "polytope does contain " + new VPoint(2.0001, 2.0));
+		assertFalse(polytope.contains(new VPoint(-2.001, -2.0)), "polytope does contain " + new VPoint(-2.001, -2.0));
+		assertFalse(polytope.contains(new VPoint(-2.0, -2.00001)),
+				"polytope does contain " + new VPoint(-2.0, -2.00001));
+		assertFalse(polytope.contains(new VPoint(-2.0001, 2.0)), "polytope does contain " + new VPoint(-2.0001, 2.0));
+		assertFalse(polytope.contains(new VPoint(-2.0, 2.00001)), "polytope does contain " + new VPoint(-2.0, 2.00001));
 
-		assertTrue("convex hull does contain " + new VPoint(0.0, 0.0), polytope.contains(new VPoint(0.0, 0.0)));
+		assertTrue(polytope.contains(new VPoint(0.0, 0.0)), "convex hull does contain " + new VPoint(0.0, 0.0));
 
 		List<VPoint> points = polytope.getPath();
 		assertTrue(GeometryUtils.isCW(points.get(0), points.get(1), points.get(2)));
@@ -112,6 +112,6 @@ public class TestGrahamScan {
 		});
 
 		Stack<VPoint> stack = grahamScan.getConvexHull();
-		assertTrue("convex hull triangleContains to many points", stack.size() == 2);
+		assertTrue(stack.size() == 2, "convex hull triangleContains to many points");
 	}
 }

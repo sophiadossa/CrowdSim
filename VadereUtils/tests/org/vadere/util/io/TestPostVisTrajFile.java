@@ -1,8 +1,7 @@
 package org.vadere.util.io;
 
-import junit.framework.TestCase;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.io.InputStream;
 
@@ -10,13 +9,13 @@ import tech.tablesaw.api.Table;
 import tech.tablesaw.io.csv.CsvReadOptions;
 import static tech.tablesaw.aggregate.AggregateFunctions.*;
 
-public class TestPostVisTrajFile extends TestCase {
+public class TestPostVisTrajFile {
 
 	private Table tableV1;
 	private Table tableV2;
 
-	@Override
-	protected void setUp() throws Exception {
+	@BeforeEach
+	protected void init() throws Exception {
 		InputStream inputStream = TestPostVisTrajFile.class.getResourceAsStream("/postvis.traj");
 		CsvReadOptions options = CsvReadOptions.builder(inputStream).separator(' ').header(true).build();
 		tableV2 = Table.read().usingOptions(options);

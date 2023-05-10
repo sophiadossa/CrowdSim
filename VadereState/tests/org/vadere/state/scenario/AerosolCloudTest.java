@@ -1,8 +1,8 @@
 package org.vadere.state.scenario;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.scenario.AttributesAerosolCloud;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -21,7 +21,7 @@ public class AerosolCloudTest {
     private AerosolCloud aerosolCloudCirc;
 
 
-    @Before
+    @BeforeEach
     public void setUp() {
         // common attributes
         int id = ID_NOT_SET;
@@ -38,7 +38,7 @@ public class AerosolCloudTest {
     @Test
     public void testGetId() {
         int expectedId = ID_NOT_SET;
-        Assert.assertEquals(expectedId, aerosolCloud.getId());
+        assertEquals(expectedId, aerosolCloud.getId());
     }
 
 
@@ -47,7 +47,7 @@ public class AerosolCloudTest {
         VCircle newShape = new VCircle(new VPoint(10, 10), 2);
 
         aerosolCloud.setShape(newShape);
-        Assert.assertEquals(newShape, aerosolCloud.getShape());
+        assertEquals(newShape, aerosolCloud.getShape());
     }
 
 
@@ -66,25 +66,25 @@ public class AerosolCloudTest {
         AerosolCloud aerosolCloudOriginal = new AerosolCloud(new AttributesAerosolCloud(id, radius, center, creationTime, pathogenLoad));
         AerosolCloud aerosolCloudClone = aerosolCloudOriginal.clone();
 
-        Assert.assertEquals(aerosolCloudOriginal.getId(), aerosolCloudClone.getId());
-        Assert.assertEquals(aerosolCloudOriginal.getShape(), aerosolCloudClone.getShape());
-        Assert.assertEquals(aerosolCloudOriginal.getCreationTime(), aerosolCloudClone.getCreationTime(), ALLOWED_DOUBLE_TOLERANCE);
+        assertEquals(aerosolCloudOriginal.getId(), aerosolCloudClone.getId());
+        assertEquals(aerosolCloudOriginal.getShape(), aerosolCloudClone.getShape());
+        assertEquals(aerosolCloudOriginal.getCreationTime(), aerosolCloudClone.getCreationTime(), ALLOWED_DOUBLE_TOLERANCE);
 
         // check that original is not affected by setters/changes to the clone
         aerosolCloudClone.setId(2);
         aerosolCloudClone.setShape(newShape);
         aerosolCloudClone.setCreationTime(0);
 
-        Assert.assertEquals(id, aerosolCloudOriginal.getId());
-        Assert.assertEquals(shape, aerosolCloudOriginal.getShape());
-        Assert.assertEquals(creationTime, aerosolCloudOriginal.getCreationTime(), ALLOWED_DOUBLE_TOLERANCE);
+        assertEquals(id, aerosolCloudOriginal.getId());
+        assertEquals(shape, aerosolCloudOriginal.getShape());
+        assertEquals(creationTime, aerosolCloudOriginal.getCreationTime(), ALLOWED_DOUBLE_TOLERANCE);
     }
 
     @Test
     public void throwIfIncreaseShapeChangesCenterOfCircularAerosolCloud() {
         VPoint center = aerosolCloudCirc.getCenter();
         aerosolCloudCirc.increaseShape(0.2);
-        Assert.assertEquals(center, aerosolCloudCirc.getCenter());
+        assertEquals(center, aerosolCloudCirc.getCenter());
     }
 
 }

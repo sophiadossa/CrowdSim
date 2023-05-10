@@ -1,11 +1,11 @@
 package org.vadere.util.geometry.shapes;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.GeometryUtils;
 import org.vadere.util.logging.Logger;
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class TestVTriangle {
 
@@ -32,7 +32,7 @@ public class TestVTriangle {
     private VPoint vPoint8 = new VPoint(0., 0.5 * Math.sqrt(2.) );
     private VTriangle vTriangle_60degree = new VTriangle(vPoint7, vPoint2, vPoint8);
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
     }
     @Test
@@ -50,13 +50,13 @@ public class TestVTriangle {
     @Test
     public void testContains() {
         // vTriangle_sym.contains returns true if point is a vertex or point is inside triangle
-        assertTrue("Point 1 is vertex of Triangle 1.",  vTriangle_sym.contains(vPoint1));
-        assertTrue("Point 2 is vertex of Triangle 1.",  vTriangle_sym.contains(vPoint2));
-        assertTrue("Point 3 is vertex of Triangle 1.",  vTriangle_sym.contains(vPoint3));
-        assertTrue("Point 5 is inside Triangle 1.",     vTriangle_sym.contains(vPoint5));
+        assertTrue(vTriangle_sym.contains(vPoint1), "Point 1 is vertex of Triangle 1.");
+        assertTrue(vTriangle_sym.contains(vPoint2), "Point 2 is vertex of Triangle 1.");
+        assertTrue(vTriangle_sym.contains(vPoint3), "Point 3 is vertex of Triangle 1.");
+        assertTrue(vTriangle_sym.contains(vPoint5), "Point 5 is inside Triangle 1.");
 
         // vTriangle_sym.contains returns false if point is outside triangle
-        assertFalse("Point 4 lays outside Triangle 1.", vTriangle_sym.contains(vPoint4));
+        assertFalse(vTriangle_sym.contains(vPoint4), "Point 4 lays outside Triangle 1.");
     }
 
     /**
@@ -67,13 +67,13 @@ public class TestVTriangle {
     public void testIsPartOf() {
         // vTriangle_sym.isPartOf returns true if point is a vertex or point is inside triangle + tolerance
         double tolerance = 0.0;
-        assertTrue("Point 1 is vertex of Triangle 1.", vTriangle_sym.isPartOf(vPoint1,tolerance));
-        assertTrue("Point 2 is vertex of Triangle 1.", vTriangle_sym.isPartOf(vPoint2,tolerance));
-        assertTrue("Point 3 is vertex of Triangle 1.", vTriangle_sym.isPartOf(vPoint3,tolerance));
-        assertTrue("Point 5 is inside Triangle 1.", vTriangle_sym.isPartOf(vPoint5,tolerance));
+        assertTrue(vTriangle_sym.isPartOf(vPoint1,tolerance), "Point 1 is vertex of Triangle 1.");
+        assertTrue(vTriangle_sym.isPartOf(vPoint2,tolerance), "Point 2 is vertex of Triangle 1.");
+        assertTrue(vTriangle_sym.isPartOf(vPoint3,tolerance), "Point 3 is vertex of Triangle 1.");
+        assertTrue(vTriangle_sym.isPartOf(vPoint5,tolerance), "Point 5 is inside Triangle 1.");
 
         // vTriangle_sym.isPartOf returns false if point is outside triangle + tolerance
-        assertFalse("Point 4 lays outside Triangle 1.", vTriangle_sym.isPartOf(vPoint4,tolerance));
+        assertFalse(vTriangle_sym.isPartOf(vPoint4,tolerance), "Point 4 lays outside Triangle 1.");
     }
 
     @Test
@@ -215,7 +215,7 @@ public class TestVTriangle {
         assertTrue(eps < GeometryUtils.DOUBLE_EPS);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 }

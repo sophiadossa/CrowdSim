@@ -1,7 +1,7 @@
 package org.vadere.util.geometry;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.logging.Logger;
 
@@ -9,9 +9,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertFalse;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Thorough test of the {@link LinkedCellsGrid}.
@@ -83,7 +83,7 @@ public class TestLinkedCellsGrid {
 	 * 
 	 * @throws java.lang.Exception
 	 */
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		linkedCellsInteger = new LinkedCellsGrid<CoordinatedInteger>(left, top, width,
 				height, sideLength);
@@ -113,30 +113,30 @@ public class TestLinkedCellsGrid {
 		double testradius1 = 40;
 		List<CoordinatedInteger> objects1 = linkedCellsInteger.getObjects(testpos1, testradius1);
 
-		assertEquals("the grid did not add the correct number of objects.", 3,
-				objects1.size());
-		assertTrue("the first object was not added correctly",
-				objects1.contains(coordinatedInteger1));
-		assertTrue("the second object was not added correctly",
-				objects1.contains(coordinatedInteger2));
-		assertTrue("the third object was not added correctly",
-				objects1.contains(coordinatedInteger3));
+		assertEquals(3, objects1.size(),
+				"the grid did not add the correct number of objects.");
+		assertTrue(objects1.contains(coordinatedInteger1),
+				"the first object was not added correctly");
+		assertTrue(objects1.contains(coordinatedInteger2),
+				"the second object was not added correctly");
+		assertTrue(objects1.contains(coordinatedInteger3),
+				"the third object was not added correctly");
 
 		// add a new object at exactly the same position as before. should NOT
 		// be added
 		linkedCellsInteger.addObject(new CoordinatedInteger(int4, pos3));
 
 		List<CoordinatedInteger> objects2 = linkedCellsInteger.getObjects(testpos1, testradius1);
-		assertEquals("the grid did not add the object but should have.", 4,
-				objects2.size());
+		assertEquals(4, objects2.size(),
+				"the grid did not add the object but should have.");
 
 		// add exactly the same object at exactly the same position as before.
 		// should also be added
 		linkedCellsInteger.addObject(new CoordinatedInteger(int1, pos1));
 
 		List<CoordinatedInteger> objects3 = linkedCellsInteger.getObjects(testpos1, testradius1);
-		assertEquals("the grid did add the object but should not have.", 5,
-				objects3.size());
+		assertEquals(5, objects3.size(),
+				"the grid did add the object but should not have.");
 	}
 
 	/**
@@ -159,14 +159,14 @@ public class TestLinkedCellsGrid {
 		List<NotComparableObject> objects1 = linkedCellsObject.getObjects(
 				testpos1, testradius1);
 
-		assertEquals("the grid did not add the correct number of objects.", 3,
-				objects1.size());
-		assertTrue("the first object was not added correctly",
-				objects1.contains(obj1));
-		assertTrue("the second object was not added correctly",
-				objects1.contains(obj2));
-		assertTrue("the third object was not added correctly",
-				objects1.contains(obj3));
+		assertEquals(3, objects1.size(),
+				"the grid did not add the correct number of objects.");
+		assertTrue(objects1.contains(obj1),
+				"the first object was not added correctly");
+		assertTrue(objects1.contains(obj2),
+				"the second object was not added correctly");
+		assertTrue(objects1.contains(obj3),
+				"the third object was not added correctly");
 
 		// add a new object at exactly the same position as before. should be
 		// added
@@ -174,8 +174,8 @@ public class TestLinkedCellsGrid {
 
 		List<NotComparableObject> objects2 = linkedCellsObject.getObjects(
 				testpos1, testradius1);
-		assertEquals("the grid did not add the object but should have.", 4,
-				objects2.size());
+		assertEquals(4, objects2.size(),
+				"the grid did not add the object but should have.");
 
 		// add exactly the same object at exactly the same position as before.
 		// should also be added
@@ -183,8 +183,8 @@ public class TestLinkedCellsGrid {
 
 		List<NotComparableObject> objects3 = linkedCellsObject.getObjects(
 				testpos1, testradius1);
-		assertEquals("the grid did add the object but should not have.", 5,
-				objects3.size());
+		assertEquals(5, objects3.size(),
+				"the grid did add the object but should not have.");
 	}
 
 	/**
@@ -199,15 +199,15 @@ public class TestLinkedCellsGrid {
 		linkedCellsInteger.addObject(new CoordinatedInteger(int2, pos2));
 		linkedCellsInteger.addObject(new CoordinatedInteger(int3, pos3));
 
-		assertEquals("size of linkedCellsDouble is wrong", 3,
-				linkedCellsInteger.size());
+		assertEquals(3, linkedCellsInteger.size(),
+				"size of linkedCellsDouble is wrong");
 
 		// add exactly the same object at exactly the same position as before.
 		// should still be added
 		linkedCellsInteger.addObject(new CoordinatedInteger(int1, pos3));
 
-		assertEquals("size of linkedCellsDouble is wrong", 4,
-				linkedCellsInteger.size());
+		assertEquals(4, linkedCellsInteger.size(),
+				"size of linkedCellsDouble is wrong");
 	}
 
 	/**
@@ -225,21 +225,21 @@ public class TestLinkedCellsGrid {
 		List<CoordinatedInteger> objects = linkedCellsInteger.getObjects(pos1,
 				pos1.distance(pos2) - 1);
 		assertEquals(
-				"getObjects did not return the correct number of objects.", 1,
-				objects.size());
-		assertEquals("getObjects did not return the correct object.", int1,
-				(int) objects.get(0).number);
+				1, objects.size(),
+				"getObjects did not return the correct number of objects.");
+		assertEquals(int1, (int) objects.get(0).number,
+				"getObjects did not return the correct object.");
 
 		// this should return the object at pos1 and pos2
 		List<CoordinatedInteger> objects2 = linkedCellsInteger.getObjects(pos1,
 				pos1.distance(pos2) + 1);
 		assertEquals(
-				"getObjects did not return the correct number of objects.", 2,
-				objects2.size());
-		assertEquals("getObjects did not return the correct object.", int1,
-				(int) objects2.get(0).number);
-		assertEquals("getObjects did not return the correct object.", int2,
-				(int) objects2.get(1).number);
+				2, objects2.size(),
+				"getObjects did not return the correct number of objects.");
+		assertEquals(int1, (int) objects2.get(0).number,
+				"getObjects did not return the correct object.");
+		assertEquals(int2, (int) objects2.get(1).number,
+				"getObjects did not return the correct object.");
 	}
 
 	/**
@@ -255,10 +255,10 @@ public class TestLinkedCellsGrid {
 
 		// remove the second object
 		linkedCellsInteger.removeObject(coordinatedInteger);
-		assertEquals("remove object did not remove the object.", 1,
-				linkedCellsInteger.size());
-		assertEquals("remove object did not remove the last object.", int1,
-				(int) linkedCellsInteger.iterator().next().number);
+		assertEquals(1, linkedCellsInteger.size(),
+				"remove object did not remove the object.");
+		assertEquals(int1, (int) linkedCellsInteger.iterator().next().number,
+				"remove object did not remove the last object.");
 	}
 
 	/**
@@ -272,13 +272,13 @@ public class TestLinkedCellsGrid {
 
 		linkedCellsInteger.clear();
 
-		assertEquals("the grid is not empty.", 0, linkedCellsInteger.size());
+		assertEquals(0, linkedCellsInteger.size(), "the grid is not empty.");
 
 		// try to retrieve the objects, should return an empty list
 		List<CoordinatedInteger> objects = linkedCellsInteger.getObjects(pos1,
 				pos1.distance(pos2) + 1);
-		assertEquals("there are still objects present in the grid.", 0,
-				objects.size());
+		assertEquals(0, objects.size(),
+				"there are still objects present in the grid.");
 	}
 
 	/**
@@ -294,26 +294,26 @@ public class TestLinkedCellsGrid {
 		List<Integer> objects = new LinkedList<Integer>();
 
 		Iterator<CoordinatedInteger> objectIterator = linkedCellsInteger.iterator();
-		assertEquals("the iterator should find the first element", true,
-				objectIterator.hasNext());
+		assertEquals(true, objectIterator.hasNext(),
+				"the iterator should find the first element");
 		objects.add(objectIterator.next().number);
-		assertEquals("the iterator should find the second element", true,
-				objectIterator.hasNext());
+		assertEquals(true, objectIterator.hasNext(),
+				"the iterator should find the second element");
 		objects.add(objectIterator.next().number);
-		assertEquals("the iterator should find the third element", true,
-				objectIterator.hasNext());
+		assertEquals(true, objectIterator.hasNext(),
+				"the iterator should find the third element");
 		objects.add(objectIterator.next().number);
 		assertEquals(
-				"the iterator should not find any elements after the third element",
-				false, objectIterator.hasNext());
+				false,
+				objectIterator.hasNext(), "the iterator should not find any elements after the third element");
 
 		// check if the correct objects were returned
-		assertTrue("the iterator did not return object 1",
-				objects.contains(int1));
-		assertTrue("the iterator did not return object 2",
-				objects.contains(int2));
-		assertTrue("the iterator did not return object 3",
-				objects.contains(int3));
+		assertTrue(objects.contains(int1),
+				"the iterator did not return object 1");
+		assertTrue(objects.contains(int2),
+				"the iterator did not return object 2");
+		assertTrue(objects.contains(int3),
+				"the iterator did not return object 3");
 	}
 
 	/**
@@ -323,24 +323,24 @@ public class TestLinkedCellsGrid {
 	 */
 	@Test
 	public void testSize() {
-		assertEquals("grid is not empty.", 0, linkedCellsInteger.size());
+		assertEquals(0, linkedCellsInteger.size(), "grid is not empty.");
 		CoordinatedInteger coordinatedInteger = new CoordinatedInteger(int1, pos1);
 		linkedCellsInteger.addObject(coordinatedInteger);
 		linkedCellsInteger.addObject(new CoordinatedInteger(int2, pos2));
 		linkedCellsInteger.addObject(new CoordinatedInteger(int3, pos3));
 
-		assertEquals("grid does not contain the correct number of objects.", 3,
-				linkedCellsInteger.size());
+		assertEquals(3, linkedCellsInteger.size(),
+				"grid does not contain the correct number of objects.");
 
 		linkedCellsInteger.removeObject(coordinatedInteger);
 
-		assertEquals("grid does not contain the correct number of objects.", 2,
-				linkedCellsInteger.size());
+		assertEquals(2, linkedCellsInteger.size(),
+				"grid does not contain the correct number of objects.");
 
 		linkedCellsInteger.clear();
 
-		assertEquals("grid is not empty after clear.", 0,
-				linkedCellsInteger.size());
+		assertEquals(0, linkedCellsInteger.size(),
+				"grid is not empty after clear.");
 	}
 
 	/**
@@ -354,8 +354,8 @@ public class TestLinkedCellsGrid {
 		CoordinatedInteger coordinatedInteger2 = new CoordinatedInteger(int2, pos2);
 		CoordinatedInteger coordinatedInteger3 = new CoordinatedInteger(int3, pos3);
 		CoordinatedInteger coordinatedInteger4 = new CoordinatedInteger(int4, pos3);
-		assertFalse("grid did contain object 1 even it was empty.",
-				linkedCellsInteger.contains(coordinatedInteger1));
+		assertFalse(linkedCellsInteger.contains(coordinatedInteger1),
+				"grid did contain object 1 even it was empty.");
 
 
 
@@ -363,14 +363,14 @@ public class TestLinkedCellsGrid {
 		linkedCellsInteger.addObject(coordinatedInteger2);
 		linkedCellsInteger.addObject(coordinatedInteger3);
 
-		assertTrue("grid did not contain object 1.",
-				linkedCellsInteger.contains(coordinatedInteger1));
-		assertTrue("grid did not contain object 1.",
-				linkedCellsInteger.contains(coordinatedInteger2));
-		assertTrue("grid did not contain object 1.",
-				linkedCellsInteger.contains(coordinatedInteger3));
-		assertFalse("grid did contain object 4.",
-				linkedCellsInteger.contains(coordinatedInteger4));
+		assertTrue(linkedCellsInteger.contains(coordinatedInteger1),
+				"grid did not contain object 1.");
+		assertTrue(linkedCellsInteger.contains(coordinatedInteger2),
+				"grid did not contain object 1.");
+		assertTrue(linkedCellsInteger.contains(coordinatedInteger3),
+				"grid did not contain object 1.");
+		assertFalse(linkedCellsInteger.contains(coordinatedInteger4),
+				"grid did contain object 4.");
 	}
 
 	/**
@@ -416,8 +416,8 @@ public class TestLinkedCellsGrid {
 		double mean = mean(times);
 		logger.debug(String.format("mean of all search times: %.2f ms", mean));
 		for (int time = 1; time < times.size(); time++) {
-			assertTrue("getObjects took too much time.",
-					times.get(time) < mean * 3);
+			assertTrue(times.get(time) < mean * 3,
+					"getObjects took too much time.");
 		}
 	}
 

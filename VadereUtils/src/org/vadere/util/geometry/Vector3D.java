@@ -62,6 +62,19 @@ public class Vector3D extends Point implements Comparable<Vector3D> {
 				* length, z / distTo(ZERO) * length);
 	}
 
+
+	public double getX(){
+		return this.x;
+	}
+
+	public double getY(){
+		return this.y;
+	}
+
+	public double getZ(){
+		return this.z;
+	}
+
 	/**
 	 * Euclidian distance to a given point.
 	 * 

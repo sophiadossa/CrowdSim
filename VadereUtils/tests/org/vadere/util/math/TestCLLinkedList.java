@@ -2,9 +2,9 @@ package org.vadere.util.math;
 
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VRectangle;
 import org.vadere.util.logging.Logger;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import static org.lwjgl.opencl.CL10.CL_DEVICE_TYPE_ALL;
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Benedikt Zoennchen
@@ -28,7 +28,7 @@ public class TestCLLinkedList {
 
 	private static Random random = new Random(0);
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {}
 
 	@Test
@@ -129,7 +129,7 @@ public class TestCLLinkedList {
 		testGridCell(CL_DEVICE_TYPE_ALL, 1024);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void testGridCellLarge() throws OpenCLException {
 		testGridCell(CL_DEVICE_TYPE_ALL, 32768);

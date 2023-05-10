@@ -1,9 +1,9 @@
 package org.vadere.simulator.models.potential.solver;
 
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.mesh.gen.PFace;
 import org.vadere.meshing.mesh.gen.PHalfEdge;
 import org.vadere.meshing.mesh.gen.PVertex;
@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestFFMUniformTriangulation {
 
@@ -37,7 +37,7 @@ public class TestFFMUniformTriangulation {
     private int height = 10;
     private double minTriangleSideLength = 1.0;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         IPointConstructor<IPotentialPoint> pointConstructor = (x, y) -> new PotentialPoint(x, y);
         uniformTriangulation = IIncrementalTriangulation.createUniformTriangulation(
@@ -47,7 +47,7 @@ public class TestFFMUniformTriangulation {
         );
     }
 
-	@Ignore
+	@Disabled
     @Test
     public void testFFM() {
         List<IPoint> targetPoints = new ArrayList<>();

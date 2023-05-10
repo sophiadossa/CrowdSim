@@ -1,9 +1,9 @@
 package org.vadere.simulator.models.potential.solver;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.mesh.gen.PFace;
 import org.vadere.meshing.mesh.gen.PHalfEdge;
 import org.vadere.meshing.mesh.gen.PMesh;
@@ -49,7 +49,7 @@ public class TestFFMNonUniformTriangulation {
     private IIncrementalTriangulation<PVertex, PHalfEdge, PFace> triangulation;
     private IDistanceFunction distanceFunc;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         //IDistanceFunction distanceFunc = p -> Math.abs(7 - Math.sqrt(p.getX() * p.getX() + p.getY() * p.getY())) - 3;
         distanceFunc = p -> Math.abs(6 - Math.sqrt(p.getX() * p.getX() + p.getY() * p.getY())) - 4;
@@ -81,7 +81,7 @@ public class TestFFMNonUniformTriangulation {
 	    return eikMesh;
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void testTriangulationFMM() {
 
@@ -176,7 +176,7 @@ public class TestFFMNonUniformTriangulation {
         //assertTrue(0.0 < solver.getValue(1, 7));
     }
 
-	@Ignore
+	@Disabled
     @Test
     public void testTriangulationFMMCase3() {
 
@@ -249,7 +249,7 @@ public class TestFFMNonUniformTriangulation {
         //assertTrue(0.0 < solver.getValue(1, 7));
     }
 
-	@Ignore
+	@Disabled
     @Test
     public void testTriangulationFMMCase2() {
 
@@ -404,7 +404,7 @@ public class TestFFMNonUniformTriangulation {
         //assertTrue(0.0 < solver.getValue(1, 7));
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void testRegularFMMCase2() {
 

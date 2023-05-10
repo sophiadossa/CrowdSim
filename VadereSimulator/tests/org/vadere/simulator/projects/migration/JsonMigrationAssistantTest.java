@@ -2,9 +2,9 @@ package org.vadere.simulator.projects.migration;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.version.Version;
 import org.vadere.simulator.projects.migration.jsontranformation.JsonMigrationAssistant;
 import org.vadere.simulator.utils.reflection.TestResourceHandlerScenario;
@@ -17,7 +17,7 @@ import java.nio.file.Path;
 
 import joptsimple.internal.Strings;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonMigrationAssistantTest implements TestResourceHandlerScenario {
 
@@ -26,13 +26,13 @@ public class JsonMigrationAssistantTest implements TestResourceHandlerScenario {
 		return getPathFromResources("/migration");
 	}
 
-	@Before
+	@BeforeEach
 	public void before(){
 		backupTestDir();
 	}
 
 	// clean up after test
-	@After
+	@AfterEach
 	public void resetTestStructure() throws URISyntaxException {
 		loadFromBackup();
 	}
@@ -63,7 +63,7 @@ public class JsonMigrationAssistantTest implements TestResourceHandlerScenario {
 		JsonMigrationAssistant jsonMigrationAssistant = new JsonMigrationAssistant();
 
 		MigrationResult res = jsonMigrationAssistant.analyzeProject(projectPath.toString());
-		assertEquals("", new MigrationResult(12, 0, 11, 1), res);
+		assertEquals(new MigrationResult(12, 0, 11, 1), res);
 		System.out.println(Strings.repeat('#', 80));
 	}
 

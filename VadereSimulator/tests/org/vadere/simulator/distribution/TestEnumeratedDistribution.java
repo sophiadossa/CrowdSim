@@ -1,6 +1,6 @@
 package org.vadere.simulator.distribution;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.math3.distribution.EnumeratedDistribution;
 import org.apache.commons.math3.distribution.EnumeratedIntegerDistribution;
 import org.apache.commons.math3.util.Pair;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.test.StatisticalTestCase;
 
 public class TestEnumeratedDistribution {

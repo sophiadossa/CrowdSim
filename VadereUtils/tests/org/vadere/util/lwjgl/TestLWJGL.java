@@ -1,11 +1,11 @@
 package org.vadere.util.lwjgl;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.logging.Logger;
 import org.vadere.util.opencl.CLUtils;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
+import static  org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author Benedikt Zoennchen
@@ -26,6 +26,6 @@ public class TestLWJGL {
 	// ignore cause our worker for CI does not support OpenCL
 	@Test
 	public void testOpenCLSuppert() {
-		assertTrue("OpenCL is not supported on your machine", CLUtils.isOpenCLSupported());
+		assertTrue(CLUtils.isOpenCLSupported(), "OpenCL is not supported on your machine");
 	}
 }

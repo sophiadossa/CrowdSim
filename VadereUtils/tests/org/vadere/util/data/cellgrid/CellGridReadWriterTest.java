@@ -1,20 +1,20 @@
 package org.vadere.util.data.cellgrid;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class CellGridReadWriterTest {
 
 	private File loadTestResource(String path){
 		URL resource1 = CellGridTest.class.getResource(path);
 		if (resource1 == null){
-			Assert.fail("Resource not found: " + path);
+			fail("Resource not found: " + path);
 		}
 		return new File(resource1.getFile());
 	}

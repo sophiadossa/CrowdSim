@@ -1,6 +1,6 @@
 package org.vadere.simulator.utils.scenariochecker.checks.topography;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.utils.TopographyTestBuilder;
 import org.vadere.simulator.utils.scenariochecker.ScenarioChecker;
 import org.vadere.simulator.utils.scenariochecker.ScenarioCheckerMessage;
@@ -11,7 +11,7 @@ import org.vadere.util.geometry.shapes.VRectangle;
 
 import java.util.PriorityQueue;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class TopographyOffsetCheckTest {
 

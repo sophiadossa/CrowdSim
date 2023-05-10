@@ -1,9 +1,9 @@
 package org.vadere.simulator.projects.migration.jsontranformation;
 
 import org.hamcrest.core.StringContains;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.version.Version;
 import org.vadere.simulator.projects.migration.MigrationAssistant;
 import org.vadere.simulator.projects.migration.MigrationException;
@@ -12,9 +12,9 @@ import org.vadere.simulator.projects.migration.MigrationOptions;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static  org.junit.jupiter.api.Assertions.fail;
 
 public class JoltTransformV3toV4Test extends JsonTransformationTest {
 
@@ -32,7 +32,7 @@ public class JoltTransformV3toV4Test extends JsonTransformationTest {
 		return getPathFromResources("/migration/v03_to_v04");
 	}
 
-	@Before
+	@BeforeEach
 	public void init() {
 		super.init();
 
@@ -46,7 +46,7 @@ public class JoltTransformV3toV4Test extends JsonTransformationTest {
 		bakScenarios.add(getTestFileBackup("group_OSM_1Source1Place.scenario"));
 	}
 
-	@After
+	@AfterEach
 	public void cleaUp() {
 		super.cleaUp();
 	}

@@ -1,7 +1,7 @@
 package org.vadere.simulator.dataprocessing;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.projects.Scenario;
 import org.vadere.simulator.projects.VadereProject;
 import org.vadere.simulator.projects.io.IOVadere;
@@ -13,8 +13,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertNotNull;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class TestTrajectoryReader implements TestResourceHandlerScenario {
@@ -28,7 +28,7 @@ public class TestTrajectoryReader implements TestResourceHandlerScenario {
 		return getPathFromResources("/data/VTestMultiRun");
 	}
 
-	@Before
+	@BeforeEach
 	public void setUp() throws URISyntaxException {
 		resetTestStructure();
 		folderName = "Test1_2019-09-23_17-25-51.21";
@@ -51,14 +51,13 @@ public class TestTrajectoryReader implements TestResourceHandlerScenario {
 
 	@Test
 	public void testFolderAvailable() {
-		assertNotNull("Test directory missing", getClass().getResource("/data/VTestMultiRun"));
-		assertNotNull("Test directory missing", getClass().getResource("/data/VTestMultiRun/output"));
-		assertNotNull("Test directory missing", getClass().getResource("/data/VTestMultiRun/output/" + folderName));
+		assertNotNull(getClass().getResource("/data/VTestMultiRun"), "Test directory missing");
+		assertNotNull(getClass().getResource("/data/VTestMultiRun/output"), "Test directory missing");
+		assertNotNull(getClass().getResource("/data/VTestMultiRun/output/" + folderName), "Test directory missing");
 
 		try {
-			assertTrue("Test directory is not a directory",
-					new File(getClass().getResource("/data/VTestMultiRun/output/" + folderName).toURI())
-							.isDirectory());
+			assertTrue(new File(getClass().getResource("/data/VTestMultiRun/output/" + folderName).toURI())
+							.isDirectory(), "Test directory is not a directory");
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}

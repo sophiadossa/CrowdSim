@@ -1,8 +1,8 @@
 package org.vadere.simulator.utils;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.projects.Scenario;
 import org.vadere.simulator.utils.scenariochecker.ScenarioChecker;
 import org.vadere.simulator.utils.scenariochecker.ScenarioCheckerMessage;
@@ -29,13 +29,13 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ScenarioCheckerTest implements TestResourceHandlerScenario {
 
 	TopographyTestBuilder builder;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		builder = new TopographyTestBuilder();
 	}
@@ -57,12 +57,12 @@ public class ScenarioCheckerTest implements TestResourceHandlerScenario {
 		ScenarioChecker checker = new ScenarioChecker(topography);
 		PriorityQueue<ScenarioCheckerMessage> out = checker.checkUniqueSourceId();
 
-		assertEquals("The sources should have the same id", 3, out.size());
+		assertEquals(3, out.size(), "The sources should have the same id");
 		out.forEach(m -> assertEquals(ScenarioCheckerReason.SOURCE_ID_NOT_UNIQUE, m.getReason()));
 	}
 
 	@Test
-	@Ignore
+	@Disabled
 	public void TestOverlap(){
 		VShape a = new VRectangle(0, 0, 10, 10);
 		VShape b = new VRectangle(1, 1, 1, 1);
@@ -88,7 +88,7 @@ public class ScenarioCheckerTest implements TestResourceHandlerScenario {
 		ScenarioChecker checker = new ScenarioChecker(topography);
 		PriorityQueue<ScenarioCheckerMessage> out = checker.checkUniqueSourceId();
 
-		assertEquals("No warnings expected", 0, out.size());
+		assertEquals(0, out.size(), "No warnings expected");
 	}
 
 	// Test checkValidTargetsInSource
@@ -540,7 +540,7 @@ public class ScenarioCheckerTest implements TestResourceHandlerScenario {
 				.filter(m -> m.isMessageForAllElements(idA, idB) && m.getReason().equals(reason))
 				.collect(Collectors.toList());
 
-		assertEquals("expected Message with ids{" + idA + ", " + idB + "} and Reason: "+ reason.toString(), 1, msg.size());
+		assertEquals(1, msg.size(), "expected Message with ids{" + idA + ", " + idB + "} and Reason: "+ reason.toString());
 	}
 
 	private ScenarioCheckerMessage hasOneElement(PriorityQueue<ScenarioCheckerMessage> out){

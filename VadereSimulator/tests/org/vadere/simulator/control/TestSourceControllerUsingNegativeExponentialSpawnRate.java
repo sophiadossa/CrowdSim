@@ -2,14 +2,14 @@
 /*
 package org.vadere.simulator.control;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.control.scenarioelements.SourceController;
 import org.vadere.state.attributes.scenario.SourceTestAttributesBuilder;
 import org.vadere.state.scenario.NegativeExponentialDistribution;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestSourceControllerUsingNegativeExponentialSpawnRate extends TestSourceController {
 

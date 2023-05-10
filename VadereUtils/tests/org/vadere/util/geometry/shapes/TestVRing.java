@@ -1,35 +1,38 @@
 package org.vadere.util.geometry.shapes;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.vadere.util.geometry.shapes.VPoint;
-import org.vadere.util.geometry.shapes.VRing;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 public class TestVRing {
 
-	private static VRing validRing;
-	private static double allowedError;
+	private  VRing validRing;
+	private double allowedError;
 
-	@BeforeClass
-	public static void setUp() {
+	@BeforeEach
+	public void setUp() {
 		validRing = new VRing(2, 1);
 		allowedError = 0;
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test()
 	public void testVRingConstructorExceptionRadius() {
 		double illegalRadius = 0;
-
-		new VRing(illegalRadius, illegalRadius);
+		Assertions.assertThrows(IllegalArgumentException.class, ()->{
+			new VRing(illegalRadius, illegalRadius);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test()
 	public void testVRingConstructorExceptionCirclesOfDifferentSizes() {
 		double radius = 2;
+		Assertions.assertThrows(IllegalArgumentException.class, ()->{
+			new VRing(radius, radius);
+		});
 
-		new VRing(radius, radius);
 	}
 
 	@Test

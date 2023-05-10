@@ -1,8 +1,8 @@
 package org.vadere.util.math;
 
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.logging.Logger;
 import org.vadere.util.opencl.CLConvolution;
 import org.vadere.util.opencl.CLUtils;
@@ -10,13 +10,13 @@ import org.vadere.util.opencl.OpenCLException;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestConvolution {
 
     private static Logger logger = Logger.getLogger(TestConvolution.class);
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {}
 
     @Test
@@ -194,8 +194,7 @@ public class TestConvolution {
     private static void equalsMatrixValues(final float[] m1, final float[] m2, final float epsilon) {
         assertTrue(m1.length == m2.length);
         for (int i = 0; i < m1.length; i++) {
-            assertTrue("difference: " + i + ", " + m1[i] + ", " + m2[i] + ", " + Math.abs(m1[i] - m2[i]),
-                    Math.abs(m1[i] - m2[i]) <= epsilon);
+            assertTrue(Math.abs(m1[i] - m2[i]) <= epsilon, "difference: " + i + ", " + m1[i] + ", " + m2[i] + ", " + Math.abs(m1[i] - m2[i]));
         }
     }
 

@@ -1,12 +1,12 @@
 package org.vadere.util.reflection;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.reflection.CouldNotInstantiateException;
 import org.vadere.util.reflection.DynamicClassInstantiator;
 import org.vadere.util.reflection.VadereClassNotFoundException;
@@ -15,7 +15,7 @@ public class TestDynamicClassInstantiator {
 
 	private DynamicClassInstantiator<Collection<?>> instantiator;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		instantiator = new DynamicClassInstantiator<>();
 	}

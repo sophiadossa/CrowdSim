@@ -1,8 +1,8 @@
 package org.vadere.simulator.models.osm.opencl;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.potential.fields.PotentialFieldDistanceEikonalEq;
 import org.vadere.simulator.models.potential.fields.PotentialFieldSingleTargetGrid;
 import org.vadere.simulator.projects.Domain;
@@ -146,8 +146,8 @@ public class TestCLOSMEventDriven {
 				  List<SpeedAdjuster> speedAdjusters,
 				  StepCircleOptimizer stepCircleOptimizer
 	 */
-	@Ignore
-	@Before
+	@Disabled
+	@BeforeEach
 	public void setUp() throws IOException, TextOutOfNodeException {
 		random = new Random(0);
 		maxStepSize = 0.2f;
@@ -180,7 +180,7 @@ public class TestCLOSMEventDriven {
 		pedestrians.add(pedestrian);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void testIdentity() throws OpenCLException {
 		CLParallelEventDrivenOSM clOptimalStepsModel = new CLParallelEventDrivenOSM(

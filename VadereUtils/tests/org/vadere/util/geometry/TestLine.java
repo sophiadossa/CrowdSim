@@ -1,11 +1,11 @@
 package org.vadere.util.geometry;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 import javax.sound.sampled.Line;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.GeometryUtils;
 import org.vadere.util.geometry.shapes.VLine;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -29,7 +29,7 @@ public class TestLine {
 	public static VPolygon obstacle1;
 	public static VPolygon obstacle2;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 
 		lineToTest1 = new VLine(new VPoint(0, 0), new VPoint(100, 100));
@@ -56,12 +56,12 @@ public class TestLine {
 
 	@Test
 	public void testLineIntersects() {
-		assertEquals("Line 1 should not be said to intersect line 2.", true,
-				lineToTest1.intersectsLine(lineToTest2));
-		assertEquals("Line 1 should not be said to intersect line 3.", true,
-				lineToTest1.intersectsLine(lineToTest3));
-		assertEquals("Line 1 should not be said to intersect itself.", true,
-				lineToTest1.intersectsLine(lineToTest1));
+		assertEquals(true, lineToTest1.intersectsLine(lineToTest2),
+				"Line 1 should not be said to intersect line 2.");
+		assertEquals(true, lineToTest1.intersectsLine(lineToTest3),
+				"Line 1 should not be said to intersect line 3.");
+		assertEquals(true, lineToTest1.intersectsLine(lineToTest1),
+				"Line 1 should not be said to intersect itself.");
 	}
 
 	@Test
