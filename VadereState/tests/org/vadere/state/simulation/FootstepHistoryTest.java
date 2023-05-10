@@ -1,12 +1,12 @@
 package org.vadere.state.simulation;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.shapes.VPoint;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class FootstepHistoryTest {
 
@@ -43,7 +43,7 @@ public class FootstepHistoryTest {
         }
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         expectedFootStepCapacity = 10;
         footstepHistory = new FootstepHistory(expectedFootStepCapacity);

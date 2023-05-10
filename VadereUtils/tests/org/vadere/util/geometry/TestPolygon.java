@@ -1,13 +1,13 @@
 package org.vadere.util.geometry;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Paths;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.GeometryUtils;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VPolygon;
@@ -26,7 +26,7 @@ public class TestPolygon {
 	private VTriangle testTriangle;
 	private final double roomSideLen = 100;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		testPolygon = GeometryUtils.polygonFromPoints2D(new VPoint(0, 0),
 				new VPoint(roomSideLen, 0),
@@ -44,38 +44,38 @@ public class TestPolygon {
 
 	@Test
 	public void testContainsPoint() {
-		assertEquals("The polygon should contain this point.", true,
-				testPolygon.contains(new VPoint(10, 10)));
-		assertEquals("The polygon should contain this point.", true,
-				testPolygon.contains(new VPoint(0, 10)));
-		assertEquals("The polygon should contain this point.", true,
-				testPolygon.contains(new VPoint(0, 0)));
-		assertEquals("The polygon should not contain this point.", false,
-				testPolygon.contains(new VPoint(-5, 0)));
+		assertEquals(true, testPolygon.contains(new VPoint(10, 10)),
+				"The polygon should contain this point.");
+		assertEquals(true, testPolygon.contains(new VPoint(0, 10)),
+				"The polygon should contain this point.");
+		assertEquals(true, testPolygon.contains(new VPoint(0, 0)),
+				"The polygon should contain this point.");
+		assertEquals(false, testPolygon.contains(new VPoint(-5, 0)),
+				"The polygon should not contain this point.");
 
-		assertEquals("The triangle should not contain this point.", false,
-				testTriangle.contains(new VPoint(40, 40.000000001)));
+		assertEquals(false, testTriangle.contains(new VPoint(40, 40.000000001)),
+				"The triangle should not contain this point.");
 
-		assertEquals("The triangle should not contain this point.", true,
-				testTriangle.contains(new VPoint(40, 39.999999999)));
+		assertEquals(true, testTriangle.contains(new VPoint(40, 39.999999999)),
+				"The triangle should not contain this point.");
 	}
 
 	@Test
 	public void testGetArea() {
-		assertEquals("The area of the polygon is wrong.", roomSideLen
-				* roomSideLen, testPolygon.getArea(), 1e-6);
+		assertEquals(roomSideLen
+				* roomSideLen, testPolygon.getArea(), 1e-6, "The area of the polygon is wrong.");
 	}
 
 	@Test
 	public void testGetHeight() {
-		assertEquals("The height of the polygon is wrong.", roomSideLen,
-				testPolygon.getBounds2D().getHeight(), 1e-6);
+		assertEquals(roomSideLen, testPolygon.getBounds2D().getHeight(),
+				1e-6, "The height of the polygon is wrong.");
 	}
 
 	@Test
 	public void testGetWidth() {
-		assertEquals("The width of the polygon is wrong.", roomSideLen,
-				testPolygon.getBounds2D().getWidth(), 1e-6);
+		assertEquals(roomSideLen, testPolygon.getBounds2D().getWidth(),
+				1e-6, "The width of the polygon is wrong.");
 	}
 
 	@Test
@@ -107,7 +107,7 @@ public class TestPolygon {
 
 	@Test
 	public void testEquals() {
-		assertEquals("equals() does not work properly.", testPolygon, copyTestPolygon);
+		assertEquals(testPolygon, copyTestPolygon, "equals() does not work properly.");
 	}
 
 	@Test

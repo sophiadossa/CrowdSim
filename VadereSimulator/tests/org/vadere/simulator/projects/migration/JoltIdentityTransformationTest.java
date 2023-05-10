@@ -4,8 +4,8 @@ import com.bazaarvoice.jolt.Chainr;
 import com.bazaarvoice.jolt.Diffy;
 import com.bazaarvoice.jolt.JsonUtils;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -22,13 +22,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 public class JoltIdentityTransformationTest {
 
 
 	@Test
-	@Ignore
+	@Disabled
 	public void testIdenityTransformationV02() throws IOException {
 		List<Path> scenarioFiles = getScenarioFiles(
 				Paths.get("../Scenarios/ModelTests").toRealPath(LinkOption.NOFOLLOW_LINKS).toAbsolutePath());
@@ -37,7 +37,7 @@ public class JoltIdentityTransformationTest {
 
 	// no TestResource in current git
 	@Test
-	@Ignore
+	@Disabled
 	public void testIdenityTransformationV01() throws IOException {
 
 		List<Path> scenarioFiles = getScenarioFiles(Paths.get("../Scenarios/ModelTestsV0.1").toRealPath(LinkOption.NOFOLLOW_LINKS).toAbsolutePath());
@@ -45,7 +45,7 @@ public class JoltIdentityTransformationTest {
 	}
 
 	@Test
-	@Ignore
+	@Disabled
 	public void testTransformationV01_to_V02() throws IOException {
 		List<Path> scenarioFiles = getScenarioFiles(Paths.get("../Scenarios/ModelTestsV0.1").toRealPath(LinkOption.NOFOLLOW_LINKS).toAbsolutePath());
 		Diffy diffy = new Diffy();
@@ -64,7 +64,7 @@ public class JoltIdentityTransformationTest {
 	}
 
 	@Test
-	@Ignore
+	@Disabled
 	public void migrationTest() throws IOException {
 		Path testFile = Paths.get(getClass().getResource("/scenario_test.json").getPath());
 		MigrationAssistant migrationAssistant = MigrationAssistant.getNewInstance(MigrationOptions.defaultOptions());
@@ -96,7 +96,7 @@ public class JoltIdentityTransformationTest {
 
 
 	@Test
-	@Ignore
+	@Disabled
 	public void transformv1t0v2() throws IOException {
 		Path scenario = Paths.get("../Scenarios/ModelTestsV0.1/TestOSM/scenarios/basic_1_chicken_osm1.scenario");
 		List chainrSpecJson = JsonUtils.classpathToList("/transform_v0.1_to_v0.2.json");
@@ -111,7 +111,7 @@ public class JoltIdentityTransformationTest {
 	}
 
 	@Test
-	@Ignore
+	@Disabled
 	public void attr01() throws IOException {
 		List<Path> scenarioFiles = getScenarioFiles(Paths.get("../Scenarios/ModelTestsV0.1").toRealPath(LinkOption.NOFOLLOW_LINKS).toAbsolutePath());
 		LinkedHashMap<String, Object> out = new LinkedHashMap<>();

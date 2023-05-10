@@ -1,6 +1,7 @@
 package org.vadere.simulator.models.osm;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.SpeedAdjuster;
 import org.vadere.simulator.models.potential.fields.IPotentialFieldTargetGrid;
 import org.vadere.simulator.projects.Domain;
@@ -20,7 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class OSMBehaviorControllerTest {
 
@@ -349,21 +350,23 @@ public class OSMBehaviorControllerTest {
         assertNull(swapCandidate);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void findSwapCandidateUsesAttributesFromFirstPedestrian() {
-        createOppositeDirectionVariation2Topography();
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+            createOppositeDirectionVariation2Topography();
 
-        pedestrian2.getAttributes().setWalkingDirectionCalculation(AttributesAgent.WalkingDirectionCalculation.BY_GRADIENT);
-        pedestrian2.getAttributes().setWalkingDirectionSameIfAngleLessOrEqual(270.0);
-        pedestrian2.setSelfCategory(SelfCategory.COOPERATIVE);
+            pedestrian2.getAttributes().setWalkingDirectionCalculation(AttributesAgent.WalkingDirectionCalculation.BY_GRADIENT);
+            pedestrian2.getAttributes().setWalkingDirectionSameIfAngleLessOrEqual(270.0);
+            pedestrian2.setSelfCategory(SelfCategory.COOPERATIVE);
 
-        double searchRadius = 1.5;
-        pedestrian1.getAttributes().setSearchRadius(searchRadius);
+            double searchRadius = 1.5;
+            pedestrian1.getAttributes().setSearchRadius(searchRadius);
 
-        // Exception expected because ped1 requests calculation type "BY_TARGET_CENTER",
-        // but ped2 requests "BY_GRADIENT" which contradicts.
-        OSMBehaviorController controllerUnderTest = new OSMBehaviorController();
-        PedestrianOSM swapCandidate = controllerUnderTest.findSwapCandidate(pedestrian1, topography);
+            // Exception expected because ped1 requests calculation type "BY_TARGET_CENTER",
+            // but ped2 requests "BY_GRADIENT" which contradicts.
+            OSMBehaviorController controllerUnderTest = new OSMBehaviorController();
+            PedestrianOSM swapCandidate = controllerUnderTest.findSwapCandidate(pedestrian1, topography);
+        });
     }
 
     @Test

@@ -1,9 +1,9 @@
 package org.vadere.simulator.projects;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.projects.io.IOOutput;
 import org.vadere.simulator.projects.io.IOVadere;
 import org.vadere.simulator.projects.migration.MigrationAssistant;
@@ -20,11 +20,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertFalse;
+import static  org.junit.jupiter.api.Assertions.assertNotNull;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
+import static  org.junit.jupiter.api.Assertions.fail;
 
 public class ProjectOutputTest implements TestResourceHandlerScenario {
 
@@ -43,7 +43,7 @@ public class ProjectOutputTest implements TestResourceHandlerScenario {
 		return path;
 	}
 
-	@Before
+	@BeforeEach
 	public void setup() throws URISyntaxException, IOException {
 		backupTestDir();
 		Path projectPath = getTestDir();
@@ -51,7 +51,7 @@ public class ProjectOutputTest implements TestResourceHandlerScenario {
 		projectOutput = new ProjectOutput(project);
 	}
 
-	@After
+	@AfterEach
 	public void after(){
 		loadFromBackup();
 	}
@@ -59,7 +59,7 @@ public class ProjectOutputTest implements TestResourceHandlerScenario {
 	@Test
 	public void getAllOutputDirs() throws Exception {
 		List<File> out = projectOutput.getAllOutputDirs();
-		assertEquals("There should be 14 output directories", 14, out.size());
+		assertEquals(14, out.size(), "There should be 14 output directories");
 	}
 
 	@Test
@@ -69,7 +69,7 @@ public class ProjectOutputTest implements TestResourceHandlerScenario {
 		Scenario scenario = simOut.get().getSimulatedScenario();
 
 		List<File> selectedOutputDirs = projectOutput.listSelectedOutputDirs(scenario);
-		assertEquals("There should be one match", 1, selectedOutputDirs.size());
+		assertEquals(1, selectedOutputDirs.size(), "There should be one match");
 		assertEquals("The directory name is false",
 				"testOutput2", selectedOutputDirs.get(0).getName());
 	}
@@ -109,7 +109,7 @@ public class ProjectOutputTest implements TestResourceHandlerScenario {
 
 		projectOutput.update();
 		List<File> out = projectOutput.getAllOutputDirs();
-		assertEquals("There should be 15 output directories", 15, out.size());
+		assertEquals(15, out.size(), "There should be 15 output directories");
 		assertTrue(projectOutput.getSimulationOutput("testOutput3").isPresent());
 
 		//cleanup

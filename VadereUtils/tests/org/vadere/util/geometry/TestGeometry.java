@@ -1,15 +1,15 @@
 package org.vadere.util.geometry;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.GeometryUtils;
 import org.vadere.util.geometry.shapes.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
@@ -27,15 +27,14 @@ public class TestGeometry {
 
 	public static final double roomSideLen = 100;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		toTest = CreateGeometry.createRoomWithoutObstacles(roomSideLen);
 	}
 
 	@Test
 	public void testGetPoints() {
-		assertEquals("Number of points does not match.", 4, toTest.getPoints()
-				.size());
+		assertEquals(4, toTest.getPoints().size(), "Number of points does not match.");
 	}
 
 	@Test

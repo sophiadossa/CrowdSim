@@ -1,18 +1,19 @@
 package org.vadere.state.scenario;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 import java.util.Random;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.scenario.Pedestrian;
 
 public class TestPedestrian {
 	protected Pedestrian pedestrian;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		pedestrian = createPedestrian();
 		pedestrian.setNextTargetListIndex(0);
@@ -37,10 +38,12 @@ public class TestPedestrian {
 		assertEquals(3, pedestrian.getNextTargetId());
 	}
 
-	@Test(expected = IndexOutOfBoundsException.class)
+	@Test
 	public void testGetNextTargetIdFail() {
-		pedestrian.getTargets().clear();
-		pedestrian.getNextTargetId();
+		Assertions.assertThrows(IndexOutOfBoundsException.class, ()->{
+			pedestrian.getTargets().clear();
+			pedestrian.getNextTargetId();
+		});
 	}
 
 	@Test

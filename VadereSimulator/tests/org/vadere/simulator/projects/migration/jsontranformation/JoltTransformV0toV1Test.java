@@ -2,17 +2,18 @@ package org.vadere.simulator.projects.migration.jsontranformation;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.version.Version;
 import org.vadere.simulator.projects.migration.MigrationException;
 
 import java.nio.file.Path;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertFalse;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
+import static  org.junit.jupiter.api.Assertions.fail;
 
 public class JoltTransformV0toV1Test extends JsonTransformationTest {
 
@@ -31,8 +32,8 @@ public class JoltTransformV0toV1Test extends JsonTransformationTest {
 		JsonNode out = transformation.applyAll(in);
 		// will test that  sources exists.
 		JsonNode sources = pathMustExist(out, "vadere/topography/sources");
-		assertEquals("Therer must be one source", 1, sources.size());
-		assertTrue("The source should not have the attribute distributionParameters", sources.elements().next().path("distributionParameters").isMissingNode());
+		assertEquals(1, sources.size(), "Therer must be one source");
+		assertTrue(sources.elements().next().path("distributionParameters").isMissingNode(), "The source should not have the attribute distributionParameters");
 
 
 		assertThat(pathMustExist(out, "vadere/mainModel"),
@@ -53,8 +54,8 @@ public class JoltTransformV0toV1Test extends JsonTransformationTest {
 		JsonNode out = transformation.applyAll(in);
 
 		JsonNode sources = pathMustExist(out, "vadere/topography/sources");
-		assertEquals("Therer must be one source", 1, sources.size());
-		assertFalse("The source must have the attribute distributionParameters", sources.elements().next().path("distributionParameters").isMissingNode());
+		assertEquals(1, sources.size(), "Therer must be one source");
+		assertFalse(sources.elements().next().path("distributionParameters").isMissingNode(), "The source must have the attribute distributionParameters");
 
 		assertThat(pathMustExist(out, "vadere/mainModel"),
 				nodeHasText("org.vadere.simulator.models.osm.OptimalStepsModel"));
@@ -66,12 +67,14 @@ public class JoltTransformV0toV1Test extends JsonTransformationTest {
 	}
 
 	// should fail because no main model was found
-	@Test(expected = MigrationException.class)
+	@Test
 	public void TestPostHooks3() throws MigrationException {
-		JsonTransformation transformation = factory.getJoltTransformV0toV1();
-		String TEST3 = "/migration/vNOT-A-RELEASE_to_v0.1_Test3.scenario";
-		JsonNode in = getJsonFromResource(TEST3);
-		transformation.applyAll(in);
+		Assertions.assertThrows(MigrationException.class, ()->{
+			JsonTransformation transformation = factory.getJoltTransformV0toV1();
+			String TEST3 = "/migration/vNOT-A-RELEASE_to_v0.1_Test3.scenario";
+			JsonNode in = getJsonFromResource(TEST3);
+			transformation.applyAll(in);
+		});
 
 		fail("should not be reached! The Transformation should fail with MigrationException");
 	}

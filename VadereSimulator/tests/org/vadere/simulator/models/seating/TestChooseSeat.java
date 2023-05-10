@@ -1,12 +1,13 @@
 package org.vadere.simulator.models.seating;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 import java.util.Map;
 import java.util.Random;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.seating.trainmodel.Seat;
 import org.vadere.simulator.models.seating.trainmodel.SeatGroup;
 import org.vadere.simulator.models.seating.trainmodel.TrainModel;
@@ -25,7 +26,7 @@ public class TestChooseSeat {
 	private TrainModel trainModel;
 	private SeatGroup seatGroup;
 	
-	@Before
+	@BeforeEach
 	public void setUp() {
 		model = new TestTopographyAndModelBuilder().getSeatingModel();
 		trainModel = model.getTrainModel();
@@ -33,10 +34,12 @@ public class TestChooseSeat {
 		assert seatGroup.getPersonCount() == 0;
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void testChooseSeatInFullSeatGroup() {
-		fillSeatGroup(seatGroup, 0, 1, 2, 3);
-		model.chooseSeat(seatGroup);
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			fillSeatGroup(seatGroup, 0, 1, 2, 3);
+			model.chooseSeat(seatGroup);
+		});
 	}
 	
 	@StatisticalTestCase
@@ -105,10 +108,12 @@ public class TestChooseSeat {
 		assertEquals(seatGroup.getSeat(3), model.chooseSeat(seatGroup));
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void testChooseSeat4() {
-		fillSeatGroup(seatGroup, 0, 1, 2, 3);
-		model.chooseSeat(seatGroup);
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			fillSeatGroup(seatGroup, 0, 1, 2, 3);
+			model.chooseSeat(seatGroup);
+		});
 	}
 
 	private TallySheet<Seat> runChooseSeat(final int nTrials) {

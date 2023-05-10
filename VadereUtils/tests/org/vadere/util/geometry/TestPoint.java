@@ -1,10 +1,10 @@
 package org.vadere.util.geometry;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.shapes.IPoint;
 import org.vadere.util.geometry.shapes.VPoint;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Benedikt Zoennchen

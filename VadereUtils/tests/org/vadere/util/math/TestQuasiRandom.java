@@ -1,11 +1,11 @@
 package org.vadere.util.math;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.Random;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.math.MathUtil;
 
 public class TestQuasiRandom {
@@ -52,10 +52,10 @@ public class TestQuasiRandom {
 		// System.out.println("mean:" + mean[0] + ", " + mean[1]);
 		// System.out.println("std:" + std[0] + ", " + std[1]);
 
-		assertEquals("mean x is not correct", 100, mean[0], 1e-1);
-		assertEquals("mean y is not correct", 50, mean[1], 1e-1);
-		assertEquals("std x is not correct", 57.7147, std[0], 1e-1);
-		assertEquals("std y is not correct", 28.8755, std[1], 1e-1);
+		assertEquals(100, mean[0], 1e-1, "mean x is not correct");
+		assertEquals(50, mean[1], 1e-1, "mean y is not correct");
+		assertEquals(57.7147, std[0], 1e-1, "std x is not correct");
+		assertEquals(28.8755, std[1], 1e-1, "std y is not correct");
 	}
 
 }

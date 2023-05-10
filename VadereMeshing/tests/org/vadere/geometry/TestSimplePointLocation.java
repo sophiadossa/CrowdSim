@@ -1,7 +1,7 @@
 package org.vadere.geometry;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.mesh.gen.PFace;
 import org.vadere.meshing.mesh.gen.PHalfEdge;
 import org.vadere.meshing.mesh.gen.PMesh;
@@ -13,7 +13,7 @@ import org.vadere.util.geometry.shapes.VPoint;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by bzoennchen on 15.11.16.
@@ -26,7 +26,7 @@ public class TestSimplePointLocation {
 	private static double EPSILON = 1.0e-10;
 	private IMesh<PVertex, PHalfEdge, PFace> mesh;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		mesh = new PMesh();
 		face1 = mesh.createFace();

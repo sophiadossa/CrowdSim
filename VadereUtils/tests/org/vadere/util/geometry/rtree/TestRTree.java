@@ -6,7 +6,7 @@ import com.github.davidmoten.rtree.geometry.Rectangle;
 import com.github.davidmoten.rtree.geometry.internal.LineDouble;
 import com.github.davidmoten.rtree.geometry.internal.PointDouble;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.shapes.VLine;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VPolygon;
@@ -14,7 +14,7 @@ import org.vadere.util.geometry.shapes.VRectangle;
 
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestRTree {
 

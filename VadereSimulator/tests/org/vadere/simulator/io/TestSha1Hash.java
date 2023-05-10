@@ -1,14 +1,14 @@
 package org.vadere.simulator.io;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TestSha1Hash {
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {}
 
 	@Test

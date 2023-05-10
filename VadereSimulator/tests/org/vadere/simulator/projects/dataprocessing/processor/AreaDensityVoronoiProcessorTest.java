@@ -1,12 +1,12 @@
 package org.vadere.simulator.projects.dataprocessing.processor;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class AreaDensityVoronoiProcessorTest extends ProcessorTest {
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		processorTestEnv = new AreaDensityVoronoiProcessorTestEnv();
 		super.setup();
@@ -24,7 +24,7 @@ public class AreaDensityVoronoiProcessorTest extends ProcessorTest {
 	 * Pedestrian are collinear.
 	 */
 	@Test
-	@Ignore
+	@Disabled
 	public void withCollinear() throws Exception {
 		AreaDensityVoronoiProcessorTestEnv env = (AreaDensityVoronoiProcessorTestEnv) processorTestEnv;
 		env.loadCollinearSetup();
@@ -32,7 +32,7 @@ public class AreaDensityVoronoiProcessorTest extends ProcessorTest {
 	}
 
 	@Test
-	@Ignore
+	@Disabled
 	public void init() throws Exception {
 		super.init();
 	}

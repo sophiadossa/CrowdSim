@@ -1,6 +1,6 @@
 package org.vadere.manager.traci.commandHandler;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.vadere.manager.RemoteManager;
 import org.vadere.manager.RemoteScenarioRun;

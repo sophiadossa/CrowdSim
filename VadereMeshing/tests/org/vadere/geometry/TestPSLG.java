@@ -1,6 +1,6 @@
 package org.vadere.geometry;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.examples.MeshExamples;
 import org.vadere.meshing.mesh.impl.PSLG;
 import org.vadere.meshing.utils.io.poly.PSLGGenerator;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPSLG {
 

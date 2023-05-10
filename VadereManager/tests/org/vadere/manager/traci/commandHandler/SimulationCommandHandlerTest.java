@@ -1,7 +1,7 @@
 package org.vadere.manager.traci.commandHandler;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.vadere.manager.RemoteManager;
 import org.vadere.manager.TestRemoteManager;
@@ -30,7 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.fail;
+import static  org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

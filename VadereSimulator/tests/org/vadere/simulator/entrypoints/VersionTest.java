@@ -1,10 +1,10 @@
 package org.vadere.simulator.entrypoints;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.version.Version;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
 
 public class VersionTest {
 

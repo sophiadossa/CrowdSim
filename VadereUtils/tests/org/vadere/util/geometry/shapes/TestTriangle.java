@@ -1,10 +1,10 @@
 package org.vadere.util.geometry.shapes;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VTriangle;
 
@@ -17,7 +17,7 @@ public class TestTriangle {
 
 	public static VTriangle testTriangle;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 
 		testTriangle = new VTriangle(new VPoint(40, 40), new VPoint(30, 50),
@@ -26,7 +26,7 @@ public class TestTriangle {
 
 	@Test
 	public void testIsLine() {
-		assertEquals("Triangle should be a line.", true, testTriangle.isLine());
+		assertEquals(true, testTriangle.isLine(), "Triangle should be a line.");
 	}
 
 	@Test
@@ -38,7 +38,7 @@ public class TestTriangle {
 		VPoint expectedIncenter = new VPoint(6.13526,1.99663); // computed by wolfram-alpha
 		VPoint incenter = triangle.getIncenter();
 
-		assertTrue("Incenter should be at " + expectedIncenter + " instead it is at " + incenter, expectedIncenter.equals(incenter, tolerance));
+		assertTrue(expectedIncenter.equals(incenter, tolerance), "Incenter should be at " + expectedIncenter + " instead it is at " + incenter);
 		assertTrue(incenter.equals(triangle2.getIncenter(), tolerance));
 	}
 
@@ -48,7 +48,7 @@ public class TestTriangle {
 		VTriangle triangle = new VTriangle(new VPoint(5, 3), new VPoint(10,5), new VPoint(3,-4.6));
 		VPoint expectedOrthocenter = new VPoint(-2.11529,8.18824);
 		VPoint orthcenter = triangle.getOrthocenter();
-		assertTrue("Orthocenter should be at " + expectedOrthocenter + " instead it is at " + orthcenter, expectedOrthocenter.equals(orthcenter, tolerance));
+		assertTrue(expectedOrthocenter.equals(orthcenter, tolerance), "Orthocenter should be at " + expectedOrthocenter + " instead it is at " + orthcenter);
 	}
 
 	@Test

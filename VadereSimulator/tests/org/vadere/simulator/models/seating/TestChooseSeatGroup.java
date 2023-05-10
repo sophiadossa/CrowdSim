@@ -1,14 +1,15 @@
 package org.vadere.simulator.models.seating;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.seating.trainmodel.Compartment;
 import org.vadere.simulator.models.seating.trainmodel.SeatGroup;
 import org.vadere.simulator.models.seating.trainmodel.TrainModel;
@@ -24,17 +25,19 @@ public class TestChooseSeatGroup {
 	private SeatingModel model;
 	private TrainModel trainModel;
 	
-	@Before
+	@BeforeEach
 	public void setUp() {
 		model = new TestTopographyAndModelBuilder().getSeatingModel();
 		trainModel = model.getTrainModel();
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void testChooseSeatGroupBetween4FullOnes() {
-		final Compartment compartment = trainModel.getCompartment(11);
-		fillCompartment(compartment, 4, 4, 4, 4);
-		runChooseSeatGroup(compartment, 1);
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			final Compartment compartment = trainModel.getCompartment(11);
+			fillCompartment(compartment, 4, 4, 4, 4);
+			runChooseSeatGroup(compartment, 1);
+		});
 	}
 	
 	@StatisticalTestCase

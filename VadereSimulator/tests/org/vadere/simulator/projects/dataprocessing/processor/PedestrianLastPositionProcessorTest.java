@@ -1,12 +1,12 @@
 package org.vadere.simulator.projects.dataprocessing.processor;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class PedestrianLastPositionProcessorTest extends ProcessorTest {
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		processorTestEnv = new PedestrianLastPositionProcessorTestEnv();
 		super.setup();

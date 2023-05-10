@@ -1,7 +1,7 @@
 package org.vadere.simulator.control;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.vadere.simulator.control.factory.SingleSourceControllerFactory;
 import org.vadere.simulator.control.factory.SourceControllerFactory;
 import org.vadere.simulator.control.scenarioelements.SourceController;
@@ -21,12 +21,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestSourceController {
     ArrayList<TestSourceControllerUsingConstantSpawnRate.SourceTestData> sourceTestData;
 
-    @Before
+    @BeforeEach
     public void init() {
         sourceTestData = new ArrayList<>();
     }

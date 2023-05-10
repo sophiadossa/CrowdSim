@@ -1,15 +1,17 @@
 package org.vadere.simulator.models.seating.trainmodel;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
+import static  org.junit.jupiter.api.Assertions.fail;
 
 import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.seating.TestTopographyAndModelBuilder;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesSource;
@@ -27,7 +29,7 @@ public class TestTrainModel {
 	private TrainGeometry trainGeometry;
 	private TrainModel trainModel;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		TestTopographyAndModelBuilder builder = new TestTopographyAndModelBuilder();
 		trainModel = builder.getTrainModel();
@@ -81,19 +83,23 @@ public class TestTrainModel {
 		fail("Compartment target with id not found.");
 	}
 	
-	@Test(expected=RuntimeException.class)
+	@Test
 	public void testGetEntranceAreaIndexForPersonFail1() {
-		Pedestrian p = createTestPedestrian();
-		// no source assigned
-		trainModel.getEntranceAreaIndexForPerson(p);
+		Assertions.assertThrows(RuntimeException.class, ()->{
+			Pedestrian p = createTestPedestrian();
+			// no source assigned
+			trainModel.getEntranceAreaIndexForPerson(p);
+		});
 	}
 	
-	@Test(expected=RuntimeException.class)
+	@Test
 	public void testGetEntranceAreaIndexForPersonFail2() {
-		Pedestrian p = createTestPedestrian();
-		// assign source that is not one of the door sources
-		p.setSource(new Source(new AttributesSource(0)));
-		trainModel.getEntranceAreaIndexForPerson(p);
+		Assertions.assertThrows(RuntimeException.class, ()->{
+			Pedestrian p = createTestPedestrian();
+			// assign source that is not one of the door sources
+			p.setSource(new Source(new AttributesSource(0)));
+			trainModel.getEntranceAreaIndexForPerson(p);
+		});
 	}
 	
 	@Test
@@ -187,9 +193,11 @@ public class TestTrainModel {
 		assertTrue(trainGeometry.getCompartmentRect(compartmentIndex).contains(targetPoint));
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test
 	public void testGetCompartmentWithInvalidTarget() {
-		trainModel.getCompartment(new Target(new AttributesTarget()));
+		Assertions.assertThrows(IllegalArgumentException.class, ()->{
+			trainModel.getCompartment(new Target(new AttributesTarget()));
+		});
 	}
 
 	@Test
@@ -215,17 +223,21 @@ public class TestTrainModel {
 		assertEquals(trainModel.getCompartment(p), getCompartmentByCompartmentTargetIndex(0));
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void testGetCompartmentByPedestrianNoTargets() {
-		Pedestrian p = createTestPedestrian();
-		trainModel.getCompartment(p);
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			Pedestrian p = createTestPedestrian();
+			trainModel.getCompartment(p);
+		});
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test
 	public void testGetCompartmentByPedestrianWrongLastTarget() {
-		Pedestrian p = createTestPedestrian();
-		p.addTarget(trainModel.getSeatGroup(0, 0).getSeat(0).getAssociatedTarget());
-		trainModel.getCompartment(p);
+		Assertions.assertThrows(IllegalArgumentException.class, ()->{
+			Pedestrian p = createTestPedestrian();
+			p.addTarget(trainModel.getSeatGroup(0, 0).getSeat(0).getAssociatedTarget());
+			trainModel.getCompartment(p);
+		});
 	}
 
 	@Test

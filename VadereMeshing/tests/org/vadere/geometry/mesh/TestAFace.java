@@ -1,7 +1,7 @@
 package org.vadere.geometry.mesh;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.mesh.gen.AFace;
 import org.vadere.meshing.mesh.gen.AHalfEdge;
 import org.vadere.meshing.mesh.gen.AMesh;
@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class TestAFace {
@@ -37,7 +37,7 @@ public class TestAFace {
     private AHalfEdge yw;
     private AHalfEdge zy;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         mesh = new AMesh();
         border = mesh.createFace(true);

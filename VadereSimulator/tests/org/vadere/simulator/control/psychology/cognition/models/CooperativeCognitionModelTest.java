@@ -1,7 +1,7 @@
 package org.vadere.simulator.control.psychology.cognition.models;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.psychology.cognition.SelfCategory;
@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class CooperativeCognitionModelTest {
 
@@ -23,7 +23,7 @@ public class CooperativeCognitionModelTest {
     private List<Pedestrian> pedestrians;
     private List<Attributes> attributes = new LinkedList<>();
 
-    @Before
+    @BeforeEach
     public void initializePedestrian() {
         int agentId = 1;
         AttributesAgent attributesAgent = new AttributesAgent(agentId);

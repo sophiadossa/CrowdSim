@@ -1,7 +1,7 @@
 package org.vadere.util.io;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.data.Table;
 import org.vadere.util.io.TableReader;
 
@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestIOUtils {
 
@@ -27,7 +27,7 @@ public class TestIOUtils {
 	/**
 	 * @throws java.lang.Exception
 	 */
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		tableDataString1 = "0,1,2.3; x" + System.lineSeparator() + "1,2,2.42; x";
 		tableDataFormat1 = "%d,%d,%f; %s";
@@ -50,10 +50,10 @@ public class TestIOUtils {
 		Table t = reader.readTable(Stream.generate(() -> generateLine(dataFormat, headerFormat)).limit(401), headline);
 
 		Consumer<Integer> checkRow = i -> {
-			assertEquals("wrong data in the table, pos x", (i + 1) * 10.0, t.getEntry("x", i));
-			assertEquals("wrong data in the table, pos y", (i + 1) * 3.0, t.getEntry("y", i));
-			assertEquals("wrong data in the table, pos id", (i + 1), t.getEntry("id", i));
-			assertEquals("wrong data in the table, pos name", "s" + (i + 1) + "d", t.getEntry("name", i));
+			assertEquals((i + 1) * 10.0, t.getEntry("x", i), "wrong data in the table, pos x");
+			assertEquals((i + 1) * 3.0, t.getEntry("y", i), "wrong data in the table, pos y");
+			assertEquals((i + 1), t.getEntry("id", i), "wrong data in the table, pos id");
+			assertEquals("s" + (i + 1) + "d", t.getEntry("name", i), "wrong data in the table, pos name");
 		};
 
 		Stream.iterate(0, i -> i + 1).limit(400).forEach(checkRow);
@@ -65,11 +65,11 @@ public class TestIOUtils {
 		Table t =
 				reader.readTable(Stream.of(tableDataString1.split(System.lineSeparator())), false, "a", "b", "c", "d");
 
-		assertEquals("table size does not match.", 2, t.size());
-		assertEquals("wrong data in the table, pos a", 0, t.getEntry("a", 0));
-		assertEquals("wrong data in the table, pos b", 1, t.getEntry("b", 0));
-		assertEquals("wrong data in the table, pos c", 2.3, t.getEntry("c", 0));
-		assertEquals("wrong data in the table, pos d", "x", t.getEntry("d", 0));
+		assertEquals(2, t.size(), "table size does not match.");
+		assertEquals(0, t.getEntry("a", 0), "wrong data in the table, pos a");
+		assertEquals(1, t.getEntry("b", 0), "wrong data in the table, pos b");
+		assertEquals(2.3, t.getEntry("c", 0), "wrong data in the table, pos c");
+		assertEquals("x", t.getEntry("d", 0), "wrong data in the table, pos d");
 	}
 
 

@@ -1,7 +1,7 @@
 package org.vadere.state.psychology;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.psychology.information.KnowledgeBase;
 import org.vadere.state.psychology.perception.types.KnowledgeItem;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class KnowledgeBaseTest {
 
@@ -18,7 +18,7 @@ public class KnowledgeBaseTest {
 	KnowledgeItem i2;
 	KnowledgeItem i3;
 
-	@Before
+	@BeforeEach
 	public void init(){
 		i1 = new KnowledgeItem(1.0, 2.0, "i001");
 		i2 = new KnowledgeItem(1.0, 3.0, "i002");
@@ -32,7 +32,7 @@ public class KnowledgeBaseTest {
 		base.addInformation(i2);
 		base.addInformation(i3);
 		base.updateObsolete(2.1);
-		assertThat(base.getKnowledge().size(), equalTo(2));
+		assertEquals(2, base.getKnowledge().size());
 		assertFalse(base.knowsAbout(i1.getInformationId()));
 		assertTrue(base.knowsAbout(i2.getInformationId()));
 		assertTrue(base.knowsAbout(i3.getInformationId()));

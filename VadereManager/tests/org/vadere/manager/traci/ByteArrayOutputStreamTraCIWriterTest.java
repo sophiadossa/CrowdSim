@@ -1,8 +1,9 @@
 package org.vadere.manager.traci;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.traci.TraCIException;
 import org.vadere.manager.traci.sumo.LightPhase;
 import org.vadere.manager.traci.sumo.RoadMapPosition;
@@ -18,19 +19,19 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertThat;
 
 public class ByteArrayOutputStreamTraCIWriterTest {
 
 	ByteArrayOutputStreamTraCIWriter writer;
 
-	@Before
+	@BeforeEach
 	public void before(){
 		writer = new ByteArrayOutputStreamTraCIWriter();
 	}
 
-	@After
+	@AfterEach
 	public void after(){
 		writer.rest();
 	}
@@ -77,9 +78,11 @@ public class ByteArrayOutputStreamTraCIWriterTest {
 		assertThat((int)buf[2] & 0xff, equalTo(0));
 	}
 
-	@Test(expected = TraCIException.class)
+	@Test
 	public void writeUnsignedByte1() {
-		writer.writeUnsignedByte(999);
+		Assertions.assertThrows(TraCIException.class, ()->{
+			writer.writeUnsignedByte(999);
+		});
 	}
 
 	@Test
@@ -253,12 +256,14 @@ public class ByteArrayOutputStreamTraCIWriterTest {
 		checkEmpty(buf);
 	}
 
-	@Test(expected = TraCIException.class)
+	@Test
 	public void writePolygonWithError(){
-		ArrayList<VPoint> points = new ArrayList<>();
-		IntStream.range(0, 300).forEach( i -> points.add(new VPoint(i,i)));
+		Assertions.assertThrows(TraCIException.class, ()->{
+			ArrayList<VPoint> points = new ArrayList<>();
+			IntStream.range(0, 300).forEach( i -> points.add(new VPoint(i,i)));
 
-		writer.writePolygon(points);
+			writer.writePolygon(points);
+		});
 	}
 
 	@Test
@@ -292,14 +297,16 @@ public class ByteArrayOutputStreamTraCIWriterTest {
 	}
 
 
-	@Test(expected = TraCIException.class)
+	@Test
 	public void writeTrafficLightPhaseListError(){
-		ArrayList<TrafficLightPhase> phases = new ArrayList<>();
-		IntStream.range(0, 256)
-				.forEach( i -> phases.add(
-						new TrafficLightPhase("", "",
-								LightPhase.GREEN)));
-		writer.writeTrafficLightPhaseList(phases);
+		Assertions.assertThrows(TraCIException.class, ()->{
+			ArrayList<TrafficLightPhase> phases = new ArrayList<>();
+			IntStream.range(0, 256)
+					.forEach( i -> phases.add(
+							new TrafficLightPhase("", "",
+									LightPhase.GREEN)));
+			writer.writeTrafficLightPhaseList(phases);
+		});
 	}
 
 	@Test

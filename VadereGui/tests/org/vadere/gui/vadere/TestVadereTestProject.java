@@ -1,11 +1,11 @@
 package org.vadere.gui.vadere;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.projects.Scenario;
 import org.vadere.simulator.projects.io.JsonConverter;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.io.InputStream;

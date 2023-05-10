@@ -1,7 +1,7 @@
 package org.vadere.simulator.projects.migration.jsontranformation;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.vadere.simulator.utils.reflection.TestJsonNodeExplorer;
 import org.vadere.simulator.utils.reflection.TestJsonNodeHelper;
 import org.vadere.simulator.utils.reflection.TestResourceHandlerScenario;
@@ -11,12 +11,12 @@ public abstract class JsonTransformationTest implements TestJsonNodeExplorer, Te
 	protected org.vadere.simulator.projects.migration.jsontranformation.JsonTransformationFactory factory = org.vadere.simulator.projects.migration.jsontranformation.JsonTransformationFactory.instance();
 
 
-	@Before
+	@BeforeEach
 	public void init() {
 		backupTestDir();
 	}
 
-	@After
+	@AfterEach
 	public void cleaUp() {
 		loadFromBackup();
 	}

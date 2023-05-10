@@ -1,7 +1,8 @@
 package org.vadere.simulator.control.psychology.cognition.models;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
@@ -26,7 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class ThreatCognitionModelTest {
 
@@ -34,7 +35,7 @@ public class ThreatCognitionModelTest {
     private List<Pedestrian> pedestrians;
     private Topography topography;
 
-    @Before
+    @BeforeEach
     public void initializePedestrian() {
         int agentId = 1;
         AttributesAgent attributesAgent = new AttributesAgent(agentId);
@@ -79,14 +80,16 @@ public class ThreatCognitionModelTest {
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void updateThrowsIllegalArgumentExceptionUponUnsupportedStimulus() {
-        Stimulus unsupportedStimulus = new Wait();
-        pedestrian.setMostImportantStimulus(unsupportedStimulus);
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+            Stimulus unsupportedStimulus = new Wait();
+            pedestrian.setMostImportantStimulus(unsupportedStimulus);
 
-        ThreatCognitionModel modelUnderTest = new ThreatCognitionModel();
+            ThreatCognitionModel modelUnderTest = new ThreatCognitionModel();
 
-        modelUnderTest.update(pedestrians);
+            modelUnderTest.update(pedestrians);
+        });
     }
 
     @Test

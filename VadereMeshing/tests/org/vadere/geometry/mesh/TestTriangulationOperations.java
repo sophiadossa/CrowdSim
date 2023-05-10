@@ -1,8 +1,8 @@
 package org.vadere.geometry.mesh;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.mesh.gen.PFace;
 import org.vadere.meshing.mesh.gen.PVertex;
 import org.vadere.meshing.mesh.impl.PTriangulation;
@@ -17,9 +17,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author Benedikt Zoennchen
@@ -31,7 +28,7 @@ public class TestTriangulationOperations {
 	private List<IPoint> points = new ArrayList<>();
 	private VRectangle bound = new VRectangle(-0.5, -0.5, 2.0, 2.0);
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		triangulation = IIncrementalTriangulation.createVPTriangulation(bound);
 		points.add(new VPoint(0,0));
@@ -106,22 +103,22 @@ public class TestTriangulationOperations {
 
 		triangulation.remove(new VPoint(0.5, 0.5));
 		assertEquals(points.size()-1, mesh.getNumberOfVertices());
-		Assert.assertTrue(mesh.isValid());
+		assertTrue(mesh.isValid());
 
 		triangulation.remove(new VPoint(0.3, 0.3));
 		assertEquals(points.size()-2, mesh.getNumberOfVertices());
-		Assert.assertTrue(mesh.isValid());
+		assertTrue(mesh.isValid());
 
 		triangulation.remove(new VPoint(0.3, 0.6));
 		assertEquals(points.size()-3, mesh.getNumberOfVertices());
-		Assert.assertTrue(mesh.isValid());
+		assertTrue(mesh.isValid());
 
 		triangulation.insert(new VPoint(0.15, 0.5));
 		assertEquals(points.size()-2, mesh.getNumberOfVertices());
-		Assert.assertTrue(mesh.isValid());
+		assertTrue(mesh.isValid());
 
 		triangulation.remove(new VPoint(0.15, 0.5));
 		assertEquals(points.size()-3, mesh.getNumberOfVertices());
-		Assert.assertTrue(mesh.isValid());
+		assertTrue(mesh.isValid());
 	}
 }

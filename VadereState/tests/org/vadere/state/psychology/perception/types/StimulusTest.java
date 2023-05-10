@@ -1,13 +1,13 @@
 package org.vadere.state.psychology.perception.types;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.shapes.ShapeType;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VRectangle;
 
 import java.util.LinkedList;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class StimulusTest {
 

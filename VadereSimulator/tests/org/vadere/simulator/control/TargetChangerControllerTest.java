@@ -1,8 +1,9 @@
 package org.vadere.simulator.control;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.control.scenarioelements.TargetChangerController;
 import org.vadere.simulator.control.scenarioelements.targetchanger.TargetChangerAlgorithm;
 import org.vadere.simulator.models.groups.cgm.CentroidGroup;
@@ -17,7 +18,7 @@ import org.vadere.util.geometry.shapes.VRectangle;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class TargetChangerControllerTest {
 
@@ -53,7 +54,7 @@ public class TargetChangerControllerTest {
     // The "TargetChanger" is added by each test individually
     // to meet the requirements of the test.
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         topography = new Topography();
         pedestrians = createTwoPedestrianWithTargetT1(1);
@@ -175,7 +176,7 @@ public class TargetChangerControllerTest {
         return new TargetChangerController(topography, targetChanger, random);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 
@@ -597,83 +598,93 @@ public class TargetChangerControllerTest {
 
     // check IllegalArgumentException in nextTarget and probability size setup for each algorithm
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void checkFollowPedestrianTarget() {
-        AttributesTargetChanger attributesTargetChanger = createAttributesWithFixedRectangle();
-        attributesTargetChanger.setNextTarget(createIntegerList(1, 2, 3));
-        attributesTargetChanger.setChangeAlgorithmType(TargetChangerAlgorithmType.FOLLOW_PERSON);
-        attributesTargetChanger.setProbabilitiesToChangeTarget(new LinkedList<Double>(Arrays.asList(1.0)));
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+            AttributesTargetChanger attributesTargetChanger = createAttributesWithFixedRectangle();
+            attributesTargetChanger.setNextTarget(createIntegerList(1, 2, 3));
+            attributesTargetChanger.setChangeAlgorithmType(TargetChangerAlgorithmType.FOLLOW_PERSON);
+            attributesTargetChanger.setProbabilitiesToChangeTarget(new LinkedList<Double>(Arrays.asList(1.0)));
 
-        // only one nextTarget needed
-        TargetChanger targetChanger = new TargetChanger(attributesTargetChanger);
-        TargetChangerController controllerUnderTest = createTargetChangerController(targetChanger);
+            // only one nextTarget needed
+            TargetChanger targetChanger = new TargetChanger(attributesTargetChanger);
+            TargetChangerController controllerUnderTest = createTargetChangerController(targetChanger);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void checkFollowPedestrianTargetWronProb() {
-        AttributesTargetChanger attributesTargetChanger = createAttributesWithFixedRectangle();
-        attributesTargetChanger.setNextTarget(createIntegerList(1, 2, 3));
-        attributesTargetChanger.setChangeAlgorithmType(TargetChangerAlgorithmType.FOLLOW_PERSON);
-        attributesTargetChanger.setProbabilitiesToChangeTarget(new LinkedList<Double>(Arrays.asList(1.1)));
+    @Test
+    public void checkFollowPedestrianTargetWrongProb() {
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+            AttributesTargetChanger attributesTargetChanger = createAttributesWithFixedRectangle();
+            attributesTargetChanger.setNextTarget(createIntegerList(1, 2, 3));
+            attributesTargetChanger.setChangeAlgorithmType(TargetChangerAlgorithmType.FOLLOW_PERSON);
+            attributesTargetChanger.setProbabilitiesToChangeTarget(new LinkedList<Double>(Arrays.asList(1.1)));
 
-        // only one nextTarget needed
-        TargetChanger targetChanger = new TargetChanger(attributesTargetChanger);
-        TargetChangerController controllerUnderTest = createTargetChangerController(targetChanger);
+            // only one nextTarget needed
+            TargetChanger targetChanger = new TargetChanger(attributesTargetChanger);
+            TargetChangerController controllerUnderTest = createTargetChangerController(targetChanger);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void checkSelectElementTargetToFew() {
-        AttributesTargetChanger attributesTargetChanger = createAttributesWithFixedRectangle();
-        attributesTargetChanger.setNextTarget(createIntegerList(1, 2, 3, 4));
-        attributesTargetChanger.setChangeAlgorithmType(TargetChangerAlgorithmType.SELECT_ELEMENT);
-        attributesTargetChanger.setProbabilitiesToChangeTarget(new LinkedList<Double>(
-                Arrays.asList(0.7, 0.5)));
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+            AttributesTargetChanger attributesTargetChanger = createAttributesWithFixedRectangle();
+            attributesTargetChanger.setNextTarget(createIntegerList(1, 2, 3, 4));
+            attributesTargetChanger.setChangeAlgorithmType(TargetChangerAlgorithmType.SELECT_ELEMENT);
+            attributesTargetChanger.setProbabilitiesToChangeTarget(new LinkedList<Double>(
+                    Arrays.asList(0.7, 0.5)));
 
-        // to few probabilities. (same size or one more than nextTargets)
-        TargetChanger targetChanger = new TargetChanger(attributesTargetChanger);
-        TargetChangerController controllerUnderTest = createTargetChangerController(targetChanger);
+            // to few probabilities. (same size or one more than nextTargets)
+            TargetChanger targetChanger = new TargetChanger(attributesTargetChanger);
+            TargetChangerController controllerUnderTest = createTargetChangerController(targetChanger);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void checkSelectElementTargetToMany() {
-        AttributesTargetChanger attributesTargetChanger = createAttributesWithFixedRectangle();
-        attributesTargetChanger.setNextTarget(createIntegerList(1, 2, 3, 4));
-        attributesTargetChanger.setChangeAlgorithmType(TargetChangerAlgorithmType.SELECT_ELEMENT);
-        attributesTargetChanger.setProbabilitiesToChangeTarget(new LinkedList<Double>(
-                Arrays.asList(0.7, 0.5, 0.1, 0.1, 0.0, 0.0)));
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+            AttributesTargetChanger attributesTargetChanger = createAttributesWithFixedRectangle();
+            attributesTargetChanger.setNextTarget(createIntegerList(1, 2, 3, 4));
+            attributesTargetChanger.setChangeAlgorithmType(TargetChangerAlgorithmType.SELECT_ELEMENT);
+            attributesTargetChanger.setProbabilitiesToChangeTarget(new LinkedList<Double>(
+                    Arrays.asList(0.7, 0.5, 0.1, 0.1, 0.0, 0.0)));
 
-        // to many probabilities. (same size or one more than nextTargets)
-        TargetChanger targetChanger = new TargetChanger(attributesTargetChanger);
-        TargetChangerController controllerUnderTest = createTargetChangerController(targetChanger);
+            // to many probabilities. (same size or one more than nextTargets)
+            TargetChanger targetChanger = new TargetChanger(attributesTargetChanger);
+            TargetChangerController controllerUnderTest = createTargetChangerController(targetChanger);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void checkListTarget() {
-        AttributesTargetChanger attributesTargetChanger = createAttributesWithFixedRectangle();
-        attributesTargetChanger.setNextTarget(createIntegerList(1, 2, 3, 4));
-        attributesTargetChanger.setChangeAlgorithmType(TargetChangerAlgorithmType.SELECT_LIST);
-        attributesTargetChanger.setProbabilitiesToChangeTarget(new LinkedList<Double>(
-                Arrays.asList(0.7, 0.5)));
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+            AttributesTargetChanger attributesTargetChanger = createAttributesWithFixedRectangle();
+            attributesTargetChanger.setNextTarget(createIntegerList(1, 2, 3, 4));
+            attributesTargetChanger.setChangeAlgorithmType(TargetChangerAlgorithmType.SELECT_LIST);
+            attributesTargetChanger.setProbabilitiesToChangeTarget(new LinkedList<Double>(
+                    Arrays.asList(0.7, 0.5)));
 
-        // only one probability.
+            // only one probability.
 
-        TargetChanger targetChanger = new TargetChanger(attributesTargetChanger);
-        TargetChangerController controllerUnderTest = createTargetChangerController(targetChanger);
+            TargetChanger targetChanger = new TargetChanger(attributesTargetChanger);
+            TargetChangerController controllerUnderTest = createTargetChangerController(targetChanger);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void checkSubListTarget() {
-        AttributesTargetChanger attributesTargetChanger = createAttributesWithFixedRectangle();
-        attributesTargetChanger.setNextTarget(createIntegerList(1, 2, 3, 4));
-        attributesTargetChanger.setChangeAlgorithmType(TargetChangerAlgorithmType.SORTED_SUB_LIST);
-        attributesTargetChanger.setProbabilitiesToChangeTarget(new LinkedList<Double>(
-                Arrays.asList(0.7, 1.0, 0.3)));
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+            AttributesTargetChanger attributesTargetChanger = createAttributesWithFixedRectangle();
+            attributesTargetChanger.setNextTarget(createIntegerList(1, 2, 3, 4));
+            attributesTargetChanger.setChangeAlgorithmType(TargetChangerAlgorithmType.SORTED_SUB_LIST);
+            attributesTargetChanger.setProbabilitiesToChangeTarget(new LinkedList<Double>(
+                    Arrays.asList(0.7, 1.0, 0.3)));
 
-        // must be same number
-        TargetChanger targetChanger = new TargetChanger(attributesTargetChanger);
-        TargetChangerController controllerUnderTest = createTargetChangerController(targetChanger);
-
-
+            // must be same number
+            TargetChanger targetChanger = new TargetChanger(attributesTargetChanger);
+            TargetChangerController controllerUnderTest = createTargetChangerController(targetChanger);
+        });
     }
 
 

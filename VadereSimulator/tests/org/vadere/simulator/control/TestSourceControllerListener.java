@@ -1,6 +1,6 @@
 package org.vadere.simulator.control;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.control.scenarioelements.SourceController;
 import org.vadere.simulator.control.scenarioelements.listener.ControllerEventListener;
 import org.vadere.state.attributes.scenario.SourceTestAttributesBuilder;
@@ -9,8 +9,8 @@ import org.vadere.state.scenario.Pedestrian;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class TestSourceControllerListener extends TestSourceControllerUsingConstantSpawnRate {
 
@@ -37,13 +37,13 @@ public class TestSourceControllerListener extends TestSourceControllerUsingConst
 		first().sourceController.update(0);
 		Pedestrian p = first().topography.getPedestrianDynamicElements().getElements().toArray(Pedestrian[]::new)[0];
 		int target = p.getTargets().getFirst();
-		assertEquals("", 99, target);
+		assertEquals(99, target);
 
 		// after unregister listener must not change target
 		first().sourceController.unregister(listener);
 		first().sourceController.update(1);
 		int pedCount = first().topography.getPedestrianDynamicElements().getElements().size();
-		assertEquals("should be 2", 2, pedCount);
+		assertEquals(2, pedCount, "should be 2");
 		p = first().topography.getPedestrianDynamicElements().getElements().toArray(Pedestrian[]::new)[1];
 		target = p.getTargets().getFirst();
 		assertNotEquals(99, target);

@@ -5,9 +5,8 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.data.cellgrid.CellStateFD;
 import org.vadere.util.geometry.Vector3D;
 import org.vadere.util.io.GeometryPrinter;
@@ -27,11 +26,11 @@ public class TestFM3D {
 	private static final int width = 20;
 	private static final int height = 20;
 	private static final int depth = 20;
-	private static ITimeCostFunction3D timecost;
-	private static PotentialFieldCalculatorFastMarching3D solver;
+	private ITimeCostFunction3D timecost;
+	private PotentialFieldCalculatorFastMarching3D solver;
 
-	@BeforeClass
-	public static void setUpBeforeClass() {
+	@BeforeEach
+	public void setUpBeforeClass() {
 		timecost = new UnitTimeCostFunction3D();
 		solver = new PotentialFieldCalculatorFastMarching3D(timecost);
 	}
@@ -39,7 +38,7 @@ public class TestFM3D {
 	/**
 	 * @throws java.lang.Exception
 	 */
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {}
 
 	/**

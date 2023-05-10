@@ -1,7 +1,7 @@
 package org.vadere.simulator.io;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
 import org.vadere.state.attributes.scenario.AttributesTeleporter;
 import org.vadere.state.attributes.scenario.AttributesTopography;
@@ -29,7 +29,7 @@ public class TestScenarioToJson {
 			+ ",\"teleporter\":{\"shift\":{\"x\":0.0,\"y\":0.0},\"position\":{\"x\":0.0,\"y\":0.0}}}";
 	private Topography scenario;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		VPolygon polygon = GeometryUtils.polygonFromPoints2D(new VPoint(0, 0),
 				new VPoint(10, 0), new VPoint(10, 10), new VPoint(0, 10));
@@ -47,7 +47,7 @@ public class TestScenarioToJson {
 	public void testScenarioToJson() throws JsonProcessingException {
 
 	/*	String jsonString = JsonConverter.serializeTopography(scenario);
-		Assert.assertEquals("Scenario json is not correct.", scenarioJson, jsonString);
+		assertEquals("Scenario json is not correct.", scenarioJson, jsonString);
 	*/
 	}
 

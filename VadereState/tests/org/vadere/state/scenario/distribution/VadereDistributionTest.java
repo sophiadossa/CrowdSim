@@ -1,6 +1,6 @@
 package org.vadere.state.scenario.distribution;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Aleksandar Ivanov(ivanov0@hm.edu)

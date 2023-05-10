@@ -1,6 +1,6 @@
 package org.vadere.simulator.control.psychology.perception;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.control.psychology.perception.models.SimplePerceptionModel;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.psychology.perception.AttributesSimplePerceptionModel;
@@ -16,7 +16,7 @@ import org.vadere.util.geometry.shapes.VShape;
 
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class SimplePerceptionModelTest {
 

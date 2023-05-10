@@ -10,7 +10,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.fail;
+import static  org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Helper Methods for dealing with JsonNodes in TestFiles.

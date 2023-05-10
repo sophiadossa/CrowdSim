@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-import static junit.framework.TestCase.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class PedestrianFlowProcessorTestEnv extends ProcessorTestEnv<TimestepPedestrianIdKey, Double> {
 

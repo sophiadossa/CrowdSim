@@ -1,6 +1,7 @@
 package org.vadere.simulator.control.psychology.perception;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.projects.ScenarioStore;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesTarget;
@@ -18,7 +19,7 @@ import org.vadere.util.geometry.shapes.VShape;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class StimulusControllerTest {
 
@@ -132,14 +133,16 @@ public class StimulusControllerTest {
         assertEquals(1, stimulusController.getRecurringStimuli().size());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void timeframeIsActiveAtSimulationTimeThrowsExceptionIfNoRecurringStimulusTimeframe() {
-        boolean isRecurringStimulus = false;
-        double simulationTime = 0.8;
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+            boolean isRecurringStimulus = false;
+            double simulationTime = 0.8;
 
-        Timeframe timeframe = new Timeframe(0.75, 1.25, isRecurringStimulus, 1.0);
+            Timeframe timeframe = new Timeframe(0.75, 1.25, isRecurringStimulus, 1.0);
 
-        StimulusController.timeframeIsActiveAtSimulationTime(timeframe, simulationTime);
+            StimulusController.timeframeIsActiveAtSimulationTime(timeframe, simulationTime);
+        });
     }
 
     @Test
@@ -346,11 +349,13 @@ public class StimulusControllerTest {
         assertEquals(0, wait.getTime(), 10e-1);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void timeframeIsActiveAtSimulationTimeThrowExceptionIfTimeframeHasRepeatFalse(){
-        StimulusController.timeframeIsActiveAtSimulationTime(
-                new Timeframe(2, 7, false,0), 1);
-        fail("Should not be reached");
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+            StimulusController.timeframeIsActiveAtSimulationTime(
+                    new Timeframe(2, 7, false,0), 1);
+            fail("Should not be reached");
+        });
     }
 
     @Test
@@ -397,22 +402,22 @@ public class StimulusControllerTest {
         //both stimulusInfo1 stimulusInfo2
         stimuli = stimulusController.getStimuliFilteredTimeOnly(3.5);
         assertEquals(4, stimuli.size());
-        assertTrue(errorMessage, stimuli.contains(stimulus1));
-        assertTrue(errorMessage, stimuli.contains(stimulus2));
-        assertTrue(errorMessage, stimuli.contains(stimulus3));
+        assertTrue(stimuli.contains(stimulus1), errorMessage);
+        assertTrue(stimuli.contains(stimulus2), errorMessage);
+        assertTrue(stimuli.contains(stimulus3), errorMessage);
         assertTimeStamp(stimuli, 3.5);
 
         //only stimulusInfo1
         stimuli = stimulusController.getStimuliFilteredTimeOnly(4.5);
         assertEquals(3, stimuli.size());
-        assertTrue(errorMessage, stimuli.contains(stimulus1));
-        assertTrue(errorMessage, stimuli.contains(stimulus2));
+        assertTrue(stimuli.contains(stimulus1), errorMessage);
+        assertTrue(stimuli.contains(stimulus2), errorMessage);
         assertTimeStamp(stimuli, 4.5);
 
         //one time event is over only stimuli from stimulusInfo2
         stimuli = stimulusController.getStimuliFilteredTimeOnly(7.8);
         assertEquals(2, stimuli.size());
-        assertTrue(errorMessage, stimuli.contains(stimulus3));
+        assertTrue(stimuli.contains(stimulus3), errorMessage);
         assertTimeStamp(stimuli, 7.8);
 
         //no event (only the default time event)
