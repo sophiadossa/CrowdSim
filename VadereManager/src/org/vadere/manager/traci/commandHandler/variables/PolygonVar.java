@@ -16,7 +16,9 @@ public enum PolygonVar {
 	IMAGEFILE(0x93, TraCIDataType.STRING),
 	WIDTH(0x4d, TraCIDataType.DOUBLE), // get, set
 	HEIGHT(0xbc, TraCIDataType.DOUBLE), // get, set
-	ANGLE(0x43, TraCIDataType.DOUBLE);
+	ANGLE(0x43, TraCIDataType.DOUBLE),
+	MEASUREMENT_AREA_SHAPE(0x63, TraCIDataType.POLYGON),
+	OBSTACLE_SHAPE(0x64, TraCIDataType.POLYGON);
 
 	public int id;
 	public TraCIDataType type;
