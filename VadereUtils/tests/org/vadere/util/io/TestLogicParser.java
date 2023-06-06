@@ -132,13 +132,13 @@ public class TestLogicParser {
 	@Test
 	public void testNot() throws ParseException {
 		// spacing test
-		assertTrue_("!(id==6)", new JsonLogicParser("!(id==6)").parse().test(jsonObject));
-		assertTrue_("! (id==6)", new JsonLogicParser("! (id==6)").parse().test(jsonObject));
-		assertTrue_("! (id= =6)", new JsonLogicParser("! (id= =6)").parse().test(jsonObject));
+		assertFalse_("!(id==6)", new JsonLogicParser("!(id==6)").parse().test(jsonObject));
+		assertFalse_("! (id==6)", new JsonLogicParser("! (id==6)").parse().test(jsonObject));
+		assertFalse_("! (id= =6)", new JsonLogicParser("! (id= =6)").parse().test(jsonObject));
 		// spacing end
 
-		assertTrue_("!(shape.x==0.5)", new JsonLogicParser("!(shape.x==0.5)").parse().test(jsonObject));
-		assertTrue_("!(shape.type==RECTANGLE)",
+		assertFalse_("!(shape.x==0.5)", new JsonLogicParser("!(shape.x==0.5)").parse().test(jsonObject));
+		assertFalse_("!(shape.type==RECTANGLE)",
 				new JsonLogicParser("!(shape.type==RECTANGLE)").parse().test(jsonObject));
 
 		assertTrue_("!(id==8)", new JsonLogicParser("!(id==8)").parse().test(jsonObject));
@@ -157,9 +157,9 @@ public class TestLogicParser {
 
 		assertTrue_("shape.x>0.4", new JsonLogicParser("shape.x>0.4").parse().test(jsonObject));
 
-		assertTrue_("id>6", new JsonLogicParser("id>6").parse().test(jsonObject));
-		assertTrue_("id>8", new JsonLogicParser("id>8").parse().test(jsonObject));
-		assertTrue_("shape.x>0.7", new JsonLogicParser("shape.x>0.7").parse().test(jsonObject));
+		assertFalse_("id>6", new JsonLogicParser("id>6").parse().test(jsonObject));
+		assertFalse_("id>8", new JsonLogicParser("id>8").parse().test(jsonObject));
+		assertFalse_("shape.x>0.7", new JsonLogicParser("shape.x>0.7").parse().test(jsonObject));
 	}
 
 	@Test
@@ -170,7 +170,7 @@ public class TestLogicParser {
 		assertTrue_("shape.x>=0.5", new JsonLogicParser("shape.x>=0.5").parse().test(jsonObject));
 
 		assertFalse_("id>=8", new JsonLogicParser("id>=8").parse().test(jsonObject));
-		assertTrue_("shape.x>=0.7", new JsonLogicParser("id>=8").parse().test(jsonObject));
+		assertFalse_("shape.x>=0.7", new JsonLogicParser("id>=8").parse().test(jsonObject));
 	}
 
 	@Test
@@ -178,9 +178,9 @@ public class TestLogicParser {
 		assertTrue_("id<8", new JsonLogicParser("id<8").parse().test(jsonObject));
 		assertTrue_("shape.x<0.6", new JsonLogicParser("shape.x<0.6").parse().test(jsonObject));
 
-		assertTrue_("id<5", new JsonLogicParser("id<5").parse().test(jsonObject));
-		assertTrue_("id<4", new JsonLogicParser("id<4").parse().test(jsonObject));
-		assertTrue_("shape.x<0.4", new JsonLogicParser("shape.x<0.4").parse().test(jsonObject));
+		assertFalse_("id<5", new JsonLogicParser("id<5").parse().test(jsonObject));
+		assertFalse_("id<4", new JsonLogicParser("id<4").parse().test(jsonObject));
+		assertFalse_("shape.x<0.4", new JsonLogicParser("shape.x<0.4").parse().test(jsonObject));
 	}
 
 	@Test
@@ -190,8 +190,8 @@ public class TestLogicParser {
 		assertTrue_("shape.x<=0.5", new JsonLogicParser("shape.x<=0.5").parse().test(jsonObject));
 		assertTrue_("shape.x<=0.6", new JsonLogicParser("shape.x<=0.6").parse().test(jsonObject));
 
-		assertTrue_("id<=5", new JsonLogicParser("id<=5").parse().test(jsonObject));
-		assertTrue_("shape.x<=0.3", new JsonLogicParser("shape.x<=0.3").parse().test(jsonObject));
+		assertFalse_("id<=5", new JsonLogicParser("id<=5").parse().test(jsonObject));
+		assertFalse_("shape.x<=0.3", new JsonLogicParser("shape.x<=0.3").parse().test(jsonObject));
 	}
 
 	@Test
@@ -205,13 +205,13 @@ public class TestLogicParser {
 		assertTrue_("(id<=6 || id>8 && id<7 || spawnDelay==7.0) && {6}:id",
 				new JsonLogicParser("(id<=6 || id>8 && id<7 || spawnDelay==7.0) && {6}:id").parse().test(jsonObject));
 
-		assertTrue_("false", new JsonLogicParser("false").parse().test(jsonObject));
-		assertTrue_("id<=6 && id>6", new JsonLogicParser("id<=6 && id>6").parse().test(jsonObject));
-		assertTrue_("(id<=5 && id>8) || id:{1,2,3}",
+		assertFalse_("false", new JsonLogicParser("false").parse().test(jsonObject));
+		assertFalse_("id<=6 && id>6", new JsonLogicParser("id<=6 && id>6").parse().test(jsonObject));
+		assertFalse_("(id<=5 && id>8) || id:{1,2,3}",
 				new JsonLogicParser("(id<=5 && id>8) || id:{1,2,3}").parse().test(jsonObject));
-		assertTrue_("(id<=6 && id>4 && id<7 && spawnDelay==2.0) && {6,7}:id",
+		assertFalse_("(id<=6 && id>4 && id<7 && spawnDelay==2.0) && {6,7}:id",
 				new JsonLogicParser("(id<=6 && id>4 && id<7 && spawnDelay==2.0) && {6,7}:id").parse().test(jsonObject));
-		assertTrue_("(id<=5 || id>8 && id<7 || spawnDelay==7.0) && {6}:id",
+		assertFalse_("(id<=5 || id>8 && id<7 || spawnDelay==7.0) && {6}:id",
 				new JsonLogicParser("(id<=5 || id>8 && id<7 || spawnDelay==7.0) && {6}:id").parse().test(jsonObject));
 
 		assertTrue_("!(id<=5 || id>8 && id<7 || spawnDelay==7.0) && {6}:id",
