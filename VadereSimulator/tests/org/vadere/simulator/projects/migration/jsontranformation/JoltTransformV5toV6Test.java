@@ -54,8 +54,8 @@ public class JoltTransformV5toV6Test extends JsonTransformationTest {
 		ArrayList<JsonNode> files = getFilesForProcessorId(v6,pId);
 		assertEquals(1, files.size(), "One File expected");
 		String type = pathMustExist(files.get(0), "type").asText();
-		assertEquals("Must be TimestepPedestrianIdOverlapKey",
-				"org.vadere.simulator.projects.dataprocessing.outputfile.TimestepPedestrianIdOverlapOutputFile", type);
+		assertEquals(
+				"org.vadere.simulator.projects.dataprocessing.outputfile.TimestepPedestrianIdOverlapOutputFile", type,"Must be TimestepPedestrianIdOverlapKey");
 
 		ArrayNode allFiles = (ArrayNode)pathMustExist(v6, "processWriters/files");
 		assertEquals(3, allFiles.size(),"Must be three OutputFiles");

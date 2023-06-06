@@ -40,8 +40,8 @@ public class TestAttributesODEModel {
 		// correct case
 		attributesODEModel = StateJsonConverter.deserializeObjectFromJson(store, AttributesODEIntegrator.class);
 		assertArrayEquals(new double[] {1e-5}, new double[] {attributesODEModel.getToleranceAbsolute()}, delta);
-		assertEquals("integrator type is not correct", IntegratorType.CLASSICAL_RK4.name(), attributesODEModel
-				.getSolverType().name());
+		assertEquals( IntegratorType.CLASSICAL_RK4.name(), attributesODEModel
+				.getSolverType().name(),"integrator type is not correct");
 
 	}
 }

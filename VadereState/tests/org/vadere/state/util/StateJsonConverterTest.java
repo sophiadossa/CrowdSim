@@ -87,7 +87,7 @@ public class StateJsonConverterTest {
         attr.setCacheDir("some/other/cache/dir");
         String hash2 = StateJsonConverter.getFloorFieldHash(topography, attr);
 
-        assertEquals("Hashes must match",hash1, hash2);
+        assertEquals(hash1, hash2,"Hashes must match");
     }
 
     @Test
@@ -102,7 +102,7 @@ public class StateJsonConverterTest {
         attr.setObstacleGridPenalty(23.3);
         String hash2 = StateJsonConverter.getFloorFieldHash(topography, attr);
 
-        assertNotEquals("Hashes must differ",hash1, hash2);
+        assertNotEquals(hash1, hash2,"Hashes must differ");
     }
 
     @Test
@@ -117,7 +117,7 @@ public class StateJsonConverterTest {
         topography.addObstacle(new Obstacle(new AttributesObstacle(3, new VRectangle(3,3,1,1))));
         String hash2 = StateJsonConverter.getFloorFieldHash(topography, attr);
 
-        assertNotEquals("Hashes must differ",hash1, hash2);
+        assertNotEquals(hash1, hash2,"Hashes must differ");
     }
 
     @Test
@@ -142,12 +142,12 @@ public class StateJsonConverterTest {
         attrTarget.setLeavingSpeed(1.0);
         String hash2 = StateJsonConverter.getFloorFieldHash(topography, attr);
 
-        assertEquals("Hashes must differ",hash1, hash2);
+        assertEquals(hash1, hash2,"Hashes must differ");
 
         // changes must change the floor field hash
         attrTarget.setShape(new VRectangle(2,2,2,2));
         String hash3 = StateJsonConverter.getFloorFieldHash(topography, attr);
-        assertNotEquals("Hashes must differ",hash1, hash3);
+        assertNotEquals(hash1, hash3,"Hashes must differ");
     }
 
     @Test

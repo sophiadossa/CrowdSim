@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.Random;
 
 import tech.tablesaw.api.Table;
+import tech.tablesaw.io.RuntimeIOException;
 
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,7 +29,7 @@ public class CellGridTest {
 		Table t = null;
 		try {
 			t = Table.read().csv(path);
-		} catch (IOException e) {
+		} catch (RuntimeIOException e) {
 			fail("Test file not found");
 			return;
 
