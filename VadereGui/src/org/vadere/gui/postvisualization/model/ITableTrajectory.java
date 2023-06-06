@@ -6,6 +6,8 @@ import tech.tablesaw.api.DoubleColumn;
 import tech.tablesaw.api.IntColumn;
 import tech.tablesaw.api.Table;
 
+import java.util.Arrays;
+
 public interface ITableTrajectory {
 
 	Table getTrajectoryDataFrame();
@@ -22,7 +24,7 @@ public interface ITableTrajectory {
 	}
 
 	default Table getAliveAgents(final double startX, final double endX) {
-		return getCurrentSlice().where(getPedId().isIn(filterAgents(startX, endX))).where(getStartTime().isGreaterThanOrEqualTo(startX).and(getEndTime().isLessThanOrEqualTo(endX)));
+		return getCurrentSlice().where(getPedId().isIn(Arrays.asList(filterAgents(startX, endX)))).where(getStartTime().isGreaterThanOrEqualTo(startX).and(getEndTime().isLessThanOrEqualTo(endX)));
 	}
 
 	default Table getAgents(final double simTimeInSec) {
