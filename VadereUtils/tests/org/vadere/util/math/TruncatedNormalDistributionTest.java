@@ -48,7 +48,7 @@ public class TruncatedNormalDistributionTest {
 	@StatisticalTestCase
 	@Test
 	public void testBadMinMax() {
-		Assertions.assertThrows(IllegalStateException.class, ()->{
+		Assertions.assertThrows(IllegalArgumentException.class, ()->{
 			final double min = -10001;
 			final double max = -10000;
 			final TruncatedNormalDistribution d = new TruncatedNormalDistribution(rng, 0, 1, min, max, 10);
