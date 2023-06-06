@@ -98,7 +98,7 @@ Extracting a new class ModelBuilder because this functionality might be
 used in multiple places.
 ```
 
-Rules:
+#### Rules
 
 1. Separate subject from body with a blank line
 2. Limit the subject line to 50 characters
@@ -117,6 +117,53 @@ Reasons include:
  - Stick to Git standards, e.g. "Merge branch ..." and "Revert ..."
 
 Rules 1, 3, and 4 never hurt and should always be applied.
+
+
+#### Emojis
+It's a great idea to start the commit message with an applicable emoji.
+This does not only look great but also makes you rethink what to add to a commit.
+* :tada: `:tada:` when adding a cool new feature
+* :wrench: `:wrench:` when refactoring / improving a small piece of code
+* :hammer: `:hammer:` when refactoring / improving large parts of the code
+* :sparkles: `:sparkles:` when formatting code
+* :art: `:art:` improving / adding assets like textures or images
+* :rocket: `:rocket:` when improving performance
+* :memo: `:memo:` when writing docs
+* :beetle: `:beetle:` when fixing a bug
+* :green_heart: `:green_heart:` when fixing the CI build
+* :heavy_check_mark: `:heavy_check_mark:` when working on tests
+* :arrow_up_small: `:arrow_up_small:` when adding / upgrading dependencies
+* :arrow_down_small: `:arrow_down_small:` when removing / downgrading dependencies
+* :twisted_rightwards_arrows: `:twisted_rightwards_arrows:` when merging branches
+* :fire: `:fire:` when removing files
+* :truck: `:truck:` when moving / renaming files or namespaces
+* :construction: `:construction:` work in progress
+* :poop: `:poop:` when writing bad code that needs to be improved
+* :bookmark: `:bookmark:` for release / version tags
+
+A good way to enforce this on your side is to use a `commit-hook`.
+To do this, paste the following script into `.git/hooks/commit-msg`.
+
+``` bash
+#!/bin/bash
+
+# regex to validate in commit msg
+commit_regex='(:(tada|wrench|hammer|sparkles|art|rocket|memo|beetle|green_heart|heavy_check_mark|arrow_up_small|arrow_down_small|twisted_rightwards_arrows|fire|truck|construction|poop|bookmark):(.+))'
+error_msg="Aborting commit. Your commit message is missing an emoji as described in the contributing guideline."
+
+if ! grep -xqE "$commit_regex" "$1"; then
+    echo "$error_msg" >&2
+    exit 1
+fi
+```
+
+And make sure that it is executable:
+
+``` bash
+chmod +x .git/hooks/commit-msg
+```
+
+Inspired by https://gitmoji.dev/.
 
 ### Miscellaneous
 

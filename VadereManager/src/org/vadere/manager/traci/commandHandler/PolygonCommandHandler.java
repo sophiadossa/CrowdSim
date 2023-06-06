@@ -5,6 +5,7 @@ import org.vadere.annotation.traci.client.TraCIApi;
 import org.vadere.manager.RemoteManager;
 import org.vadere.manager.traci.TraCICmd;
 import org.vadere.manager.traci.commandHandler.variables.SimulationVar;
+import org.vadere.state.scenario.Obstacle;
 import org.vadere.state.traci.TraCICommandCreationException;
 import org.vadere.state.traci.TraCIDataType;
 import org.vadere.manager.traci.commandHandler.annotation.PolygonHandler;
@@ -150,15 +151,47 @@ public class PolygonCommandHandler extends CommandHandler<PolygonVar> {
 		return cmd;
 	}
 
+	@PolygonHandler(cmd = TraCICmd.GET_POLYGON, var = PolygonVar.OBSTACLE_SHAPE, name = "getObstacleShape")
+	public TraCICommand process_getObstacleShape(TraCIGetCommand cmd, RemoteManager remoteManager, PolygonVar traCIVar) {
+		int elementID = Integer.parseInt(cmd.getElementIdentifier());
+		remoteManager.accessState((manager, state) -> {
+			VShape obstacle = state.getTopography().getObstacles().get(elementID).getShape();
+			cmd.setResponse(responseOK(traCIVar.type, obstacle.getPath()));
+		});
+		return cmd;
+	}
+
+	@PolygonHandler(cmd = TraCICmd.GET_POLYGON, var = PolygonVar.MEASUREMENT_AREA_SHAPE, name = "getMeasurementAreaShape")
+	public TraCICommand process_getMeasurementAreaShape(TraCIGetCommand cmd, RemoteManager remoteManager, PolygonVar traCIVar) {
+		int elementID = Integer.parseInt(cmd.getElementIdentifier());
+		remoteManager.accessState((manager, state) -> {
+			VShape measurementArea = state.getTopography().getMeasurementArea(elementID).getShape();
+			cmd.setResponse(responseOK(traCIVar.type, measurementArea.getPath()));
+		});
+		return cmd;
+	}
+
+
+
 	@PolygonHandler(cmd = TraCICmd.GET_POLYGON, var = PolygonVar.SHAPE, name = "getShape")
 	public TraCICommand process_getShape(TraCIGetCommand cmd, RemoteManager remoteManager, PolygonVar traCIVar) {
 		int elementID = Integer.parseInt(cmd.getElementIdentifier());
 		remoteManager.accessState((manager, state) -> {
-			ScenarioElement se = state.getTopography().getAllScenarioElements()
+
+			List<ScenarioElement> elements = state.getTopography().getAllScenarioElements()
 					.stream()
 					.filter(p -> p.getType() != ScenarioElementType.PEDESTRIAN)
-					.filter(p -> p.getId() == elementID)
-					.findFirst().orElse(null);
+					.filter(p -> p.getId() == elementID).collect(Collectors.toList());
+
+			ScenarioElement se = elements.stream().findFirst().orElse(null);
+
+			if ( elements.size() > 1) {
+				logger.info("Multiple scenario elements have the id = " + elementID);
+				logger.info(elements.toString());
+				logger.info("Use the first element: ");
+				logger.info(se.toString());
+			}
+
 			if (checkIfScenarioElementExists(se, cmd))
 				cmd.setResponse(responseOK(traCIVar.type, se.getShape().getPath()));
 		});
@@ -271,6 +304,10 @@ public class PolygonCommandHandler extends CommandHandler<PolygonVar> {
 				return process_getPosition2D(getCmd, remoteManager, var);
 			case DISTANCE:
 				return process_getDistance(getCmd, remoteManager);
+			case OBSTACLE_SHAPE:
+				return process_getObstacleShape(getCmd, remoteManager, var);
+			case MEASUREMENT_AREA_SHAPE:
+				return process_getMeasurementAreaShape(getCmd, remoteManager, var);
 			case IMAGEFILE:
 			case WIDTH:
 			case HEIGHT:
