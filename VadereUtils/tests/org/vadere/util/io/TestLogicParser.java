@@ -222,7 +222,7 @@ public class TestLogicParser {
 	public void testAnd() throws ParseException {
 		assertTrue_("shape.x<1.4 && shape.x>0.2",
 				new JsonLogicParser("shape.x<1.4 && shape.x>0.2").parse().test(jsonObject));
-		assertTrue_("shape.x<1.4 && shape.x>0.6",
+		assertFalse_("shape.x<1.4 && shape.x>0.6",
 				new JsonLogicParser("shape.x < 1.4 && shape.x>0.6").parse().test(jsonObject));
 	}
 }
