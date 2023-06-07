@@ -70,8 +70,8 @@ public class ProjectOutputTest implements TestResourceHandlerScenario {
 
 		List<File> selectedOutputDirs = projectOutput.listSelectedOutputDirs(scenario);
 		assertEquals(1, selectedOutputDirs.size(), "There should be one match");
-		assertEquals("The directory name is false",
-				"testOutput2", selectedOutputDirs.get(0).getName());
+		assertEquals(
+				"testOutput2", selectedOutputDirs.get(0).getName(),"The directory name is false");
 	}
 
 	@Test
