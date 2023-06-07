@@ -76,7 +76,7 @@ public class JoltTransformV0toV1Test extends JsonTransformationTest {
 			transformation.applyAll(in);
 		});
 
-		fail("should not be reached! The Transformation should fail with MigrationException");
+		//fail("should not be reached! The Transformation should fail with MigrationException");
 	}
 
 
