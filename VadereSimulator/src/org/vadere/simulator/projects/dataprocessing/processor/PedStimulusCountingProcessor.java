@@ -21,6 +21,9 @@ public class PedStimulusCountingProcessor extends DataProcessor<TimestepKey, Inf
 	private Predicate<Pedestrian> filter_by_stimuli;
 	private Pattern filter_pattern = null;
 	private double stopIfPercentageIsInformed = 0.95;
+	private int numberOfAdditionalSteps = 0;
+	private int lastStep = -1;
+	private boolean fullfilled = false;
 
 	public PedStimulusCountingProcessor() {
 		super("numberPedsInformed", "numberPedsAll", "percentageInformed");
@@ -40,6 +43,7 @@ public class PedStimulusCountingProcessor extends DataProcessor<TimestepKey, Inf
 		}
 
 		stopIfPercentageIsInformed = attr.getStopIfPercentageIsInformed();
+		numberOfAdditionalSteps = attr.getNumberOfAdditionalTimeFrames();
 
 	}
 
@@ -54,7 +58,12 @@ public class PedStimulusCountingProcessor extends DataProcessor<TimestepKey, Inf
 		InformationDegree informationDegree =  new InformationDegree(numberPedsInformed, numberPedsAll);
 
 		// force stop before simulation time defined in json is reached.
-		if (informationDegree.getPercentageInformed() >= stopIfPercentageIsInformed) {
+		if (informationDegree.getPercentageInformed() >= stopIfPercentageIsInformed && !fullfilled) {
+			lastStep = state.getStep() + numberOfAdditionalSteps;
+			fullfilled = true;
+		}
+
+		if (fullfilled &&  state.getStep() >= lastStep) {
 			setStopSimBeforeSimFinish(true);
 		}
 
@@ -62,6 +71,8 @@ public class PedStimulusCountingProcessor extends DataProcessor<TimestepKey, Inf
 
 
 	}
+
+
 
 	@Override
 	public AttributesPedStimulusCountingProcessor getAttributes() {
