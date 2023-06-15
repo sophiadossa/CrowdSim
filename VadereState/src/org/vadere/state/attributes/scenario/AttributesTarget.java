@@ -28,7 +28,7 @@ public class AttributesTarget extends AttributesVisualElement {
 	 */
 	@VadereAttribute
 	@JsonView(Views.CacheViewExclude.class)
-	private Double leavingSpeed = 0.0;
+	private Double leavingSpeed = -1.0;
 	/**
 	 * This attributes stores the number of agents the target can process at the same time.<br>
 	 * <b>NOTE:</b> If set to zero the target can process any number of agents at the same time.
