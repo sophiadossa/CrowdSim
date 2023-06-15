@@ -1,8 +1,8 @@
 package org.vadere.geometry;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.mesh.gen.PFace;
 import org.vadere.meshing.mesh.gen.PHalfEdge;
 import org.vadere.meshing.mesh.gen.PMesh;
@@ -17,7 +17,7 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 import java.util.Iterator;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This test class tests for the point location problem for a mesh i.e.
@@ -38,7 +38,7 @@ public class TestPointLocation {
 	 *
 	 * @throws Exception
 	 */
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		mesh = new PMesh();
 		face1 = mesh.createFace();

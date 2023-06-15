@@ -2,7 +2,7 @@ package org.vadere.simulator.control;
 
 import org.apache.commons.math3.distribution.ConstantRealDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesSource;
 import org.vadere.state.attributes.scenario.SourceTestAttributesBuilder;
@@ -14,8 +14,8 @@ import org.vadere.util.geometry.shapes.VShape;
 import java.io.IOException;
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestSourceControllerUsingDistributions extends TestSourceControllerUsingConstantSpawnRate {
 

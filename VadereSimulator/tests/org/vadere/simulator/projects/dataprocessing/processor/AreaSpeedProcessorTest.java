@@ -1,15 +1,15 @@
 package org.vadere.simulator.projects.dataprocessing.processor;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.processor.AttributesAreaProcessor;
 import org.vadere.util.geometry.shapes.VRectangle;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AreaSpeedProcessorTest extends ProcessorTest {
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		processorTestEnv = new AreaSpeedProcessorTestEnv();
 		super.setup();
@@ -17,8 +17,8 @@ public class AreaSpeedProcessorTest extends ProcessorTest {
 
 	@Override
 	public void assertInit(DataProcessor p) throws NoSuchFieldException, IllegalAccessException {
-		assertEquals("Must be zero after init.", 0, p.getData().size());
-		assertEquals("Must be zero after init.", 0, (int) r.valOfField("lastStep"));
+		assertEquals(0, p.getData().size(), "Must be zero after init.");
+		assertEquals(0, (int) r.valOfField("lastStep"), "Must be zero after init.");
 		AttributesAreaProcessor attr = (AttributesAreaProcessor) p.getAttributes();
 	}
 

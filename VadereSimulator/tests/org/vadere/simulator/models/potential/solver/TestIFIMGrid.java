@@ -1,8 +1,8 @@
 package org.vadere.simulator.models.potential.solver;
 
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.potential.solver.calculators.EikonalSolver;
 import org.vadere.simulator.models.potential.solver.calculators.cartesian.EikonalSolverFIM;
 import org.vadere.simulator.models.potential.solver.calculators.cartesian.EikonalSolverFMM;
@@ -43,7 +43,7 @@ public class TestIFIMGrid {
 
 	private ITimeCostFunction timeCostFunction;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		cellGrid = new CellGrid(gridWidth, gridHeight, potentialFieldResolution, new CellState(Double.MAX_VALUE, PathFindingTag.Undefined), -0.9, -0.9);
 		//FloorDiscretizer.setGridValuesForShape(cellGrid, targetShape, new CellState(0.0, PathFindingTag.Target));

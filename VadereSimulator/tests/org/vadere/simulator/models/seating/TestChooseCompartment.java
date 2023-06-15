@@ -1,9 +1,9 @@
 package org.vadere.simulator.models.seating;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.seating.trainmodel.Compartment;
 import org.vadere.simulator.models.seating.trainmodel.TrainModel;
 import org.vadere.util.test.StatisticalTestCase;
@@ -13,7 +13,7 @@ public class TestChooseCompartment {
 	private SeatingModel model;
 	private TrainModel trainModel;
 	
-	@Before
+	@BeforeEach
 	public void setUp() {
 		model = new TestTopographyAndModelBuilder().getSeatingModel();
 		trainModel = model.getTrainModel();

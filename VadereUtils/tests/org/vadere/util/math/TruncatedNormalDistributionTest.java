@@ -1,11 +1,12 @@
 package org.vadere.util.math;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.commons.math3.random.RandomGenerator;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.test.StatisticalTestCase;
 
 public class TruncatedNormalDistributionTest {
@@ -13,22 +14,27 @@ public class TruncatedNormalDistributionTest {
 	private static final int maxIterations = 100;
 	private RandomGenerator rng = new JDKRandomGenerator();
 
-	@Test(expected=IllegalArgumentException.class)
-	@Ignore
+	@Test()
+	@Disabled
 	public void testConstructorMinMaxEquals() {
 		final double m = 2;
-		new TruncatedNormalDistribution(rng, 0, 1, m, m, maxIterations);
+		Assertions.assertThrows(IllegalArgumentException.class, ()->{
+			new TruncatedNormalDistribution(rng, 0, 1, m, m, maxIterations);
+		});
 	}
 
-	@Test(expected=IllegalArgumentException.class)
-	@Ignore
+	@Test
+	@Disabled
 	public void testConstructorMinGreaterThanMax() {
-		new TruncatedNormalDistribution(rng, 0, 1, 2, 1, maxIterations);
+		Assertions.assertThrows(IllegalArgumentException.class, ()->{
+			new TruncatedNormalDistribution(rng, 0, 1, 2, 1, maxIterations);
+		});
+
 	}
 
 	@StatisticalTestCase
 	@Test
-	@Ignore
+	@Disabled
 	public void testSample() {
 		final double min = -1;
 		final double max = +1;
@@ -40,12 +46,14 @@ public class TruncatedNormalDistributionTest {
 	}
 
 	@StatisticalTestCase
-	@Test(expected=IllegalArgumentException.class)
+	@Test
 	public void testBadMinMax() {
-		final double min = -10001;
-		final double max = -10000;
-		final TruncatedNormalDistribution d = new TruncatedNormalDistribution(rng, 0, 1, min, max, 10);
-		d.sample();
+		Assertions.assertThrows(IllegalArgumentException.class, ()->{
+			final double min = -10001;
+			final double max = -10000;
+			final TruncatedNormalDistribution d = new TruncatedNormalDistribution(rng, 0, 1, min, max, 10);
+			d.sample();
+		});
 	}
 
 }

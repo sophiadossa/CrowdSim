@@ -1,7 +1,7 @@
 package org.vadere.simulator.control;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.vadere.simulator.control.factory.GroupSourceControllerFactory;
 import org.vadere.simulator.control.factory.SourceControllerFactory;
@@ -34,8 +34,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class GroupSourceControllerTest extends TestSourceControllerUsingConstantSpawnRate {
@@ -168,7 +168,7 @@ public class GroupSourceControllerTest extends TestSourceControllerUsingConstant
 		first().sourceController.update(2);
 		first().sourceController.update(3);
 
-		assertEquals("wrong pedestrian number", 2, countPedestrians(0));
+		assertEquals(2, countPedestrians(0), "wrong pedestrian number");
 	}
 
 
@@ -187,11 +187,11 @@ public class GroupSourceControllerTest extends TestSourceControllerUsingConstant
 
 		first().sourceController.update(startTime);
 		// one at the beginning
-		assertEquals("wrong pedestrian number.", 2, countPedestrians(0));
+		assertEquals(2, countPedestrians(0), "wrong pedestrian number.");
 
 		first().sourceController.update(endTime);
 		// and one at the end
-		assertEquals("wrong pedestrian number.", 5, countPedestrians(0));
+		assertEquals(5, countPedestrians(0), "wrong pedestrian number.");
 	}
 
 
@@ -211,7 +211,7 @@ public class GroupSourceControllerTest extends TestSourceControllerUsingConstant
 			first().sourceController.update(simTimeInSec);
 		}
 
-		assertEquals("wrong pedestrian number.", 7, countPedestrians(0));
+		assertEquals(7, countPedestrians(0), "wrong pedestrian number.");
 	}
 
 
@@ -232,7 +232,7 @@ public class GroupSourceControllerTest extends TestSourceControllerUsingConstant
 		}
 
 		// sum(2, 3, 2, 3, 2, 2, 3, 3, 3, 2, 2) = 24
-		assertEquals("wrong pedestrian number.", 27, countPedestrians(0));
+		assertEquals(27, countPedestrians(0), "wrong pedestrian number.");
 	}
 
 	/**
@@ -256,7 +256,7 @@ public class GroupSourceControllerTest extends TestSourceControllerUsingConstant
 
 		// The source has space for tow groups of three (with Random seed of 0)
 		// ist could also be the case that only one group can be placed.
-		assertEquals("wrong pedestrian number.", 6, countPedestrians(0));
+		assertEquals(6, countPedestrians(0), "wrong pedestrian number.");
 
 		// now, move the pedestrian away after creating them
 		for (double simTimeInSec = 1000; simTimeInSec < 2000; simTimeInSec += 1.0) {
@@ -269,7 +269,7 @@ public class GroupSourceControllerTest extends TestSourceControllerUsingConstant
 		}
 
 		// now, all pedestrians should have been created
-		assertEquals("wrong pedestrian number.", 300, countPedestrians(0));
+		assertEquals(300, countPedestrians(0), "wrong pedestrian number.");
 	}
 
 	// WithDistribution

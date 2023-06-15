@@ -3,8 +3,8 @@ package org.vadere.simulator.control.psychology.cognition.models;
 
 import org.apache.commons.math3.util.Precision;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.psychology.cognition.AttributesProbabilisticCognitionModel;
@@ -18,7 +18,7 @@ import org.vadere.state.scenario.Topography;
 
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 
@@ -32,7 +32,7 @@ public class ProbabilisticCognitionModelTest {
 
     private static double ALLOWED_DOUBLE_ERROR = 10e-3;
 
-    @Before
+    @BeforeEach
     public void initializeReactionBehavior(){
 
 

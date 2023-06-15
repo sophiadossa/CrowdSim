@@ -3,16 +3,16 @@ package org.vadere.simulator.projects.migration.jsontranformation;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.version.Version;
 import org.vadere.simulator.projects.migration.MigrationException;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.fail;
 
 public class JoltTransformV5toV6Test extends JsonTransformationTest {
 
@@ -48,17 +48,17 @@ public class JoltTransformV5toV6Test extends JsonTransformationTest {
 		assertThat(pathMustExist(v6, "release"), nodeHasText(Version.V0_6.label()));
 		ArrayList<JsonNode> processors = getProcessorsByType(v6,
 				"org.vadere.simulator.projects.dataprocessing.processor.PedestrianOverlapProcessor");
-		assertEquals("One Processor expected", 1, processors.size());
+		assertEquals(1, processors.size(), "One Processor expected");
 		String pId = pathMustExist(processors.get(0), "id").asText();
 
 		ArrayList<JsonNode> files = getFilesForProcessorId(v6,pId);
-		assertEquals("One File expected", 1, files.size());
+		assertEquals(1, files.size(), "One File expected");
 		String type = pathMustExist(files.get(0), "type").asText();
-		assertEquals("Must be TimestepPedestrianIdOverlapKey",
-				"org.vadere.simulator.projects.dataprocessing.outputfile.TimestepPedestrianIdOverlapOutputFile", type);
+		assertEquals(
+				"org.vadere.simulator.projects.dataprocessing.outputfile.TimestepPedestrianIdOverlapOutputFile", type,"Must be TimestepPedestrianIdOverlapKey");
 
 		ArrayNode allFiles = (ArrayNode)pathMustExist(v6, "processWriters/files");
-		assertEquals("Must be  Three OutputFiles", 3,allFiles.size());
+		assertEquals(3, allFiles.size(),"Must be three OutputFiles");
 	}
 
 	@Test
@@ -76,21 +76,21 @@ public class JoltTransformV5toV6Test extends JsonTransformationTest {
 		assertThat(pathMustExist(v6, "release"), nodeHasText(Version.V0_6.label()));
 		ArrayList<JsonNode> processors = getProcessorsByType(v6,
 				"org.vadere.simulator.projects.dataprocessing.processor.PedestrianOverlapProcessor");
-		assertEquals("One Processor expected", 1, processors.size());
+		assertEquals(1, processors.size(), "One Processor expected");
 		String pId = pathMustExist(processors.get(0), "id").asText();
 
 		ArrayList<JsonNode> files = getFilesForProcessorId(v6,pId);
-		assertEquals("One File expected", 1, files.size());
+		assertEquals(1, files.size(), "One File expected");
 
 		ArrayNode allFiles = (ArrayNode)pathMustExist(v6, "processWriters/files");
-		assertEquals("Only Tow OutputFiles", 2,allFiles.size());
+		assertEquals(2, allFiles.size(),"Only Tow OutputFiles");
 
 		ArrayList<JsonNode> pedestrianOverlapDistProcessorV5 = getProcessorsByType(v5,
 				"org.vadere.simulator.projects.dataprocessing.processor.PedestrianOverlapDistProcessor");
 		ArrayList<JsonNode> pedestrianOverlapDistProcessorV6 = getProcessorsByType(v6,
 				"org.vadere.simulator.projects.dataprocessing.processor.PedestrianOverlapDistProcessor");
-		assertEquals("Old vesion must contain PedestrianOverlapDistProcessor", 1, pedestrianOverlapDistProcessorV5.size());
-		assertEquals("New version must not contain PedestrianOverlapDistProcessor", 0,pedestrianOverlapDistProcessorV6.size());
+		assertEquals(1, pedestrianOverlapDistProcessorV5.size(), "Old vesion must contain PedestrianOverlapDistProcessor");
+		assertEquals(0, pedestrianOverlapDistProcessorV6.size(),"New version must not contain PedestrianOverlapDistProcessor");
 	}
 
 }

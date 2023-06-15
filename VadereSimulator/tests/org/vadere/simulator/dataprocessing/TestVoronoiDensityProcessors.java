@@ -1,7 +1,7 @@
 //package org.vadere.simulator.dataprocessing;
 //
-//import org.junit.Before;
-//import org.junit.Test;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
 //import org.mockito.internal.stubbing.answers.DoesNothing;
 //import org.mockito.invocation.InvocationOnMock;
 //import org.mockito.stubbing.Answer;
@@ -44,7 +44,7 @@
 //	private SimulationState state;
 //	private VRectangle topographyBounds;
 //
-//	@Before
+//	@BeforeEach
 //	public void setUp() throws URISyntaxException {
 //		densityEpsilon = GeometryUtils.DOUBLE_EPS;
 //		topographyBounds = new VRectangle(0, 0, 10, 10);

@@ -3,7 +3,7 @@ package org.vadere.state.util;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.distributions.AttributesBinomialDistribution;
 import org.vadere.state.attributes.models.AttributesFloorField;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
@@ -21,8 +21,8 @@ import org.vadere.util.geometry.shapes.VRectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class StateJsonConverterTest {
 
@@ -87,7 +87,7 @@ public class StateJsonConverterTest {
         attr.setCacheDir("some/other/cache/dir");
         String hash2 = StateJsonConverter.getFloorFieldHash(topography, attr);
 
-        assertEquals("Hashes must match",hash1, hash2);
+        assertEquals(hash1, hash2,"Hashes must match");
     }
 
     @Test
@@ -102,7 +102,7 @@ public class StateJsonConverterTest {
         attr.setObstacleGridPenalty(23.3);
         String hash2 = StateJsonConverter.getFloorFieldHash(topography, attr);
 
-        assertNotEquals("Hashes must differ",hash1, hash2);
+        assertNotEquals(hash1, hash2,"Hashes must differ");
     }
 
     @Test
@@ -117,7 +117,7 @@ public class StateJsonConverterTest {
         topography.addObstacle(new Obstacle(new AttributesObstacle(3, new VRectangle(3,3,1,1))));
         String hash2 = StateJsonConverter.getFloorFieldHash(topography, attr);
 
-        assertNotEquals("Hashes must differ",hash1, hash2);
+        assertNotEquals(hash1, hash2,"Hashes must differ");
     }
 
     @Test
@@ -142,12 +142,12 @@ public class StateJsonConverterTest {
         attrTarget.setLeavingSpeed(1.0);
         String hash2 = StateJsonConverter.getFloorFieldHash(topography, attr);
 
-        assertEquals("Hashes must differ",hash1, hash2);
+        assertEquals(hash1, hash2,"Hashes must differ");
 
         // changes must change the floor field hash
         attrTarget.setShape(new VRectangle(2,2,2,2));
         String hash3 = StateJsonConverter.getFloorFieldHash(topography, attr);
-        assertNotEquals("Hashes must differ",hash1, hash3);
+        assertNotEquals(hash1, hash3,"Hashes must differ");
     }
 
     @Test

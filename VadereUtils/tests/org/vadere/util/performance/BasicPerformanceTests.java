@@ -1,8 +1,8 @@
 package org.vadere.util.performance;
 
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.logging.Logger;
 
@@ -16,7 +16,7 @@ public class BasicPerformanceTests {
 	private ArrayList<VPoint> integers;
 	private int n = 40000;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		integers = new ArrayList<>();
 		for(int i = 0; i < n; i++) {

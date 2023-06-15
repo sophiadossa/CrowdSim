@@ -1,9 +1,9 @@
 package org.vadere.state.scenario;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.shapes.VPoint;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class ReferenceCoordinateSystemTest {
 

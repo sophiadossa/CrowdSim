@@ -1,9 +1,9 @@
 package org.vadere.simulator.models.infection;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.control.scenarioelements.TopographyController;
 import org.vadere.simulator.models.MainModel;
 import org.vadere.simulator.models.osm.OptimalStepsModel;
@@ -31,7 +31,7 @@ public class ProximityExposureModelTest {
     private Random rdm;
     private double simStartTime;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         attributesList = new ArrayList<>();
         attributesList.add(new AttributesProximityExposureModel());
@@ -43,7 +43,7 @@ public class ProximityExposureModelTest {
         proximityExposureModel.initialize(attributesList, new Domain(topography), null, rdm);
     }
 
-    @After
+    @AfterEach
     public void after() {
         attributesList.clear();
     }
@@ -65,7 +65,7 @@ public class ProximityExposureModelTest {
 
     @Test
     public void testInitialize() {
-        Assert.assertEquals(attributesList.get(0), proximityExposureModel.attributesProximityExposureModel);
+        assertEquals(attributesList.get(0), proximityExposureModel.attributesProximityExposureModel);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ProximityExposureModelTest {
         double expectedDegreeOfExposure = new BasicExposureModelHealthStatus().getDegreeOfExposure();
         double actualDegreeOfExposure = testUpdate(false);
 
-        Assert.assertEquals(expectedDegreeOfExposure, actualDegreeOfExposure, ALLOWED_DOUBLE_TOLERANCE);
+        assertEquals(expectedDegreeOfExposure, actualDegreeOfExposure, ALLOWED_DOUBLE_TOLERANCE);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class ProximityExposureModelTest {
         double expectedDegreeOfExposure = proximityExposureModel.MAX_DEG_OF_EXPOSURE;
         double actualDegreeOfExposure = testUpdate(true);
 
-        Assert.assertEquals(expectedDegreeOfExposure, actualDegreeOfExposure, ALLOWED_DOUBLE_TOLERANCE);
+        assertEquals(expectedDegreeOfExposure, actualDegreeOfExposure, ALLOWED_DOUBLE_TOLERANCE);
     }
 
     public double testUpdate(boolean infectiousAgentPresent) {
@@ -107,7 +107,7 @@ public class ProximityExposureModelTest {
         double expectedDegreeOfExposure = 1;
         proximityExposureModel.updatePedestrianDegreeOfExposure(pedestrian, expectedDegreeOfExposure);
 
-        Assert.assertEquals(expectedDegreeOfExposure, pedestrian.getDegreeOfExposure(), ALLOWED_DOUBLE_TOLERANCE);
+        assertEquals(expectedDegreeOfExposure, pedestrian.getDegreeOfExposure(), ALLOWED_DOUBLE_TOLERANCE);
     }
 
     public void testSourceControllerEvent() {
@@ -121,7 +121,7 @@ public class ProximityExposureModelTest {
 
         Pedestrian pedestrian = proximityExposureModel.topographyControllerEvent(getTopographyController(new OptimalStepsModel()), simStartTime, agent);
 
-        Assert.assertTrue(pedestrian.isInfectious());
+        assertTrue(pedestrian.isInfectious());
     }
 
     @Test
@@ -135,8 +135,8 @@ public class ProximityExposureModelTest {
         pedestrian = proximityExposureModel.topographyControllerEvent(getTopographyController(new OptimalStepsModel()), simStartTime, pedestrian);
         ExposureModelHealthStatus instantiatedHealthStatus = pedestrian.getHealthStatus();
 
-        Assert.assertNotEquals(defaultHealthStatus, instantiatedHealthStatus);
-        Assert.assertSame(instantiatedHealthStatus.getClass(), BasicExposureModelHealthStatus.class);
+        assertNotEquals(defaultHealthStatus, instantiatedHealthStatus);
+        assertSame(instantiatedHealthStatus.getClass(), BasicExposureModelHealthStatus.class);
     }
 
     private TopographyController getTopographyController(MainModel mainModel) {

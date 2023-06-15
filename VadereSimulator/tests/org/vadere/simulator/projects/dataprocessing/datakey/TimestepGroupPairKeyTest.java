@@ -1,12 +1,12 @@
 package org.vadere.simulator.projects.dataprocessing.datakey;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.projects.dataprocessing.outputfile.GroupPairOutputFile;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
-import static org.junit.Assert.assertThat;
 
 public class TimestepGroupPairKeyTest {
 

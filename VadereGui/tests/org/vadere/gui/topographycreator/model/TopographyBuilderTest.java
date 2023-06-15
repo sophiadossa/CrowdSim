@@ -1,6 +1,6 @@
 package org.vadere.gui.topographycreator.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
 import org.vadere.state.scenario.Obstacle;
 import org.vadere.state.scenario.ReferenceCoordinateSystem;
@@ -8,10 +8,10 @@ import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VRectangle;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 public class TopographyBuilderTest {
 

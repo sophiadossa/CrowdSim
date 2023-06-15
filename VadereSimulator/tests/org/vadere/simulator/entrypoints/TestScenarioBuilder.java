@@ -1,7 +1,8 @@
 package org.vadere.simulator.entrypoints;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.vadere.simulator.projects.Scenario;
 import org.vadere.simulator.projects.io.IOVadere;
 import org.vadere.state.attributes.scenario.AttributesAgent;
@@ -14,7 +15,6 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import static junit.framework.TestCase.assertTrue;
 
 /**
  * @author Benedikt Zoennchen
@@ -23,7 +23,7 @@ public class TestScenarioBuilder {
 
     private String jsonScenario;
 
-    @Before
+    @BeforeEach
    public void init() throws URISyntaxException, IOException {
         jsonScenario  =  IOUtils.readTextFile(
                 Paths.get(getClass().getResource("/org/vadere/simulator/entrypoints/test.scenario").toURI()));

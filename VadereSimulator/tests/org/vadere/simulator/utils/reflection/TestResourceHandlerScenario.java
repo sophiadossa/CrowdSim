@@ -6,7 +6,7 @@ import org.vadere.util.test.TestResourceHandler;
 
 import java.io.IOException;
 
-import static org.junit.Assert.fail;
+import static  org.junit.jupiter.api.Assertions.fail;
 
 /**
  *  Manage resource directory used within a unit test. Implement {@link #getTestDir()} method

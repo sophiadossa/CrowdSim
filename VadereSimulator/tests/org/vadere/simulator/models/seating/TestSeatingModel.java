@@ -1,13 +1,14 @@
 package org.vadere.simulator.models.seating;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.projects.Domain;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.exceptions.AttributesNotFoundException;
@@ -23,7 +24,7 @@ public class TestSeatingModel {
 	private AttributesAgent attributesPedestrian;
 	private SeatingModel seatingModel;
 	
-	@Before
+	@BeforeEach
 	public void setUp() {
 		random = new Random();
 		topography = new TestTopographyAndModelBuilder().getTopography();
@@ -34,14 +35,18 @@ public class TestSeatingModel {
 		seatingModel.initialize(attributes, new Domain(topography), attributesPedestrian, random);
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void testInitializeWithWrongTopography() {
-		new SeatingModel().initialize(attributes, new Domain(new Topography()), attributesPedestrian, random);
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			new SeatingModel().initialize(attributes, new Domain(new Topography()), attributesPedestrian, random);
+		});
 	}
 
-	@Test(expected=AttributesNotFoundException.class)
+	@Test
 	public void testInitializeWithNoAttributes() {
-		new SeatingModel().initialize(new ArrayList<>(0), new Domain(topography), attributesPedestrian, random);
+		Assertions.assertThrows(AttributesNotFoundException.class, ()->{
+			new SeatingModel().initialize(new ArrayList<>(0), new Domain(topography), attributesPedestrian, random);
+		});
 	}
 
 	@Test

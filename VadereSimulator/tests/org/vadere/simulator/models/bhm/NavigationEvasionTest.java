@@ -1,6 +1,6 @@
 package org.vadere.simulator.models.bhm;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.bhm.helpers.navigation.NavigationEvasion;
 import org.vadere.simulator.models.potential.fields.IPotentialFieldTargetGrid;
 import org.vadere.simulator.projects.Domain;
@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NavigationEvasionTest {
 

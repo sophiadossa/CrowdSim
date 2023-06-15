@@ -1,8 +1,8 @@
 package org.vadere.state.attributes;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.util.StateJsonConverter;
 
 import java.io.IOException;

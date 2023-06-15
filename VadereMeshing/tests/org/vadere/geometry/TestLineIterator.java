@@ -1,17 +1,17 @@
 package org.vadere.geometry;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.ConstantLineIterator;
 import org.vadere.util.geometry.shapes.IPoint;
 import org.vadere.util.geometry.shapes.VLine;
 import org.vadere.util.geometry.shapes.VPoint;
 
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestLineIterator {
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 
 	}

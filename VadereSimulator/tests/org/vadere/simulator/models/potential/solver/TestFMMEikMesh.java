@@ -1,8 +1,8 @@
 package org.vadere.simulator.models.potential.solver;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.examples.MeshExamples;
 import org.vadere.meshing.mesh.gen.IncrementalTriangulation;
 import org.vadere.meshing.mesh.gen.PFace;
@@ -115,13 +115,13 @@ public class TestFMMEikMesh {
 		System.out.println(mesh.toPythonTriangulation(v -> triangulation.getMesh().getDoubleData(v, "potential")));
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void testFilledChickenFMM() throws IOException {
 		testTriangulationFMM("/poly/filled_chicken.poly", new VPoint(2,2), 3.0);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void testBridge() throws IOException {
 		testTriangulationFMM("/poly/bridge.poly", new VPoint(42.0, 46.0), 2.0);

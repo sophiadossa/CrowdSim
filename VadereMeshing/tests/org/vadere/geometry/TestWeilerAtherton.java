@@ -1,8 +1,8 @@
 package org.vadere.geometry;
 
 import org.apache.commons.math3.util.Pair;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.WeilerAtherton;
 import org.vadere.meshing.mesh.gen.PFace;
 import org.vadere.meshing.mesh.gen.PMesh;
@@ -19,12 +19,12 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestWeilerAtherton {
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {}
 
 	@Test

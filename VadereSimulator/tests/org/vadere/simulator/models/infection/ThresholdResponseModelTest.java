@@ -1,9 +1,11 @@
 package org.vadere.simulator.models.infection;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.control.scenarioelements.TopographyController;
 import org.vadere.simulator.models.osm.OptimalStepsModel;
 import org.vadere.simulator.projects.Domain;
@@ -28,7 +30,7 @@ public class ThresholdResponseModelTest {
     private Random rdm;
     private double simStartTime;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         attributesList = new ArrayList<>();
         attributesList.add(new AttributesProximityExposureModel()); // alternatively use any other class extending AbstractExposureModel
@@ -41,7 +43,7 @@ public class ThresholdResponseModelTest {
         thresholdResponseModel.initialize(attributesList, new Domain(topography), null, rdm);
     }
 
-    @After
+    @AfterEach
     public void tearDown(){
         attributesList.clear();
     }
@@ -50,18 +52,20 @@ public class ThresholdResponseModelTest {
     public void registerToScenarioElementControllerEvents() {
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testInitializeThrowsErrorIfNoExposureModelDefined() {
-        attributesList.clear();
-        attributesList = new ArrayList<>();
-        attributesList.add(new AttributesThresholdResponseModel());
+        Assertions.assertThrows(RuntimeException.class, ()->{
+            attributesList.clear();
+            attributesList = new ArrayList<>();
+            attributesList.add(new AttributesThresholdResponseModel());
 
-        thresholdResponseModel.initialize(attributesList, new Domain(topography), null, rdm);
+            thresholdResponseModel.initialize(attributesList, new Domain(topography), null, rdm);
+        });
     }
 
     @Test
     public void testInitializeFindsAttributes() {
-        Assert.assertTrue(attributesList.contains(thresholdResponseModel.attributesThresholdResponseModel));
+        assertTrue(attributesList.contains(thresholdResponseModel.attributesThresholdResponseModel));
     }
 
     @Test
@@ -76,14 +80,14 @@ public class ThresholdResponseModelTest {
     public void testUpdateMinProbabilityOfInfection() {
         double probabilityOfInfection = testUpdate(0.9);
 
-        Assert.assertEquals(0, probabilityOfInfection, 0.0);
+        assertEquals(0, probabilityOfInfection, 0.0);
     }
 
     @Test
     public void testUpdateMaxProbabilityOfInfection() {
         double probabilityOfInfection = testUpdate(1); // argument >= 1
 
-        Assert.assertEquals(1, probabilityOfInfection, 0.0);
+        assertEquals(1, probabilityOfInfection, 0.0);
     }
 
     private double testUpdate(double percentageOfInfectionThreshold) {
@@ -107,8 +111,8 @@ public class ThresholdResponseModelTest {
         pedestrian = thresholdResponseModel.topographyControllerEvent(controller, simStartTime, pedestrian);
         DoseResponseModelInfectionStatus instantiatedInfectionStatus = pedestrian.getInfectionStatus();
 
-        Assert.assertNotEquals(defaultInfectionStatus, instantiatedInfectionStatus);
-        Assert.assertSame(instantiatedInfectionStatus.getClass(), ThresholdResponseModelInfectionStatus.class);
+        assertNotEquals(defaultInfectionStatus, instantiatedInfectionStatus);
+        assertSame(instantiatedInfectionStatus.getClass(), ThresholdResponseModelInfectionStatus.class);
     }
 
     private void createPedestrian(int id, double degreeOfExposure) {

@@ -15,6 +15,7 @@ import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.simulation.FootStep;
 import org.vadere.util.geometry.shapes.VPoint;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import tech.tablesaw.api.DoubleColumn;
@@ -200,7 +201,7 @@ public class TableTrajectoryFootStep {
 	 */
 	public Table getAliveAgents(final double startTime, final double endTime) {
 		Integer[] filteredPedIds = filterAgents(startTime, endTime);
-		return currentSlice.where(getPedId().isIn(filteredPedIds)
+		return currentSlice.where(getPedId().isIn(Arrays.asList(filteredPedIds))
 				.and(getStartTime().isLessThan(endTime)
 						.and(getEndTime().isGreaterThanOrEqualTo(startTime))));
 	}
@@ -220,7 +221,7 @@ public class TableTrajectoryFootStep {
 
 	public Table getAgentsWithDisappearedAgents(final double simTimeInSec) {
 		Table aliveAgents = getAgents(simTimeInSec);
-		Table deadAgents = currentSlice.where(getPedId().isNotIn(getPedId(aliveAgents).asObjectArray())
+		Table deadAgents = currentSlice.where(getPedId().isNotIn(Arrays.asList(getPedId(aliveAgents).asObjectArray()))
 						.and(getStartTime().isLessThanOrEqualTo(simTimeInSec)));
 
 		Int2IntMap idToRowNr = new Int2IntAVLTreeMap();

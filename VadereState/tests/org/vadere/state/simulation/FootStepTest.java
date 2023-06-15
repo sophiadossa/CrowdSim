@@ -1,8 +1,9 @@
 package org.vadere.state.simulation;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static  org.junit.jupiter.api.Assertions.*;
 
 import org.vadere.util.geometry.shapes.VPoint;
 
@@ -13,7 +14,7 @@ public class FootStepTest {
     private FootStep footStepDiagonal;
 
 
-    @Before
+    @BeforeEach
     public void setup(){
         footStepHorizontal = new FootStep(new VPoint(1,1), new VPoint(2,1), 0,1);
         footStepVertical = new FootStep(new VPoint(1,1), new VPoint(1,2), 0,1);
@@ -101,14 +102,18 @@ public class FootStepTest {
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void interpolationTestFail01(){
-        FootStep.interpolateFootStep(footStepHorizontal, 2);
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+            FootStep.interpolateFootStep(footStepHorizontal, 2);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void interpolationTestFail02(){
-        FootStep.interpolateFootStep(footStepHorizontal, -1);
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+            FootStep.interpolateFootStep(footStepHorizontal, -1);
+        });
     }
 
 

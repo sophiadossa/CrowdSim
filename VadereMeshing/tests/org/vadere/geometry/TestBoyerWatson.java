@@ -1,8 +1,8 @@
 package org.vadere.geometry;
 
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.mesh.gen.PFace;
 import org.vadere.meshing.mesh.gen.PHalfEdge;
 import org.vadere.meshing.mesh.gen.PVertex;
@@ -29,13 +29,13 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestBoyerWatson {
 
 	private static Logger log = Logger.getLogger(TestBoyerWatson.class);
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {}
 
 	@Test

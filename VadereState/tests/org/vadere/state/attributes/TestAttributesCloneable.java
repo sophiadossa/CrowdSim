@@ -1,6 +1,7 @@
 package org.vadere.state.attributes;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class TestAttributesCloneable {
 	
@@ -11,9 +12,11 @@ public class TestAttributesCloneable {
 		}
 	}
 
-	@Test(expected=CloneNotSupportedException.class)
+	@Test
 	public void testNotCloneableClass() throws CloneNotSupportedException {
-		new NotCloneableClass().clone();
+		Assertions.assertThrows(CloneNotSupportedException.class, ()->{
+			new NotCloneableClass().clone();
+		});
 	}
 
 }

@@ -12,7 +12,7 @@ import org.vadere.state.attributes.distributions.AttributesNegativeExponentialDi
 import org.vadere.state.scenario.distribution.VDistribution;
 import org.vadere.state.scenario.distribution.VadereDistributionTest;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Aleksandar Ivanov(ivanov0@hm.edu)

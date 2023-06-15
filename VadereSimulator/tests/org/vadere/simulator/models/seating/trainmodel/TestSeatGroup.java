@@ -1,13 +1,14 @@
 package org.vadere.simulator.models.seating.trainmodel;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.seating.TestTopographyAndModelBuilder;
 import org.vadere.state.attributes.models.seating.SeatFacingDirection;
 import org.vadere.state.attributes.models.seating.SeatRelativePosition;
@@ -22,7 +23,7 @@ public class TestSeatGroup {
 	private SeatGroup aSeatGroup;
 	private SeatGroup rightSeatGroup;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		trainModel = new TestTopographyAndModelBuilder().getTrainModel();
 		aSeatGroup = trainModel.getSeatGroup(0, 0);
@@ -56,9 +57,11 @@ public class TestSeatGroup {
 		}
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test()
 	public void testGetTheAvailableSeatFail() {
-		aSeatGroup.getTheAvailableSeat();
+		Assertions.assertThrows(IllegalStateException.class, () ->{
+			aSeatGroup.getTheAvailableSeat();
+		});
 	}
 
 	@Test
@@ -86,24 +89,30 @@ public class TestSeatGroup {
 		return aSeatGroup.getSeat(shuffledList.get(listIndex));
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test()
 	public void testGetTheOccupiedSeatFail1() {
-		aSeatGroup.getTheOccupiedSeat();
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			aSeatGroup.getTheOccupiedSeat();
+		});
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test()
 	public void testGetTheOccupiedSeatFail2() {
 		sitDownTestPerson(0);
 		sitDownTestPerson(1);
-		aSeatGroup.getTheOccupiedSeat();
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			aSeatGroup.getTheOccupiedSeat();
+		});
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test()
 	public void testGetTheOccupiedSeatFail3() {
 		sitDownTestPerson(0);
 		sitDownTestPerson(1);
 		sitDownTestPerson(2);
-		aSeatGroup.getTheOccupiedSeat();
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			aSeatGroup.getTheOccupiedSeat();
+		});
 	}
 
 	@Test
@@ -112,9 +121,11 @@ public class TestSeatGroup {
 		assertEquals(aSeatGroup.getSeat(1), aSeatGroup.getTheOccupiedSeat());
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test()
 	public void testGetTheTwoAvailableSeatsFail() {
-		aSeatGroup.getTheTwoAvailableSeats();
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			aSeatGroup.getTheOccupiedSeat();
+		});
 	}
 
 	@Test
@@ -214,27 +225,33 @@ public class TestSeatGroup {
 
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test()
 	public void testSeatRelativeToWithInvalidSeat() {
-		aSeatGroup.seatRelativeTo(trainModel.getSeat(1, 1, 1), SeatRelativePosition.ACROSS);
+		Assertions.assertThrows(IllegalArgumentException.class, ()->{
+			aSeatGroup.seatRelativeTo(trainModel.getSeat(1, 1, 1), SeatRelativePosition.ACROSS);
+		});
 	}
 
 	private void testRelativePosition(int actual, int seat, SeatRelativePosition relativePosition) {
 		assertEquals(aSeatGroup.getSeat(actual), aSeatGroup.seatRelativeTo(aSeatGroup.getSeat(seat), relativePosition));
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test()
 	public void testAvailableSeatAtFacingDirectionFailForward() {
-		sitDownTestPerson(2);
-		sitDownTestPerson(3);
-		aSeatGroup.availableSeatAtFacingDirection(SeatFacingDirection.FORWARD);
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			sitDownTestPerson(2);
+			sitDownTestPerson(3);
+			aSeatGroup.availableSeatAtFacingDirection(SeatFacingDirection.FORWARD);
+		});
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test()
 	public void testAvailableSeatAtFacingDirectionFailBackward() {
-		sitDownTestPerson(0);
-		sitDownTestPerson(1);
-		aSeatGroup.availableSeatAtFacingDirection(SeatFacingDirection.BACKWARD);
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			sitDownTestPerson(0);
+			sitDownTestPerson(1);
+			aSeatGroup.availableSeatAtFacingDirection(SeatFacingDirection.BACKWARD);
+		});
 	}
 
 	@Test
@@ -262,22 +279,26 @@ public class TestSeatGroup {
 
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test()
 	public void testAvailableSeatAtSideFailWindow() {
-		sitDownTestPerson(0);
-		sitDownTestPerson(2);
-		aSeatGroup.availableSeatAtSide(SeatSide.WINDOW);
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			sitDownTestPerson(0);
+			sitDownTestPerson(2);
+			aSeatGroup.availableSeatAtSide(SeatSide.WINDOW);
+		});
 	}
 
 	private void sitDownTestPerson(int seatIndex) {
 		aSeatGroup.getSeat(seatIndex).setSittingPerson(aPerson);
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test()
 	public void testAvailableSeatAtSideFailAisle() {
-		sitDownTestPerson(1);
-		sitDownTestPerson(3);
-		aSeatGroup.availableSeatAtSide(SeatSide.AISLE);
+		Assertions.assertThrows(IllegalStateException.class, ()->{
+			sitDownTestPerson(1);
+			sitDownTestPerson(3);
+			aSeatGroup.availableSeatAtSide(SeatSide.AISLE);
+		});
 	}
 
 	@Test
@@ -328,9 +349,11 @@ public class TestSeatGroup {
 		assertEquals(trainModel.getCompartment(1), trainModel.getSeatGroup(1, 3).getCompartment());
 	}
 
-	@Test(expected=UnsupportedOperationException.class)
+	@Test()
 	public void testGetSeatsIsUnmodifiable() {
-		aSeatGroup.getSeats().add(null);
+		Assertions.assertThrows(UnsupportedOperationException.class, ()->{
+			aSeatGroup.getSeats().add(null);
+		});
 	}
 	
 	@Test

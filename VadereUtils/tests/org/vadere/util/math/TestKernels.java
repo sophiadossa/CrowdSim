@@ -1,10 +1,10 @@
 package org.vadere.util.math;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.math.Convolution;
 
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestKernels {
 
@@ -65,7 +65,7 @@ public class TestKernels {
 			6.450132772605648e-12, 4.346065275888469e-14, 7.0178349016244e-17
 	};
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {}
 
 	@Test
@@ -78,8 +78,7 @@ public class TestKernels {
 	private static void equalsMatrixValues(final double[] m1, final double[] m2, final double epsilon) {
 		assertTrue(m1.length == m2.length);
 		for (int i = 0; i < m1.length; i++) {
-			assertTrue("computeGodunovDifference: " + i + ", " + m1[i] + ", " + m2[i] + ", " + Math.abs(m1[i] - m2[i]),
-					Math.abs(m1[i] - m2[i]) <= epsilon);
+			assertTrue(Math.abs(m1[i] - m2[i]) <= epsilon, "computeGodunovDifference: " + i + ", " + m1[i] + ", " + m2[i] + ", " + Math.abs(m1[i] - m2[i]));
 		}
 	}
 }

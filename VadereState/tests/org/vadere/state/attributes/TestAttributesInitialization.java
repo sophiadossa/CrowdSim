@@ -1,9 +1,9 @@
 package org.vadere.state.attributes;
 
-import static org.junit.Assert.assertArrayEquals;
+import static  org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.util.StateJsonConverter;
 
@@ -18,7 +18,7 @@ public class TestAttributesInitialization {
 	/**
 	 * Creates a key/value store.
 	 */
-	@Before
+	@BeforeEach
 	public void setUp() {
 
 		store = "{\"speedDistributionMean\":0.2}";

@@ -1,6 +1,7 @@
 package org.vadere.state.psychology.cognition;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class UnsupportedSelfCategoryExceptionTest {
 
@@ -65,13 +66,15 @@ public class UnsupportedSelfCategoryExceptionTest {
         assertEquals(expectedTotalExceptions, actualTotalExceptions);
     }
 
-    @Test(expected = UnsupportedSelfCategoryException.class)
+    @Test
     public void throwIfPedestriansNotTargetOrientiedThrowsExceptionIfAtLeastOneNotTargetOriented() {
-        List<Pedestrian> pedestrians = createPedestrians(2);
-        pedestrians.get(0).setSelfCategory(SelfCategory.TARGET_ORIENTED);
-        pedestrians.get(1).setSelfCategory(SelfCategory.COOPERATIVE);
+        Assertions.assertThrows(UnsupportedSelfCategoryException.class, ()->{
+            List<Pedestrian> pedestrians = createPedestrians(2);
+            pedestrians.get(0).setSelfCategory(SelfCategory.TARGET_ORIENTED);
+            pedestrians.get(1).setSelfCategory(SelfCategory.COOPERATIVE);
 
-        UnsupportedSelfCategoryException.throwIfPedestriansNotTargetOrientied(pedestrians, this.getClass());
+            UnsupportedSelfCategoryException.throwIfPedestriansNotTargetOrientied(pedestrians, this.getClass());
+        });
     }
 
 }

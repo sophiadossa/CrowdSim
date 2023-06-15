@@ -1,12 +1,13 @@
 package org.vadere.util.geometry.shapes;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.geom.Rectangle2D;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.geometry.GeometryUtils;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -16,15 +17,17 @@ public class TestVCircle {
 	private VCircle testCircleOrigin;
 	private VCircle testCircle1;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		this.testCircleOrigin = new VCircle(0.5);
 		testCircle1 = new VCircle(1.2, -2.4, 0.9);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testNegativeRadius() {
-		new VCircle(-0.1);
+		Assertions.assertThrows(IllegalArgumentException.class, ()->{
+			new VCircle(-0.1);
+		});
 	}
 
 	@Test

@@ -1,7 +1,6 @@
 package org.vadere.util.data.cellgrid;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,17 +8,17 @@ import java.net.URL;
 import java.util.Random;
 
 import tech.tablesaw.api.Table;
+import tech.tablesaw.io.RuntimeIOException;
 
-import static junit.framework.TestCase.fail;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CellGridTest {
 
 	private File loadTestResource(String path){
 		URL resource1 = CellGridTest.class.getResource(path);
 		if (resource1 == null){
-			Assert.fail("Resource not found: " + path);
+			fail("Resource not found: " + path);
 		}
 		return new File(resource1.getFile());
 	}
@@ -30,13 +29,14 @@ public class CellGridTest {
 		Table t = null;
 		try {
 			t = Table.read().csv(path);
-		} catch (IOException e) {
+		} catch (RuntimeIOException e) {
 			fail("Test file not found");
 			return;
 
 		}
 		CellGrid cellGrid = new CellGrid(3.0, 3.0, 1.0, new CellState(), 0.0, 0.0);
-		assertThat(t.rowCount(), equalTo(cellGrid.numPointsX*cellGrid.numPointsY));
+		assertEquals(t.rowCount(), cellGrid.numPointsX*cellGrid.numPointsY);
+//		assertThat(t.rowCount(), equalTo(cellGrid.numPointsX*cellGrid.numPointsY));
 
 		cellGrid.loadFromTable(t);
 		compare(t, cellGrid);
@@ -69,9 +69,14 @@ public class CellGridTest {
 						t.intColumn("x").isEqualTo(col)
 								.and(t.intColumn("y").isEqualTo(row))
 				);
-				assertThat(f.rowCount(), equalTo(1));
-				assertThat(f.column("value").get(0), equalTo(state.potential));
-				assertThat(f.column("tag").get(0), equalTo(state.tag.name()));
+
+//				assertThat(f.rowCount(), equalTo(1));
+//				assertThat(f.column("value").get(0), equalTo(state.potential));
+//				assertThat(f.column("tag").get(0), equalTo(state.tag.name()));
+				assertEquals(1, f.rowCount());
+				assertEquals(state.potential, f.column("value").get(0));
+				assertEquals(state.tag.name(), f.column("tag").get(0));
+
 			}
 		}
 	}

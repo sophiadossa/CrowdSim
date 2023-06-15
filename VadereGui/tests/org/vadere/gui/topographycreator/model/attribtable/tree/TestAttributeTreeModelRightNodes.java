@@ -1,7 +1,8 @@
 package org.vadere.gui.topographycreator.model.attribtable.tree;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import org.vadere.gui.topographycreator.control.attribtable.cells.EditorRegistry;
 import org.vadere.gui.topographycreator.control.attribtable.tree.*;
 import org.vadere.util.reflection.VadereAttribute;
@@ -16,13 +17,12 @@ public class TestAttributeTreeModelRightNodes {
     public void testClassWithRegisteredAttribute(){
         TestClassA testClass = new TestClassA();
         var tree = AttributeTreeModel.parseClassTree(null,null,testClass.getClass());
-
         /**
          * We require the class to be registered before testing the tree children
          */
-        Assert.assertTrue(EditorRegistry.getInstance().contains(Integer.class));
+        assertTrue(EditorRegistry.getInstance().contains(Integer.class));
 
-        Assert.assertTrue(tree.getChildren().get("myInteger").getSecond().getClass().isAssignableFrom(FieldNode.class));
+        assertTrue(tree.getChildren().get("myInteger").getSecond().getClass().isAssignableFrom(FieldNode.class));
     }
 
     @Test
@@ -30,7 +30,7 @@ public class TestAttributeTreeModelRightNodes {
         TestClassB testClass = new TestClassB();
         var tree = AttributeTreeModel.parseClassTree(null,null,testClass.getClass());
 
-        Assert.assertTrue(tree.getChildren().get("myInteger").getSecond().getClass().isAssignableFrom(ArrayNode.class));
+        assertTrue(tree.getChildren().get("myInteger").getSecond().getClass().isAssignableFrom(ArrayNode.class));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class TestAttributeTreeModelRightNodes {
         var tree = AttributeTreeModel.parseClassTree(null,null,testClass.getClass());
 
 
-        Assert.assertTrue(tree.getChildren().get("myInteger").getSecond().getClass().isAssignableFrom(ObjectNode.class));
+        assertTrue(tree.getChildren().get("myInteger").getSecond().getClass().isAssignableFrom(ObjectNode.class));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class TestAttributeTreeModelRightNodes {
         var tree = AttributeTreeModel.parseClassTree(null,null,testClass.getClass());
 
 
-        Assert.assertTrue(tree.getChildren().get("myInteger").getSecond().getClass().isAssignableFrom(AbstrNode.class));
+        assertTrue(tree.getChildren().get("myInteger").getSecond().getClass().isAssignableFrom(AbstrNode.class));
     }
 
 

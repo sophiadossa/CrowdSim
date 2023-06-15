@@ -1,8 +1,8 @@
 package org.vadere.util.math;
 
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.util.logging.Logger;
 import org.vadere.util.opencl.CLBitonicSort;
 import org.vadere.util.opencl.OpenCLException;
@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Benedikt Zoennchen
@@ -24,7 +24,7 @@ public class TestBitonicSort {
 	private static Logger logger = Logger.getLogger(TestConvolution.class);
 	private static Random random = new Random();
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		logger.setDebug();
 	}

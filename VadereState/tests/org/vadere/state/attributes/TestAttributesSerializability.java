@@ -1,7 +1,7 @@
 package org.vadere.state.attributes;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.state.attributes.Attributes;
 
 import java.io.File;
@@ -39,7 +39,7 @@ public class TestAttributesSerializability {
 	 */
 	private boolean checkClass;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws URISyntaxException {
 		URI uriToAttributePackage = Attributes.class.getResource(Attributes.class.getSimpleName() + ".class").toURI();
 		pathToAttributePackage =

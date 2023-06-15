@@ -4,14 +4,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import org.vadere.util.version.Version;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.projects.migration.MigrationException;
 import org.vadere.simulator.projects.migration.incident.helper.JsonFilterIterator;
 
 import java.nio.file.Path;
 import java.util.Iterator;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class JoltTransformV4toV5Test extends JsonTransformationTest {
 
@@ -74,7 +75,7 @@ public class JoltTransformV4toV5Test extends JsonTransformationTest {
 			String type = pathMustExist(n, "type").asText();
 			return type.equals("org.vadere.simulator.projects.dataprocessing.processor.PedestrianOverlapProcessor");
 		});
-		assertEquals("There should be 4 processors", processorCount, processors_v4.size());
+		assertEquals(processorCount, processors_v4.size(), "There should be 4 processors");
 		int count = 0;
 		while (iter_v4.hasNext()) {
 			count++;
@@ -82,7 +83,7 @@ public class JoltTransformV4toV5Test extends JsonTransformationTest {
 			pathMustExist(p, "attributes");
 			pathMustExist(p, "attributesType");
 		}
-		assertEquals("There should be 1 OverlapsProcessor", overlapProcessors, count);
+		assertEquals(overlapProcessors, count, "There should be 1 OverlapsProcessor");
 
 		JoltTransformation t = factory.getJoltTransformV4toV5();
 		JsonNode v5 = null;
@@ -97,7 +98,7 @@ public class JoltTransformV4toV5Test extends JsonTransformationTest {
 			String type = pathMustExist(n, "type").asText();
 			return type.equals("org.vadere.simulator.projects.dataprocessing.processor.PedestrianOverlapProcessor");
 		});
-		assertEquals("There should be 4 processors", processorCount, processors_v5.size());
+		assertEquals(processorCount, processors_v5.size(), "There should be 4 processors");
 		count = 0;
 		while (iter_v5.hasNext()) {
 			count++;
@@ -105,7 +106,7 @@ public class JoltTransformV4toV5Test extends JsonTransformationTest {
 			pathMustNotExist(p, "attributes");
 			pathMustNotExist(p, "attributesType");
 		}
-		assertEquals("There should be 1 OverlapsProcessor", overlapProcessors, count);
+		assertEquals(overlapProcessors, count, "There should be 1 OverlapsProcessor");
 
 	}
 

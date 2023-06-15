@@ -1,7 +1,7 @@
 package org.vadere.gui.vadere;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.models.osm.OptimalStepsModel;
 import org.vadere.simulator.projects.ProjectWriter;
 import org.vadere.simulator.projects.Scenario;
@@ -28,19 +28,19 @@ import java.util.stream.Collectors;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestProjectWriterAndReader {
 
-	private static VadereProject testProject;
-	private static String testProjectName = "testprojectname";
-	private static String testName = "testname";
+	private VadereProject testProject;
+	private String testProjectName = "testprojectname";
+	private String testName = "testname";
 
 	/**
 	 * @throws java.lang.Exception
 	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	@BeforeEach
+	public void setUpBeforeClass() throws Exception {
 		LinkedList<Attributes> attributes = new LinkedList<>();
 		attributes.add(new AttributesOSM());
 		attributes.add(new AttributesPotentialCompact());

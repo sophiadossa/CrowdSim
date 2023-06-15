@@ -1,13 +1,13 @@
 package org.vadere.manager.traci.response;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vadere.manager.traci.TraCICmd;
 
 import java.nio.ByteBuffer;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.assertThat;
 
 public class StatusResponseTest {
 

@@ -1,15 +1,15 @@
 package org.vadere.simulator.projects.dataprocessing.processor;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.vadere.simulator.control.simulation.SimulationState;
 
-import static org.junit.Assert.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PedestrianOverlapProcessorTest extends ProcessorTest {
 
-	@Before
+	@BeforeEach
 	public void setup(){
 		processorTestEnv = new PedestrianOverlapProcessorTestEnv();
 		super.setup();
@@ -33,7 +33,7 @@ public class PedestrianOverlapProcessorTest extends ProcessorTest {
 		super.doUpdate();
 	}
 
-	@Test @Ignore
+	@Test @Disabled
 	public void doUpdateWithTouching() throws Exception {
 		((PedestrianOverlapProcessorTestEnv)processorTestEnv).touching();
 		super.doUpdate();

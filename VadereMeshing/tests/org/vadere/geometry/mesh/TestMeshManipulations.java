@@ -1,7 +1,7 @@
 package org.vadere.geometry.mesh;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vadere.meshing.mesh.gen.PFace;
 import org.vadere.meshing.mesh.impl.PTriangulation;
 import org.vadere.meshing.mesh.inter.IIncrementalTriangulation;
@@ -10,8 +10,8 @@ import org.vadere.util.geometry.shapes.VRectangle;
 
 import java.util.function.Predicate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static  org.junit.jupiter.api.Assertions.assertEquals;
+import static  org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Benedikt Zoennchen
@@ -25,7 +25,7 @@ public class TestMeshManipulations {
 	private PTriangulation triangulation;
 	private VRectangle bound;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		bound = new VRectangle(-1, -1, 12, 12);
 		triangulation = IIncrementalTriangulation.createVPTriangulation(bound);
