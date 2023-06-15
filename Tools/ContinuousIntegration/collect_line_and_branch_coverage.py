@@ -42,6 +42,9 @@ def extract_line_and_branch_coverage(module_names):
     for module in module_names:
         coverage_path = path_separator.join([module, default_coverage_file])
 
+        if not os.path.exists(coverage_path):
+            print(f"warning: File {coverage_path} does not exist. Skip")
+            continue
         with open(coverage_path, "r") as file:
             coverage_report = file.read()
             
