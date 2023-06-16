@@ -50,21 +50,20 @@ public class TargetController extends ScenarioElementController {
 		for (DynamicElement element : getPrefilteredDynamicElements()) {
 			final Agent agent = castCheckAgent(element);
 			final int agentID = agent.getId();
-			if(agent == null) continue;
+			if (agent == null) continue;
 
 			final boolean agentHasReachedThisTarget =
 					isNextTargetForAgent(agent)
-					&& hasAgentReachedThisTarget(agent);
-
-			final boolean agentWaitingPeriodEnds =
-					target.getLeavingTimes().containsKey(agentID) &&
-					target.getLeavingTimes().get(agentID) <= simTimeInSec;
-
-			if (agentHasReachedThisTarget){
+							&& hasAgentReachedThisTarget(agent);
+			if (agentHasReachedThisTarget) {
 				notifyListenersTargetReached(agent);
-				handleArrivingAgent(agent,simTimeInSec,target.getLeavingTimes());
+				handleArrivingAgent(agent, simTimeInSec, target.getLeavingTimes());
 			}
-			if (agentHasReachedThisTarget && agentWaitingPeriodEnds){
+			final boolean agentWaitingPeriodEnds =
+					!targetAttributes.isWaiting() || (
+							target.getLeavingTimes().containsKey(agentID) &&
+									target.getLeavingTimes().get(agentID) <= simTimeInSec);
+			if (agentHasReachedThisTarget && agentWaitingPeriodEnds) {
 				checkRemove(agent);
 			}
 		}
@@ -95,28 +94,16 @@ public class TargetController extends ScenarioElementController {
 		return elementsInRange;
 	}
 
-	private void waitingBehavior(final Agent agent, double simTimeInSec) {
-		final int agentId = agent.getId();
-		final Map<Integer, Double> leavingTimes = target.getLeavingTimes();
-
-		final boolean agentIsWaiting = leavingTimes.containsKey(agentId);
-		if (!agentIsWaiting) {
-			handleArrivingAgent(agent, simTimeInSec, leavingTimes);
-		}
-	}
-
-	private void handleArrivingAgent(Agent agent,double simTimeInSec, Map<Integer, Double> leavingTimes) {
+	private void handleArrivingAgent(Agent agent, double simTimeInSec, Map<Integer, Double> leavingTimes) {
 		final int agentId = agent.getId();
 		final int waitingSpots = target.getParallelWaiters();
-
-		final boolean targetHasFreeWaitingSpots = waitingSpots <= 0 || (waitingSpots > 0 &&
-				leavingTimes.size() < waitingSpots);
-		if (targetHasFreeWaitingSpots) {
-			// TODO: Refractor VadereDistributions method name
-			if(targetAttributes.isWaiting()){
-				leavingTimes.put(agentId,this.distribution.getNextSample(simTimeInSec));
-			}else{
-				leavingTimes.put(agentId,simTimeInSec);
+		if (targetAttributes.isWaiting()) {
+			final boolean targetHasFreeWaitingSpots = waitingSpots <= 0 || leavingTimes.size() < waitingSpots;
+			if (targetHasFreeWaitingSpots) {
+				// TODO: Refractor VadereDistributions method name
+				if (!leavingTimes.containsKey(agentId)) {
+					leavingTimes.put(agentId, this.distribution.getNextSample(simTimeInSec));
+				}
 			}
 		}
 	}
@@ -147,7 +134,9 @@ public class TargetController extends ScenarioElementController {
 	}
 
 	private void checkRemove(Agent agent) {
-		target.getLeavingTimes().remove(agent.getId());
+		if (targetAttributes.isWaiting()) {
+			target.getLeavingTimes().remove(agent.getId());
+		}
 		if (target.isAbsorbing()) {
 			changeTargetOfFollowers(agent);
 			topography.removeElement(agent);
