@@ -162,7 +162,7 @@
           }
         },
         "leavingSpeed" : -1.0,
-        "parallelEvents" : 0
+        "parallelEvents" : 1
       } ],
       "targetChangers" : [ ],
       "absorbingAreas" : [ ],
