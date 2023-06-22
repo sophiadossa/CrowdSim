@@ -85,7 +85,7 @@ public class AttributesTarget extends AttributesVisualElement {
 
 	public void setWaiting(Boolean waiting) {
 		checkSealed();
-		this.absorber.setEnabled(waiting);
+		this.waiter.setEnabled(waiting);
 	}
 
 	public AttributesWaiter getWaiterAttributes() {
