@@ -16,6 +16,12 @@ public class AttributesWaiter extends AttributesEnabled {
     @VadereAttribute
     @JsonView(Views.CacheViewExclude.class)
     private AttributesDistribution distribution;
+    /**
+     * This attribute stores whether the group of agents on the target will wait together or not.
+     */
+    @VadereAttribute
+    @JsonView(Views.CacheViewExclude.class)
+    private Boolean individualWaiting = true;
 
     public AttributesWaiter(){
         super();
@@ -32,5 +38,13 @@ public class AttributesWaiter extends AttributesEnabled {
     public AttributesWaiter setDistribution(AttributesDistribution distribution) {
         this.distribution = distribution;
         return this;
+    }
+
+    public boolean isIndividualWaiting() {
+        return individualWaiting;
+    }
+
+    public void setIndividualWaiting(boolean individualWaiting) {
+        this.individualWaiting = individualWaiting;
     }
 }
