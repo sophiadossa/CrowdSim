@@ -236,7 +236,11 @@ public class SimulationCommandHandler extends CommandHandler<SimulationVar> {
 				try {
 					StimulusInfo info = StateJsonConverter.deserializeStimulusInfo(msg_content);
 
-					if (specify_id != -1) {
+					if (specify_id == -1) {
+
+
+
+					}else{
 						LinkedList<Integer> idList = new LinkedList<>();
 						idList.add(specify_id);
 						info.getSubpopulationFilter().setAffectedPedestrianIds(idList);
