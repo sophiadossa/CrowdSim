@@ -27,7 +27,7 @@ def parse_command_line_arguments():
     parser.add_argument("scenario", type=str, nargs="?",
                         help="Run only the given scenario file and not all. E.g., "
                              "\"Scenarios/ModelTests/TestOSM/scenarios/basic_2_density_discrete_ca.scenario\"")
-
+    parser.add_argument('--exclude', type=str, nargs='*', help='excluded scenario files')
     return parser.parse_args()
 
 
@@ -46,7 +46,7 @@ def run_all_model_tests():
         "06_bang_event_guimaraes_platz"
     ]
 
-    excluded_scenarios = ["TestOVM", "output", "legacy"]
+    excluded_scenarios = ["output", "legacy"]
     excluded_scenarios.extend(long_running_scenarios)
 
     scenario_base_path = os.path.join("Scenarios" , "ModelTests")
@@ -259,7 +259,7 @@ def result_dict_merge(merge_into, merge_from):
 if __name__ == "__main__":
     args = parse_command_line_arguments()
 
-    if args.scenario is None:
+    if args.scenario is None and args.exclude is None:
 
         passed_and_failed_scenarios_model = run_all_model_tests()
         passed_and_failed_scenarios_optimization = run_all_optimization_tests()
@@ -267,7 +267,9 @@ if __name__ == "__main__":
         # Make a summery of all scenario files
         all_passed_and_failed_scenarios = result_dict_merge(passed_and_failed_scenarios_model,
                                                             passed_and_failed_scenarios_optimization)
-
+    elif args.exclude is not None:
+        scenario_files = find_scenario_files(os.path.join("Scenarios"), exclude_patterns=args.exclude)
+        all_passed_and_failed_scenarios = run_scenario_files_with_vadere_console(scenario_files)
     else:
         all_passed_and_failed_scenarios = run_scenario_files_with_vadere_console([args.scenario])
 
