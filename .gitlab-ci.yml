@@ -91,7 +91,28 @@ stages:
             - "vadere_logs"
         expire_in: 1 week
     when: on_success
-    
+
+.template_demo_scenario_files:
+    stage: demo_stage
+    script:
+        - rm -f ~/.config/vadere.conf
+        - mvn clean
+        - mvn -Dmaven.test.skip=true package
+        - python3 Tools/ContinuousIntegration/run_vadere_console_with_all_scenario_files.py --exclude \
+          "Scenarios/ModelCalibration" \
+          "Scenarios/ModelTests" \
+          "Scenarios/OptimizationTests" \
+          "Scenarios/TestMuenchnerFreiheit" \
+          "Scenarios/Demos/Demonstration" \
+          "Scenarios/Demos/OSM-GPU" \
+          "Scenarios/Demos/ReinforcementLearning" \
+    artifacts:
+        when: on_failure
+        paths:
+            - "vadere_logs"
+        expire_in: 1 week
+    when: on_success
+
 .template_generate_videos:
     stage: generate_video
     script:
