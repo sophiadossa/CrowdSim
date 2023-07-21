@@ -1,6 +1,6 @@
 {
   "name" : "rimea_11_exit_selection_nelder_mead",
-  "description" : "",
+  "description" : "Note the specific configuration provided in ..\vadere.conf.",
   "release" : "2.4",
   "processWriters" : {
     "files" : [ ],

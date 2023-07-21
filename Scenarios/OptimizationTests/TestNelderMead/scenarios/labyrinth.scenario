@@ -1,6 +1,6 @@
 {
   "name" : "labyrinth",
-  "description" : "",
+  "description" : "Note the specific configuration provided in ..\vadere.conf.",
   "release" : "2.4",
   "processWriters" : {
     "files" : [ ],
