@@ -102,7 +102,6 @@ stages:
           "Scenarios/ModelCalibration" \
           "Scenarios/ModelTests" \
           "Scenarios/OptimizationTests" \
-          "Scenarios/TestMuenchnerFreiheit" \
           "Scenarios/Demos/Demonstration" \
           "Scenarios/Demos/OSM-GPU" \
           "Scenarios/Demos/ReinforcementLearning" \
