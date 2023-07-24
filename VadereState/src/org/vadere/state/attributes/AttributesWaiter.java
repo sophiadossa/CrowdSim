@@ -2,6 +2,7 @@ package org.vadere.state.attributes;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.vadere.state.attributes.distributions.AttributesDistribution;
+import org.vadere.state.attributes.scenario.AttributesTarget;
 import org.vadere.state.util.Views;
 import org.vadere.util.reflection.VadereAttribute;
 
@@ -17,7 +18,10 @@ public class AttributesWaiter extends AttributesEnabled {
     @JsonView(Views.CacheViewExclude.class)
     private AttributesDistribution distribution;
     /**
-     * This attribute stores whether the group of agents on the target will wait together or not.
+     * This attribute stores whether the waiter handles arriving agents in batches or as individuals.
+     * Waiting phase of a waiter will start as soon as the number of waiting ({@link AttributesTarget#parallelEvents})
+     * has been reached. Note that individualWaiting=false and {@link AttributesTarget#parallelEvents}=0 make agents
+     * wait forever.
      */
     @VadereAttribute
     @JsonView(Views.CacheViewExclude.class)

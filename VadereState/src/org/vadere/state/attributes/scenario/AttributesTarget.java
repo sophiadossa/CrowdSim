@@ -24,7 +24,8 @@ public class AttributesTarget extends AttributesVisualElement {
 	@JsonView(Views.CacheViewExclude.class)
 	private AttributesWaiter waiter = new AttributesWaiter();
 	/**
-	 * This attribute stores the speed an agent has after leaving this target
+	 * This attribute stores the free flow speed an agent has after leaving this target. If set to -1, the free flow
+	 * speed is not altered by the waiter.
 	 */
 	@VadereAttribute
 	@JsonView(Views.CacheViewExclude.class)
