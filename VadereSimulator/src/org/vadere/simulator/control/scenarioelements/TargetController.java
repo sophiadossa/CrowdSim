@@ -21,6 +21,7 @@ public class TargetController extends ScenarioElementController {
 	public final Target target;
 	private final Topography topography;
 
+	private boolean batchRemovalFinished = true;
 
 	public TargetController(Topography topography, Target target,Random random) {
 		this.target = target;
@@ -50,21 +51,20 @@ public class TargetController extends ScenarioElementController {
 		for (DynamicElement element : getPrefilteredDynamicElements()) {
 			final Agent agent = castCheckAgent(element);
 			final int agentID = agent.getId();
-			if(agent == null) continue;
+			if (agent == null) continue;
 
 			final boolean agentHasReachedThisTarget =
 					isNextTargetForAgent(agent)
-					&& hasAgentReachedThisTarget(agent);
-
-			final boolean agentWaitingPeriodEnds =
-					target.getLeavingTimes().containsKey(agentID) &&
-					target.getLeavingTimes().get(agentID) <= simTimeInSec;
-
-			if (agentHasReachedThisTarget){
+							&& hasAgentReachedThisTarget(agent);
+			if (agentHasReachedThisTarget) {
 				notifyListenersTargetReached(agent);
-				handleArrivingAgent(agent,simTimeInSec,target.getLeavingTimes());
+				handleArrivingAgent(agent, simTimeInSec, target.getLeavingTimes());
 			}
-			if (agentHasReachedThisTarget && agentWaitingPeriodEnds){
+			final boolean agentWaitingPeriodEnds =
+					!targetAttributes.isWaiting() || (
+							target.getLeavingTimes().containsKey(agentID) &&
+									target.getLeavingTimes().get(agentID) <= simTimeInSec);
+			if (agentHasReachedThisTarget && agentWaitingPeriodEnds) {
 				checkRemove(agent);
 			}
 		}
@@ -95,28 +95,32 @@ public class TargetController extends ScenarioElementController {
 		return elementsInRange;
 	}
 
-	private void waitingBehavior(final Agent agent, double simTimeInSec) {
-		final int agentId = agent.getId();
-		final Map<Integer, Double> leavingTimes = target.getLeavingTimes();
-
-		final boolean agentIsWaiting = leavingTimes.containsKey(agentId);
-		if (!agentIsWaiting) {
-			handleArrivingAgent(agent, simTimeInSec, leavingTimes);
-		}
-	}
-
-	private void handleArrivingAgent(Agent agent,double simTimeInSec, Map<Integer, Double> leavingTimes) {
+	private void handleArrivingAgent(Agent agent, double simTimeInSec, Map<Integer, Double> leavingTimes) {
 		final int agentId = agent.getId();
 		final int waitingSpots = target.getParallelWaiters();
 
-		final boolean targetHasFreeWaitingSpots = waitingSpots <= 0 || (waitingSpots > 0 &&
-				leavingTimes.size() < waitingSpots);
-		if (targetHasFreeWaitingSpots) {
-			// TODO: Refractor VadereDistributions method name
-			if(targetAttributes.isWaiting()){
-				leavingTimes.put(agentId,this.distribution.getNextSample(simTimeInSec));
-			}else{
-				leavingTimes.put(agentId,simTimeInSec);
+		if (targetAttributes.isWaiting()) {
+			if(targetAttributes.getWaiterAttributes().isIndividualWaiting()) {
+				final boolean targetHasFreeWaitingSpots = waitingSpots <= 0 || leavingTimes.size() < waitingSpots;
+				if (targetHasFreeWaitingSpots) {
+					if (!leavingTimes.containsKey(agentId)) {
+						leavingTimes.put(agentId, this.distribution.getNextSample(simTimeInSec));
+					}
+				}
+			}
+			else {
+				final boolean targetHasFreeWaitingSpots = leavingTimes.size() < waitingSpots;
+				if (targetHasFreeWaitingSpots) {
+					if (!leavingTimes.containsKey(agentId) && batchRemovalFinished) {
+						leavingTimes.put(agentId, Double.MAX_VALUE);
+						if (leavingTimes.size() == waitingSpots){
+							double nextSample = this.distribution.getNextSample(simTimeInSec);
+							for (Map.Entry<Integer, Double> entry : leavingTimes.entrySet()) {
+								entry.setValue(nextSample);
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -147,7 +151,15 @@ public class TargetController extends ScenarioElementController {
 	}
 
 	private void checkRemove(Agent agent) {
-		target.getLeavingTimes().remove(agent.getId());
+		if (targetAttributes.isWaiting()) {
+			target.getLeavingTimes().remove(agent.getId());
+			if(!targetAttributes.getWaiterAttributes().isIndividualWaiting()){
+				batchRemovalFinished = false;
+				if (target.getLeavingTimes().isEmpty()){
+					batchRemovalFinished = true;
+				}
+			}
+		}
 		if (target.isAbsorbing()) {
 			changeTargetOfFollowers(agent);
 			topography.removeElement(agent);

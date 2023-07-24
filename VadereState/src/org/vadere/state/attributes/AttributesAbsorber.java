@@ -8,7 +8,7 @@ import org.vadere.util.reflection.VadereAttribute;
  */
 public class AttributesAbsorber extends AttributesEnabled {
     /**
-     * This attribute stores the distance an agent need to be away from the absorbing area to be absorbed.
+     * This attribute stores the min. distance an agent needs to be away from the absorbing area to be absorbed.
      */
     @VadereAttribute
     @JsonView(Views.CacheViewExclude.class)

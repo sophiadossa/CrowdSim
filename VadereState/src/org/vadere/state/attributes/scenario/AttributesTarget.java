@@ -24,11 +24,12 @@ public class AttributesTarget extends AttributesVisualElement {
 	@JsonView(Views.CacheViewExclude.class)
 	private AttributesWaiter waiter = new AttributesWaiter();
 	/**
-	 * This attribute stores the speed an agent has after leaving this target
+	 * This attribute stores the free flow speed an agent has after leaving this target. If set to -1, the free flow
+	 * speed is not altered by the waiter.
 	 */
 	@VadereAttribute
 	@JsonView(Views.CacheViewExclude.class)
-	private Double leavingSpeed = 0.0;
+	private Double leavingSpeed = -1.0;
 	/**
 	 * This attributes stores the number of agents the target can process at the same time.<br>
 	 * <b>NOTE:</b> If set to zero the target can process any number of agents at the same time.
@@ -85,7 +86,7 @@ public class AttributesTarget extends AttributesVisualElement {
 
 	public void setWaiting(Boolean waiting) {
 		checkSealed();
-		this.absorber.setEnabled(waiting);
+		this.waiter.setEnabled(waiting);
 	}
 
 	public AttributesWaiter getWaiterAttributes() {

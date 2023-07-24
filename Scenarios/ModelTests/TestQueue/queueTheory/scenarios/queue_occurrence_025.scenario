@@ -38,8 +38,8 @@
       "attributesType" : "org.vadere.state.attributes.processor.AttributesTestServiceTimeProcessor",
       "attributes" : {
         "expectedResult" : "SUCCESS",
-        "upperBound" : 10.0,
-        "lowerBound" : 6.0
+        "upperBound" : 17.0,
+        "lowerBound" : 16.0
       }
     } ],
     "isTimestamped" : true,
@@ -171,7 +171,7 @@
           }
         },
         "leavingSpeed" : -1.0,
-        "parallelEvents" : 0
+        "parallelEvents" : 1
       } ],
       "targetChangers" : [ ],
       "absorbingAreas" : [ ],
