@@ -20,7 +20,7 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
 @SupportedAnnotationTypes("org.vadere.annotation.factories.dataprocessors.DataProcessorClass")
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@SupportedSourceVersion(SourceVersion.RELEASE_17)
 @AutoService(Processor.class)
 public class DataProcessorFactoryProcessor extends BaseFactoryProcessor {
 

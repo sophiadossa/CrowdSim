@@ -16,7 +16,7 @@ import javax.lang.model.element.TypeElement;
 
 
 @SupportedAnnotationTypes("org.vadere.annotation.factories.attributes.ModelAttributeClass")
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@SupportedSourceVersion(SourceVersion.RELEASE_17)
 @AutoService(Processor.class)
 public class BaseAttributeFactoryProcessor extends BaseFactoryProcessor {
 
