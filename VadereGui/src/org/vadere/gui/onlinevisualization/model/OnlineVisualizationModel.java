@@ -152,11 +152,7 @@ public class OnlineVisualizationModel extends SimulationModel<DefaultSimulationC
 				domain = observationAreaSnapshot.domain;
 			}
 
-			if (getSelectedElement() instanceof Car) {
-				int carId = getSelectedElement().getId();
-				Car car = domain.getTopography().getElement(Car.class, carId);
-				setSelectedElement(car);
-			} else if (getSelectedElement() instanceof Pedestrian) {
+			if (getSelectedElement() instanceof Pedestrian) {
 				int pedId = getSelectedElement().getId();
 				Pedestrian ped = domain.getTopography().getElement(Pedestrian.class, pedId);
 				setSelectedElement(ped);
