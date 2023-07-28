@@ -1,8 +1,8 @@
 {
   "name" : "lu-2020-life",
   "description" : "Superspreading event in a restaurant following lu-2021-life;\n\nJ. Lu, J. Gu, K. Li, C. Xu, W. Su, Z. Lai, D. Zhou,\nC. Yu, B. Xu, and Z. Yang. COVID-19 outbreak associated\nwith air conditioning in restaurant, guangzhou,\nchina, 2020. Emerging Infectious Diseases, 26(7):1628–\n1631, 2020. doi:10.3201/eid2607.200764.",
-  "release" : "2.4",
-  "commithash" : "37d5cea029114cfbc5ced38fb76c86834cb50304",
+  "release" : "2.5",
+  "commithash" : "095591dd79df47e1f43ee0d7c7accfe007d67ca0",
   "processWriters" : {
     "files" : [ {
       "type" : "org.vadere.simulator.projects.dataprocessing.outputfile.EventtimePedestrianIdOutputFile",
@@ -357,7 +357,8 @@
           "distribution" : {
             "type" : "org.vadere.state.attributes.distributions.AttributesConstantDistribution",
             "updateFrequency" : 4380.0
-          }
+          },
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 1
@@ -380,7 +381,8 @@
           "distribution" : {
             "type" : "org.vadere.state.attributes.distributions.AttributesConstantDistribution",
             "updateFrequency" : 4380.0
-          }
+          },
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 1
@@ -403,7 +405,8 @@
           "distribution" : {
             "type" : "org.vadere.state.attributes.distributions.AttributesConstantDistribution",
             "updateFrequency" : 4380.0
-          }
+          },
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 1
@@ -426,7 +429,8 @@
           "distribution" : {
             "type" : "org.vadere.state.attributes.distributions.AttributesConstantDistribution",
             "updateFrequency" : 4500.0
-          }
+          },
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 1
@@ -449,7 +453,8 @@
           "distribution" : {
             "type" : "org.vadere.state.attributes.distributions.AttributesConstantDistribution",
             "updateFrequency" : 4500.0
-          }
+          },
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 1
@@ -472,7 +477,8 @@
           "distribution" : {
             "type" : "org.vadere.state.attributes.distributions.AttributesConstantDistribution",
             "updateFrequency" : 4500.0
-          }
+          },
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 1
@@ -495,7 +501,8 @@
           "distribution" : {
             "type" : "org.vadere.state.attributes.distributions.AttributesConstantDistribution",
             "updateFrequency" : 4500.0
-          }
+          },
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 1
@@ -518,7 +525,8 @@
           "distribution" : {
             "type" : "org.vadere.state.attributes.distributions.AttributesConstantDistribution",
             "updateFrequency" : 4500.0
-          }
+          },
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 1
@@ -541,7 +549,8 @@
           "distribution" : {
             "type" : "org.vadere.state.attributes.distributions.AttributesConstantDistribution",
             "updateFrequency" : 3180.0
-          }
+          },
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 1
@@ -564,7 +573,8 @@
           "distribution" : {
             "type" : "org.vadere.state.attributes.distributions.AttributesConstantDistribution",
             "updateFrequency" : 3180.0
-          }
+          },
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 1
@@ -866,35 +876,7 @@
         "walkingDirectionSameIfAngleLessOrEqual" : 45.0,
         "walkingDirectionCalculation" : "BY_TARGET_CENTER"
       },
-      "teleporter" : null,
-      "attributesCar" : {
-        "id" : -1,
-        "shape" : {
-          "x" : 0.0,
-          "y" : 0.0,
-          "width" : 1.0,
-          "height" : 1.0,
-          "type" : "RECTANGLE"
-        },
-        "visible" : true,
-        "radius" : 0.2,
-        "densityDependentSpeed" : false,
-        "speedDistributionMean" : 1.34,
-        "speedDistributionStandardDeviation" : 0.26,
-        "minimumSpeed" : 0.5,
-        "maximumSpeed" : 2.2,
-        "acceleration" : 2.0,
-        "footstepHistorySize" : 4,
-        "searchRadius" : 1.0,
-        "walkingDirectionSameIfAngleLessOrEqual" : 45.0,
-        "walkingDirectionCalculation" : "BY_TARGET_CENTER",
-        "length" : 4.5,
-        "width" : 1.7,
-        "direction" : {
-          "x" : 1.0,
-          "y" : 0.0
-        }
-      }
+      "teleporter" : null
     },
     "stimulusInfos" : [ ]
   }
