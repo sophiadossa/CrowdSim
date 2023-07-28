@@ -7,7 +7,6 @@ import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.AttributesBuilder;
 import org.vadere.state.attributes.AttributesSimulation;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesTopography;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.Teleporter;
@@ -69,11 +68,6 @@ public class ScenarioBuilder {
             builder.setField(fieldName, value);
             setAttributesAgent((AttributesAgent) builder.build());
         }
-        else if(AttributesCar.class == clazz){
-			builder = new AttributesBuilder<>((E) store.getTopography().getAttributesCar());
-            builder.setField(fieldName, value);
-            setAttributesCar((AttributesCar) builder.build());
-        }
         else if(AttributesTopography.class == clazz){
 			builder = new AttributesBuilder<>((E) store.getTopography().getAttributes());
             builder.setField(fieldName, value);
@@ -85,18 +79,6 @@ public class ScenarioBuilder {
             builder.setField(fieldName, value);
             store.removeAttributesIf(attributes -> attributes.getClass() == clazz);
             store.addAttributes(builder.build());
-        }
-    }
-
-    private void setAttributesCar(@NotNull final AttributesCar attributesCar) {
-        Field field;
-        try {
-			field = store.getTopography().getClass().getDeclaredField("attributesCar");
-            field.setAccessible(true);
-			field.set(store.getTopography(), attributesCar);
-        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-            e.printStackTrace();
-            logger.error(e);
         }
     }
 

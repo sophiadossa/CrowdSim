@@ -25,7 +25,6 @@ import org.vadere.state.attributes.models.AttributesPotentialSFM;
 import org.vadere.state.attributes.models.AttributesQueuingGame;
 import org.vadere.state.attributes.models.AttributesReynolds;
 import org.vadere.state.attributes.models.AttributesSFM;
-import org.vadere.state.attributes.scenario.AttributesCar;
 
 public class LookupTables {
 
@@ -33,7 +32,7 @@ public class LookupTables {
 	static {
 		version0to1_ModelRenaming.put("BEHAVIOURAL_HEURISTICS_MODEL", AttributesBHM.class.getName());
 		version0to1_ModelRenaming.put("BIOMECHANICS_MODEL", AttributesBMM.class.getName());
-		version0to1_ModelRenaming.put("CAR_ATTRIBUTES", AttributesCar.class.getName());
+		version0to1_ModelRenaming.put("CAR_ATTRIBUTES", "org.vadere.state.attributes.scenario.AttributesCar");
 		version0to1_ModelRenaming.put("CENTROID_GROUP_MODEL", AttributesCGM.class.getName());
 		version0to1_ModelRenaming.put("FLOORFIELD", AttributesFloorField.class.getName());
 		version0to1_ModelRenaming.put("FREDERIX_MODEL", AttributesParticles.class.getName());

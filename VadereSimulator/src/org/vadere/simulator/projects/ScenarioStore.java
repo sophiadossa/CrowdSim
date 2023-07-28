@@ -7,7 +7,6 @@ import org.vadere.simulator.projects.io.JsonConverter;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.AttributesPsychology;
 import org.vadere.state.attributes.AttributesSimulation;
-import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.psychology.perception.json.StimulusInfoStore;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.util.StateJsonConverter;
@@ -66,10 +65,6 @@ public class ScenarioStore {
 
 	public ScenarioStore(final String name) {
 		this(name, "", null, new ArrayList<>(), new AttributesSimulation(), new Topography());
-	}
-
-	public AttributesCar getAttributesCar() {
-		return getTopography().getAttributesCar();
 	}
 
 	@Override
