@@ -13,7 +13,6 @@ import org.vadere.state.attributes.models.AttributesFloorField;
 import org.vadere.state.attributes.models.AttributesGFM;
 import org.vadere.state.attributes.models.AttributesGNM;
 import org.vadere.state.attributes.models.AttributesOSM;
-import org.vadere.state.attributes.models.AttributesOVM;
 import org.vadere.state.attributes.models.AttributesParticles;
 import org.vadere.state.attributes.models.AttributesPotentialCompact;
 import org.vadere.state.attributes.models.AttributesPotentialCompactSoftshell;
@@ -44,7 +43,7 @@ public class LookupTables {
 		version0to1_ModelRenaming.put("OBSTACLE_POTENTIAL_RING_EXPERIMENT", AttributesPotentialRingExperiment.class.getName());
 		version0to1_ModelRenaming.put("OBSTACLE_POTENTIAL_SFM", AttributesPotentialSFM.class.getName());
 		version0to1_ModelRenaming.put("OPTIMAL_STEPS_MODEL", AttributesOSM.class.getName());
-		version0to1_ModelRenaming.put("OPTIMAL_VELOCITY_MODEL", AttributesOVM.class.getName());
+		version0to1_ModelRenaming.put("OPTIMAL_VELOCITY_MODEL", "org.vadere.state.attributes.models.AttributesOVM");
 		version0to1_ModelRenaming.put("PEDESTRIAN_POTENTIAL_GNM", AttributesPotentialGNM.class.getName());
 		version0to1_ModelRenaming.put("PEDESTRIAN_POTENTIAL_OSM", AttributesPotentialOSM.class.getName());
 		version0to1_ModelRenaming.put("PEDESTRIAN_POTENTIAL_PARTICLES", AttributesPotentialParticles.class.getName());
