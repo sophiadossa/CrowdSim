@@ -20,6 +20,11 @@
 
 ### Other
 
+## v2.5
+### Removed
+- Removed `OptimalVelocityModel`
+- Removed `attributesCar` from the scenario files
+
 ## v2.4 (2022-10-04)
 
 ### Added
