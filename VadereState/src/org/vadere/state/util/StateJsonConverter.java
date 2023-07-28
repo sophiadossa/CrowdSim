@@ -98,7 +98,6 @@ public abstract class StateJsonConverter {
 	private static class TopographyStore {
 		AttributesTopography attributes = new AttributesTopography();
 		AttributesAgent attributesPedestrian = new AttributesAgent();
-		AttributesCar attributesCar = new AttributesCar();
 		Collection<AttributesObstacle> obstacles = new LinkedList<>();
 		Collection<AttributesStairs> stairs = new LinkedList<>();
 		Collection<AttributesTarget> targets = new LinkedList<>();
@@ -170,7 +169,7 @@ public abstract class StateJsonConverter {
 
 	public static Topography deserializeTopographyFromNode(JsonNode node) throws IllegalArgumentException {
 		TopographyStore store = mapper.convertValue(node, TopographyStore.class);
-		Topography topography = new Topography(store.attributes, store.attributesPedestrian, store.attributesCar);
+		Topography topography = new Topography(store.attributes, store.attributesPedestrian, new AttributesCar());
 		store.obstacles.forEach(obstacle -> topography.addObstacle(new Obstacle(obstacle)));
 		store.stairs.forEach(stairs -> topography.addStairs(new Stairs(stairs)));
 		store.targets.forEach(target -> topography.addTarget(new Target(target)));
@@ -250,10 +249,6 @@ public abstract class StateJsonConverter {
 		return ped;
 	}
 
-	public static Car deserializeCar(String json) throws IOException {
-		return mapper.readValue(json, Car.class);
-	}
-
 	public static Attributes deserializeScenarioElementType(String json, ScenarioElementType type) throws IOException {
 		// TODO [priority=low] [task=refactoring] find a better way!
 		switch (type) {
@@ -279,8 +274,6 @@ public abstract class StateJsonConverter {
 				return mapper.readValue(json, AttributesDroplets.class);
 			case TELEPORTER:
 				return mapper.readValue(json, AttributesTeleporter.class);
-			case CAR:
-				return mapper.readValue(json, AttributesCar.class);
 			default:
 				return null;
 		}
@@ -380,8 +373,6 @@ public abstract class StateJsonConverter {
 		ArrayNode dynamicElementNodes = mapper.createArrayNode();
 		topography.getPedestrianDynamicElements().getInitialElements()
 				.forEach(ped -> dynamicElementNodes.add(mapper.convertValue(ped, JsonNode.class))); // TODO [priority=medium] [task=check] initial elements is the right list, isn't it?
-		topography.getCarDynamicElements().getInitialElements()
-				.forEach(car -> dynamicElementNodes.add(mapper.convertValue(car, JsonNode.class))); // TODO [priority=medium] [task=test] verify that this works
 		topographyNode.set("dynamicElements", dynamicElementNodes);
 
 		JsonNode attributesPedestrianNode = mapper.convertValue(topography.getAttributesPedestrian(), JsonNode.class);
@@ -395,9 +386,6 @@ public abstract class StateJsonConverter {
 		}
 		JsonNode node = mapper.convertValue(attributesTeleporter, JsonNode.class);
 		topographyNode.set("teleporter", node);
-
-		JsonNode attributesCarNode = mapper.convertValue(topography.getAttributesCar(), JsonNode.class);
-		topographyNode.set("attributesCar", attributesCarNode);
 
 		return topographyNode;
 	}
