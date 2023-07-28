@@ -90,7 +90,6 @@ public class TargetController extends ScenarioElementController {
 
 		final Collection<DynamicElement> elementsInRange = new LinkedList<>();
 		elementsInRange.addAll(getObjectsInCircle(Pedestrian.class, center, radius));
-		elementsInRange.addAll(getObjectsInCircle(Car.class, center, radius));
 		
 		return elementsInRange;
 	}
