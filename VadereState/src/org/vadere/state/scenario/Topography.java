@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.jetbrains.annotations.NotNull;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesDynamicElement;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
 import org.vadere.state.attributes.scenario.AttributesTopography;
@@ -109,13 +108,10 @@ public class Topography implements DynamicElementMover{
 	private Teleporter teleporter;
 
 	private transient final DynamicElementContainer<Pedestrian> pedestrians;
-	private transient final DynamicElementContainer<Car> cars;
 	private boolean recomputeCells;
 
 	@JsonView(Views.CacheViewExclude.class) // ignore when determining if floor field cache is valid
 	private AttributesAgent attributesPedestrian;
-	@JsonView(Views.CacheViewExclude.class) // ignore when determining if floor field cache is valid
-	private AttributesCar attributesCar;
 
 	/** Used to get attributes of all scenario elements. */
 	private Set<List<? extends ScenarioElement>> allScenarioElements = new HashSet<>(); // will be filled in the constructor
@@ -128,15 +124,12 @@ public class Topography implements DynamicElementMover{
 
 	public Topography(
 			AttributesTopography attributes,
-			AttributesAgent attributesPedestrian,
-			AttributesCar attributesCar) {
+			AttributesAgent attributesPedestrian) {
 
 		this.attributes = attributes;
 		this.attributesPedestrian = attributesPedestrian;
-		this.attributesCar = attributesCar;
 
 		allOtherAttributes.add(attributes);
-		allOtherAttributes.add(attributesCar);
 		allOtherAttributes.add(attributesPedestrian);
 		removeNullFromSet(allOtherAttributes);
 		// Actually, only attributes, not nulls should be added to this set.
@@ -168,7 +161,6 @@ public class Topography implements DynamicElementMover{
 		RectangularShape bounds = this.getBounds();
 
 		this.pedestrians = new DynamicElementContainer<>(bounds, CELL_SIZE);
-		this.cars = new DynamicElementContainer<>(bounds, CELL_SIZE);
 		recomputeCells = false;
 
 		this.obstacleDistanceFunction = new IDistanceFunctionCached() {
@@ -205,7 +197,7 @@ public class Topography implements DynamicElementMover{
 	}
 
 	public Topography() {
-		this(new AttributesTopography(), new AttributesAgent(), new AttributesCar());
+		this(new AttributesTopography(), new AttributesAgent());
 	}
 
 	public Rectangle2D.Double getBounds() {
@@ -342,9 +334,6 @@ public class Topography implements DynamicElementMover{
 	@SuppressWarnings("unchecked")
 	private <T extends DynamicElement, TAttributes extends AttributesDynamicElement> DynamicElementContainer<T> getContainer(
 			Class<? extends T> elementType) {
-		if (Car.class.isAssignableFrom(elementType)) {
-			return (DynamicElementContainer<T>) cars;
-		}
 		if (Pedestrian.class.isAssignableFrom(elementType)) {
 			return (DynamicElementContainer<T>) pedestrians;
 		}
@@ -355,9 +344,6 @@ public class Topography implements DynamicElementMover{
 			for (Pedestrian ped : pedestrians.getElements()) {
 				result.addElement(ped);
 			}
-			for (Car car : cars.getElements()) {
-				result.addElement(car);
-			}
 			return result;
 		}
 
@@ -365,7 +351,7 @@ public class Topography implements DynamicElementMover{
 	}
 
 	private boolean checkDynamicElementIdExist(int id){
-		return pedestrians.idExists(id) || cars.idExists(id);
+		return pedestrians.idExists(id);
 	}
 
 	public <T extends DynamicElement> LinkedCellsGrid<T> getSpatialMap(Class<T> elementType) {
@@ -482,10 +468,6 @@ public class Topography implements DynamicElementMover{
 		return pedestrians;
 	}
 
-	public DynamicElementContainer<Car> getCarDynamicElements() {
-		return cars;
-	}
-
 	public void addSource(Source source) {
 		this.sources.add(source);
 	}
@@ -551,14 +533,6 @@ public class Topography implements DynamicElementMover{
 		this.attributesPedestrian = attributesPedestrian;
 	}
 
-	public AttributesCar getAttributesCar() {
-		return attributesCar;
-	}
-
-	public void setAttributesCar(AttributesCar attributesCar) {
-		this.attributesCar = attributesCar;
-	}
-
 	public <T extends DynamicElement> void addElementRemovedListener(Class<T> elementType,
 			DynamicElementRemoveListener<T> listener) {
 		getContainer(elementType).addElementRemovedListener(listener);
@@ -608,9 +582,7 @@ public class Topography implements DynamicElementMover{
 	public void reset() {
 		removeBoundary();
 		pedestrians.clear();
-		cars.clear();
 		clearListeners(Pedestrian.class);
-		clearListeners(Car.class);
 	}
 
 	public boolean isBounded() {
@@ -626,7 +598,7 @@ public class Topography implements DynamicElementMover{
 	@Deprecated
 	@Override
 	public Topography clone() {
-		Topography s = new Topography(this.attributes, this.attributesPedestrian, this.attributesCar);
+		Topography s = new Topography(this.attributes, this.attributesPedestrian);
 
 		for (Obstacle obstacle : this.getObstacles()) {
 			if (boundaryObstacles.contains(obstacle))
@@ -671,12 +643,6 @@ public class Topography implements DynamicElementMover{
 		for (Pedestrian ped : getInitialElements(Pedestrian.class)) {
 			s.addInitialElement(ped);
 		}
-		for (Car car : getElements(Car.class)) {
-			s.addElement(car);
-		}
-		for (Car car : getInitialElements(Car.class)) {
-			s.addInitialElement(car);
-		}
 
 		if (hasTeleporter()) {
 			s.setTeleporter(teleporter.clone());
@@ -688,12 +654,6 @@ public class Topography implements DynamicElementMover{
 		for (DynamicElementRemoveListener<Pedestrian> pedestrianRemoveListener : this.pedestrians
 				.getElementRemovedListener()) {
 			s.addElementRemovedListener(Pedestrian.class, pedestrianRemoveListener);
-		}
-		for (DynamicElementAddListener<Car> carAddListener : this.cars.getElementAddedListener()) {
-			s.addElementAddedListener(Car.class, carAddListener);
-		}
-		for (DynamicElementRemoveListener<Car> carRemoveListener : this.cars.getElementRemovedListener()) {
-			s.addElementRemovedListener(Car.class, carRemoveListener);
 		}
 
 		return s;
