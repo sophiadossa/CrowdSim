@@ -9938,6 +9938,5 @@
     "minimumSpeed": 0.3,
     "maximumSpeed": 3.0,
     "acceleration": 2.0
-  },
-  "attributesCar": null
+  }
 }
