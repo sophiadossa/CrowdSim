@@ -5,7 +5,6 @@ import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.vadere.simulator.models.MainModel;
 import org.vadere.simulator.projects.Domain;
 import org.vadere.state.attributes.scenario.AttributesDynamicElement;
-import org.vadere.state.scenario.Car;
 import org.vadere.state.scenario.DynamicElement;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.Topography;
@@ -195,9 +194,6 @@ public abstract class ODEModel<T extends DynamicElement, TAttributes extends Att
 		if (element.getType() == ScenarioElementType.PEDESTRIAN) {
 			return ((Pedestrian) element).getVelocity();
 		}
-		if (element.getType() == ScenarioElementType.CAR) {
-			return ((Car) element).getVelocity();
-		}
 		throw new IllegalArgumentException("Element is neither a car nor a pedestrian.");
 	}
 
@@ -205,26 +201,19 @@ public abstract class ODEModel<T extends DynamicElement, TAttributes extends Att
 		if (element.getType() == ScenarioElementType.PEDESTRIAN) {
 			return ((Pedestrian) element).getPosition();
 		}
-		if (element.getType() == ScenarioElementType.CAR) {
-			return ((Car) element).getPosition();
-		}
 		throw new IllegalArgumentException("Element is neither a car nor a pedestrian.");
 	}
 
 	private static void setVelocity(DynamicElement element, Vector2D vector2d) {
 		if (element.getType() == ScenarioElementType.PEDESTRIAN) {
 			((Pedestrian) element).setVelocity(vector2d);
-		} else if (element.getType() == ScenarioElementType.CAR) {
-			((Car) element).setVelocity(vector2d);
-		} else
+		}else
 			throw new IllegalArgumentException("Element is neither a car nor a pedestrian.");
 	}
 
 	private static void setPosition(DynamicElement element, VPoint newPos) {
 		if (element.getType() == ScenarioElementType.PEDESTRIAN) {
 			((Pedestrian) element).setPosition(newPos);
-		} else if (element.getType() == ScenarioElementType.CAR) {
-			((Car) element).setPosition(newPos);
 		} else
 			throw new IllegalArgumentException("Element is neither a car nor a pedestrian.");
 	}
