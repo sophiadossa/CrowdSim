@@ -44,7 +44,12 @@ public class AttributeHelpView extends JTextPane {
     }
 
     public void loadHelpFromField(Field field){
-        loadHelpText("/helpText/" + field.getDeclaringClass().getName()+"VVV"+field.getName() + ".html");
+        if(field.isEnumConstant()) {
+            loadHelpText("/helpText/" + field.getDeclaringClass().getName() + "_" + field.getName() + "_ENUM" + ".html");
+        }
+        else {
+            loadHelpText("/helpText/" + field.getDeclaringClass().getName() + "_" + field.getName() + ".html");
+        }
     }
 
     public void loadHelpText(String helpTextId){
