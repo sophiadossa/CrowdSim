@@ -5,7 +5,6 @@ import com.google.auto.service.AutoService;
 import org.vadere.annotation.ImportScanner;
 
 import java.io.PrintWriter;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +21,7 @@ import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
@@ -50,7 +50,7 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 							//String comment = processingEnv.getElementUtils().getDocComment(e);
 							//String relname = buildHelpTextPath(e.asType().toString());
 							String comment = processingEnv.getElementUtils().getDocComment(f);
-							String relname = buildHelpTextPath(e.asType().toString()+"VVV"+f.getSimpleName());
+							String relname = buildFieldHelpTextPath(e,f);
 							FileObject file = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", relname);
 							try (PrintWriter w = new PrintWriter(file.openWriter())) {
 								printSingleMemberString(f,w);
@@ -63,7 +63,7 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 				}
 				try {
 					String comment = processingEnv.getElementUtils().getDocComment(e);
-					String relname = buildHelpTextPath(e.asType().toString());
+					String relname = buildClassHelpTextPath(e);
 					FileObject file = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", relname);
 					try (PrintWriter w = new PrintWriter(file.openWriter())) {
 						w.println("<h1> " + e.getSimpleName()+"</h1>");
@@ -82,12 +82,22 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 		return false; // allow further processing
 	}
 
-	private String buildHelpTextPath(String className) {
+	private String buildClassHelpTextPath(Element e) {
+		String className = e.asType().toString();
 		className = className.replace("<", "_");
 		className = className.replace(">", "_");
 		return "helpText/" + className + ".html";
 	}
-
+	private String buildFieldHelpTextPath(Element e, Element f) {
+		String className = e.asType().toString();
+		className = className.replace("<", "_");
+		className = className.replace(">", "_");
+		String fieldName = f.getSimpleName().toString();
+		if (f.getKind() == ElementKind.ENUM_CONSTANT) {
+			fieldName = fieldName + "_ENUM";
+		}
+		return "helpText/" + className +"_"+ fieldName + ".html";
+	}
 	private void initPattern() {
 		pattern = new ArrayList<>();
 		pattern.add( e -> {
