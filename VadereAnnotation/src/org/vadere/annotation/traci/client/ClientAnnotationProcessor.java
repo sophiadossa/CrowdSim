@@ -28,7 +28,7 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardLocation;
 
 @SupportedAnnotationTypes("org.vadere.annotation.traci.client.TraCIApi")
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@SupportedSourceVersion(SourceVersion.RELEASE_17)
 @AutoService(Processor.class)
 public class ClientAnnotationProcessor extends AbstractProcessor {
 

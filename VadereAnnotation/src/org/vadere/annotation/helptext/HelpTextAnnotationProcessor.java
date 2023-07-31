@@ -27,7 +27,7 @@ import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 
 @SupportedAnnotationTypes({"*"}) // run for all annotations. process must return false so annotations are not consumed
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@SupportedSourceVersion(SourceVersion.RELEASE_17)
 @AutoService(Processor.class)
 public class HelpTextAnnotationProcessor extends AbstractProcessor {
 	ArrayList<Function<String, String>> pattern;

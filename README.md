@@ -40,7 +40,7 @@ If you have questions about Vadere, have found a software bug or have a suggesti
 
 ### Dependencies
 
-* Java 11 (OpenJDK recommended -> see [here](http://www.vadere.org/getting-started/) for more information) (not tested for > 11)
+* Java 17 (OpenJDK recommended -> see [here](http://www.vadere.org/getting-started/) for more information) (not tested for > 11)
 * OpenCL (optional but recommended -> see the [install instructions](https://gitlab.lrz.de/vadere/vadere/tree/master/Documentation/installation/OpenCL-Installation.md) for details)
 
 ### Pre-Built Releases
@@ -88,7 +88,7 @@ With the following steps, you can run a simulation with one of the built-in exam
 
 ### Dependencies
 
-* Java 11 or above (OpenJDK recommended)
+* Java 17 or above (OpenJDK recommended)
 * Maven 3.0
 * Git
 * OpenCL (optional but recommended)

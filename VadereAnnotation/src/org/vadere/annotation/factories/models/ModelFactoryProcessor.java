@@ -21,7 +21,7 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.JavaFileObject;
 
 @SupportedAnnotationTypes({"org.vadere.annotation.factories.models.ModelClass"})
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@SupportedSourceVersion(SourceVersion.RELEASE_17)
 @AutoService(Processor.class)
 public class ModelFactoryProcessor extends AbstractFactoryProcessor {
 
