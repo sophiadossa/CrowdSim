@@ -194,27 +194,27 @@ public abstract class ODEModel<T extends DynamicElement, TAttributes extends Att
 		if (element.getType() == ScenarioElementType.PEDESTRIAN) {
 			return ((Pedestrian) element).getVelocity();
 		}
-		throw new IllegalArgumentException("Element is neither a car nor a pedestrian.");
+		throw new IllegalArgumentException("Element is not a pedestrian.");
 	}
 
 	private VPoint getPosition(DynamicElement element) {
 		if (element.getType() == ScenarioElementType.PEDESTRIAN) {
 			return ((Pedestrian) element).getPosition();
 		}
-		throw new IllegalArgumentException("Element is neither a car nor a pedestrian.");
+		throw new IllegalArgumentException("Element is not a pedestrian.");
 	}
 
 	private static void setVelocity(DynamicElement element, Vector2D vector2d) {
 		if (element.getType() == ScenarioElementType.PEDESTRIAN) {
 			((Pedestrian) element).setVelocity(vector2d);
 		}else
-			throw new IllegalArgumentException("Element is neither a car nor a pedestrian.");
+			throw new IllegalArgumentException("Element is not a pedestrian.");
 	}
 
 	private static void setPosition(DynamicElement element, VPoint newPos) {
 		if (element.getType() == ScenarioElementType.PEDESTRIAN) {
 			((Pedestrian) element).setPosition(newPos);
 		} else
-			throw new IllegalArgumentException("Element is neither a car nor a pedestrian.");
+			throw new IllegalArgumentException("Element is not a pedestrian.");
 	}
 }
