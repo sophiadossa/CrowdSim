@@ -21,9 +21,28 @@
 ### Other
 
 ## v2.5
+
+### Changed
+- `StateJsonConverter` now throws error encountering `attributesCar` in scenario files
+- `StateJsonConverter` now throws error encountering `org.vadere.simulator.model.ovm.OptimalVelocityModel` in scenario files
+- `TargetController` now ignores `Car` elements in the topography
+- `Topography` now does not store `Car` elements anymore
+- `OfflineTopographyController` now does recompute cells without `Car` elements
+- `ODEModel` now does not use `Car` elements anymore
+- `ModelPresets` now has not registered `OptimalVelocityModel` anymore
+- `TopographyCreatorRenderer` now does not render `Car` elements anymore
+- `ScenarioBuilder` and `TopographyBuilder` now do not support `Car` elements anymore
+
 ### Removed
 - Removed `OptimalVelocityModel`
-- Removed `attributesCar` from the scenario files
+- Removed `AttributesOVM`
+- Removed `OVMEquations`
+- Removed `DynamicElementType`
+- Removed `AttributesCar`
+- Removed `Car`
+
+### Other
+- Migrated all scenario files in './Scenarios' to migration version 2.5
 
 ## v2.4 (2022-10-04)
 
