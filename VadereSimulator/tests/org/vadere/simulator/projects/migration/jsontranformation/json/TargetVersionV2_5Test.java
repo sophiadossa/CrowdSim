@@ -9,7 +9,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TargetVersionV25Test extends JsonTransformationTest {
+public class TargetVersionV2_5Test extends JsonTransformationTest {
     @Override
     public Path getTestDir() {
         return getPathFromResources("/migration/v2_4_to_v2_5");
