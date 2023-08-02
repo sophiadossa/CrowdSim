@@ -20,26 +20,27 @@
 
 ### Other
 
-## v2.5
+## v2.5 (2023-08-02)
 
 ### Changed
-- `StateJsonConverter` now throws error encountering `attributesCar` in scenario files
-- `StateJsonConverter` now throws error encountering `org.vadere.simulator.model.ovm.OptimalVelocityModel` in scenario files
-- `TargetController` now ignores `Car` elements in the topography
-- `Topography` now does not store `Car` elements anymore
-- `OfflineTopographyController` now does recompute cells without `Car` elements
-- `ODEModel` now does not use `Car` elements anymore
-- `ModelPresets` now has not registered `OptimalVelocityModel` anymore
-- `TopographyCreatorRenderer` now does not render `Car` elements anymore
-- `ScenarioBuilder` and `TopographyBuilder` now do not support `Car` elements anymore
+- Cars allowed us to simulate pedestrian and road traffic. However, cars have not been used extensively/at all in our projects. Therefore, there is no need to support them any longer.
+  - `StateJsonConverter` now throws error encountering `attributesCar` in scenario files
+  - `StateJsonConverter` now throws error encountering `org.vadere.simulator.model.ovm.OptimalVelocityModel` in scenario files
+  - `TargetController` now ignores `Car` elements in the topography
+  - `Topography` now does not store `Car` elements anymore
+  - `OfflineTopographyController` now does recompute cells without `Car` elements
+  - `ODEModel` now does not use `Car` elements anymore
+  - `ModelPresets` now has not registered `OptimalVelocityModel` anymore
+  - `TopographyCreatorRenderer` now does not render `Car` elements anymore
+  - `ScenarioBuilder` and `TopographyBuilder` now do not support `Car` elements anymore
 
 ### Removed
-- Removed `OptimalVelocityModel`
-- Removed `AttributesOVM`
-- Removed `OVMEquations`
-- Removed `DynamicElementType`
-- Removed `AttributesCar`
-- Removed `Car`
+- Removed `OptimalVelocityModel` which was a locomotion model for car traffic.
+- Removed `AttributesOVM` which was used to configure `OptimalVelocityModel`
+- Removed `OVMEquations` which was used to compute the computes the derivative-equations for the OVM
+- Removed `DynamicElementType` which was used to differentiate between `Car` and `Pedestrian` elements
+- Removed `AttributesCar` which was used to configure `Car` elements
+- Removed `Car` which was used to represent cars in the topography
 
 ### Other
 - Migrated all scenario files in './Scenarios' to migration version 2.5
