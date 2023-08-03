@@ -20,9 +20,15 @@
 
 ### Other
 
-## v2.5 (2023-08-02)
+## v2.5 (2023-08-03)
+
+### Added
+- Added video recording via command line
+- Added CI stage that checks (most) demo scenarios whether they run without throwing an error
 
 ### Changed
+- Update from Java 11 to Java 17
+- Update junit4 to junit5
 - Cars allowed us to simulate pedestrian and road traffic. However, cars have not been used extensively/at all in our projects. Therefore, there is no need to support them any longer.
   - `StateJsonConverter` now throws error encountering `attributesCar` in scenario files
   - `StateJsonConverter` now throws error encountering `org.vadere.simulator.model.ovm.OptimalVelocityModel` in scenario files
@@ -35,15 +41,26 @@
   - `ScenarioBuilder` and `TopographyBuilder` now do not support `Car` elements anymore
 
 ### Removed
-- Removed `OptimalVelocityModel` which was a locomotion model for car traffic.
-- Removed `AttributesOVM` which was used to configure `OptimalVelocityModel`
-- Removed `OVMEquations` which was used to compute the computes the derivative-equations for the OVM
-- Removed `DynamicElementType` which was used to differentiate between `Car` and `Pedestrian` elements
-- Removed `AttributesCar` which was used to configure `Car` elements
-- Removed `Car` which was used to represent cars in the topography
+- Removed `Car` which was used to represent cars in the topography; removed related classes:
+  - Removed `AttributesCar` which was used to configure `Car` elements
+  - Removed `OptimalVelocityModel` which was a locomotion model for car traffic.
+  - Removed `AttributesOVM` which was used to configure `OptimalVelocityModel`
+  - Removed `OVMEquations` which was used to compute the computes the derivative-equations for the OVM
+  - Removed `DynamicElementType` which was used to differentiate between `Car` and `Pedestrian` elements
+- Removed several deprecated/unused scenarios and projects:
+  - `./Scenarios/Demos/roVer/` (not used anymore)
+  - `./Scenarios/Demos/TestOSMGroup/` (not included in the CI / not used anymore)
+  - `./Scenarios/Demos/supermarket/scenarios/supermarket_basic.scenario` (did not work properly)
+  - `./Scenarios/TMP/` (empty project)
+  - `./Scenarios/TestMuenchnerFreiheit/` (not used anymore)
+  
 
 ### Other
-- Migrated all scenario files in './Scenarios' to migration version 2.5
+- Migrated scenario files to version 2.5
+
+### Fixed
+- Fixed wrong default value for `leavingSpeed` of intermediate targets
+- Fixed `TargetController` that could not handle arrival of multiple agents
 
 ## v2.4 (2022-10-04)
 
@@ -76,7 +93,7 @@
 #### Gui
 - Introduced FlatLightLaf theme as default theme.
 - Added a common icon theme for icons in the topography creator.
-- 
+
 #### State
 Spawners were introduced to encapsulate logic and data of the distributions that were prior to this only used for sources
 - Added `LerpSpawner`
