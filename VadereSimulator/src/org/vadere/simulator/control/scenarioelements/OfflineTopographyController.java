@@ -6,7 +6,6 @@ import org.vadere.simulator.models.potential.fields.PotentialFieldDistancesBrute
 import org.vadere.simulator.projects.Domain;
 import org.vadere.simulator.utils.cache.ScenarioCache;
 import org.vadere.state.attributes.models.AttributesFloorField;
-import org.vadere.state.scenario.Car;
 import org.vadere.state.scenario.Obstacle;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.Topography;
@@ -82,10 +81,6 @@ public class OfflineTopographyController extends ScenarioElementController  {
 		getTopography().getSpatialMap(Pedestrian.class).clear();
 		for (Pedestrian pedestrian : getTopography().getElements(Pedestrian.class)) {
 			getTopography().getSpatialMap(Pedestrian.class).addObject(pedestrian);
-		}
-		getTopography().getSpatialMap(Car.class).clear();
-		for (Car car : getTopography().getElements(Car.class)) {
-			getTopography().getSpatialMap(Car.class).addObject(car);
 		}
 		getTopography().setRecomputeCells(false);
 	}

@@ -1,8 +1,8 @@
 {
   "name" : "SimpleCoordinationTask_3_targets_2_waiting_with_runner",
   "description" : "",
-  "release" : "2.4",
-  "commithash" : "37d5cea029114cfbc5ced38fb76c86834cb50304",
+  "release" : "2.5",
+  "commithash" : "095591dd79df47e1f43ee0d7c7accfe007d67ca0",
   "processWriters" : {
     "files" : [ {
       "type" : "org.vadere.simulator.projects.dataprocessing.outputfile.EventtimePedestrianIdOutputFile",
@@ -150,7 +150,8 @@
         },
         "waiter" : {
           "enabled" : false,
-          "distribution" : null
+          "distribution" : null,
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 0
@@ -170,7 +171,8 @@
         },
         "waiter" : {
           "enabled" : false,
-          "distribution" : null
+          "distribution" : null,
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 0
@@ -190,7 +192,8 @@
         },
         "waiter" : {
           "enabled" : false,
-          "distribution" : null
+          "distribution" : null,
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 0
@@ -379,8 +382,7 @@
         "walkingDirectionSameIfAngleLessOrEqual" : 45.0,
         "walkingDirectionCalculation" : "BY_TARGET_CENTER"
       },
-      "teleporter" : null,
-      "attributesCar" : null
+      "teleporter" : null
     },
     "stimulusInfos" : [ ]
   }

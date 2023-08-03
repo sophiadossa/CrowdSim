@@ -15,7 +15,6 @@ public enum ScenarioElementType {
 	ABSORBING_AREA(Color.RED, AttributesAbsorbingArea.class),
 	STAIRS(Color.PINK, AttributesStairs.class),
 	TELEPORTER(Color.GRAY, AttributesTeleporter.class),
-	CAR(Color.black, AttributesCar.class),
 	MEASUREMENT_AREA(Color.red, AttributesMeasurementArea.class),
 	AEROSOL_CLOUD(Color.YELLOW, AttributesAerosolCloud.class),
 	DROPLETS(Color.YELLOW, AttributesDroplets.class);

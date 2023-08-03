@@ -53,7 +53,7 @@ public class TargetVersionV2_4 extends SimpleJsonTransformation {
     private final String ABSORBER = "absorber";
 
     public TargetVersionV2_4() {
-        super(Version.V2_5);
+        super(Version.V2_4);
     }
 
     @Override

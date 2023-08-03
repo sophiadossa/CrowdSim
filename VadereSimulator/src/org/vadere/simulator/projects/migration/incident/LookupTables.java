@@ -13,7 +13,6 @@ import org.vadere.state.attributes.models.AttributesFloorField;
 import org.vadere.state.attributes.models.AttributesGFM;
 import org.vadere.state.attributes.models.AttributesGNM;
 import org.vadere.state.attributes.models.AttributesOSM;
-import org.vadere.state.attributes.models.AttributesOVM;
 import org.vadere.state.attributes.models.AttributesParticles;
 import org.vadere.state.attributes.models.AttributesPotentialCompact;
 import org.vadere.state.attributes.models.AttributesPotentialCompactSoftshell;
@@ -25,7 +24,6 @@ import org.vadere.state.attributes.models.AttributesPotentialSFM;
 import org.vadere.state.attributes.models.AttributesQueuingGame;
 import org.vadere.state.attributes.models.AttributesReynolds;
 import org.vadere.state.attributes.models.AttributesSFM;
-import org.vadere.state.attributes.scenario.AttributesCar;
 
 public class LookupTables {
 
@@ -33,7 +31,7 @@ public class LookupTables {
 	static {
 		version0to1_ModelRenaming.put("BEHAVIOURAL_HEURISTICS_MODEL", AttributesBHM.class.getName());
 		version0to1_ModelRenaming.put("BIOMECHANICS_MODEL", AttributesBMM.class.getName());
-		version0to1_ModelRenaming.put("CAR_ATTRIBUTES", AttributesCar.class.getName());
+		version0to1_ModelRenaming.put("CAR_ATTRIBUTES", "org.vadere.state.attributes.scenario.AttributesCar");
 		version0to1_ModelRenaming.put("CENTROID_GROUP_MODEL", AttributesCGM.class.getName());
 		version0to1_ModelRenaming.put("FLOORFIELD", AttributesFloorField.class.getName());
 		version0to1_ModelRenaming.put("FREDERIX_MODEL", AttributesParticles.class.getName());
@@ -45,7 +43,7 @@ public class LookupTables {
 		version0to1_ModelRenaming.put("OBSTACLE_POTENTIAL_RING_EXPERIMENT", AttributesPotentialRingExperiment.class.getName());
 		version0to1_ModelRenaming.put("OBSTACLE_POTENTIAL_SFM", AttributesPotentialSFM.class.getName());
 		version0to1_ModelRenaming.put("OPTIMAL_STEPS_MODEL", AttributesOSM.class.getName());
-		version0to1_ModelRenaming.put("OPTIMAL_VELOCITY_MODEL", AttributesOVM.class.getName());
+		version0to1_ModelRenaming.put("OPTIMAL_VELOCITY_MODEL", "org.vadere.state.attributes.models.AttributesOVM");
 		version0to1_ModelRenaming.put("PEDESTRIAN_POTENTIAL_GNM", AttributesPotentialGNM.class.getName());
 		version0to1_ModelRenaming.put("PEDESTRIAN_POTENTIAL_OSM", AttributesPotentialOSM.class.getName());
 		version0to1_ModelRenaming.put("PEDESTRIAN_POTENTIAL_PARTICLES", AttributesPotentialParticles.class.getName());

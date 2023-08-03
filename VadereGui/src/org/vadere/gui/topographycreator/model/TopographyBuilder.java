@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 import org.vadere.gui.topographycreator.control.AttributeModifier;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesTopography;
 import org.vadere.state.scenario.*;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -46,7 +45,6 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 	private LinkedList<ScenarioElement> topographyElements;
 	private AttributesTopography attributes;
 	private AttributesAgent attributesPedestrian;
-	private AttributesCar attributesCar;
 
 	private AtomicInteger idProvider;
 
@@ -93,7 +91,6 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 		}
 		attributes = topography.getAttributes();
 		attributesPedestrian = topography.getAttributesPedestrian();
-		attributesCar = topography.getAttributesCar();
 		topographyElements = new LinkedList<>();
 		topographyElements.addAll(obstacles);
 		topographyElements.addAll(stairs);
@@ -148,7 +145,7 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 	}
 
 	public Topography build() {
-		Topography topography = new Topography(attributes, attributesPedestrian, attributesCar);
+		Topography topography = new Topography(attributes, attributesPedestrian);
 
 		for (Obstacle obstacle : obstacles)
 			topography.addObstacle(obstacle);

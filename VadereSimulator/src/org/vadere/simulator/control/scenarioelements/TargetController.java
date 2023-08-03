@@ -48,7 +48,7 @@ public class TargetController extends ScenarioElementController {
 			return;
 		}
 
-		for (DynamicElement element : getPrefilteredDynamicElements()) {
+		for (DynamicElement element : getNearbyPedestrians()) {
 			final Agent agent = castCheckAgent(element);
 			final int agentID = agent.getId();
 			if (agent == null) continue;
@@ -81,18 +81,14 @@ public class TargetController extends ScenarioElementController {
 		return agent;
 	}
 
-	private Collection<DynamicElement> getPrefilteredDynamicElements() {
+	private Collection<DynamicElement> getNearbyPedestrians() {
 		final double reachedDistance = target.getAttributes().getAbsorberAttributes().getDeletionDistance();
 
 		final Rectangle2D bounds = target.getShape().getBounds2D();
 		final VPoint center = new VPoint(bounds.getCenterX(), bounds.getCenterY());
 		final double radius = Math.max(bounds.getHeight(), bounds.getWidth()) + reachedDistance;
 
-		final Collection<DynamicElement> elementsInRange = new LinkedList<>();
-		elementsInRange.addAll(getObjectsInCircle(Pedestrian.class, center, radius));
-		elementsInRange.addAll(getObjectsInCircle(Car.class, center, radius));
-		
-		return elementsInRange;
+        return new LinkedList<>(getObjectsInCircle(Pedestrian.class, center, radius));
 	}
 
 	private void handleArrivingAgent(Agent agent, double simTimeInSec, Map<Integer, Double> leavingTimes) {

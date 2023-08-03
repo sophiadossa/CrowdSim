@@ -1,7 +1,8 @@
 {
   "name" : "Corridor-BHM-Defaults-WithFloorField",
   "description" : "",
-  "release" : "2.4",
+  "release" : "2.5",
+  "commithash" : "095591dd79df47e1f43ee0d7c7accfe007d67ca0",
   "processWriters" : {
     "files" : [ {
       "type" : "org.vadere.simulator.projects.dataprocessing.outputfile.EventtimePedestrianIdOutputFile",
@@ -147,7 +148,8 @@
         },
         "waiter" : {
           "enabled" : false,
-          "distribution" : null
+          "distribution" : null,
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 0
@@ -167,7 +169,8 @@
         },
         "waiter" : {
           "enabled" : false,
-          "distribution" : null
+          "distribution" : null,
+          "individualWaiting" : true
         },
         "leavingSpeed" : -1.0,
         "parallelEvents" : 0
@@ -253,8 +256,7 @@
         "walkingDirectionSameIfAngleLessOrEqual" : 45.0,
         "walkingDirectionCalculation" : "BY_TARGET_CENTER"
       },
-      "teleporter" : null,
-      "attributesCar" : null
+      "teleporter" : null
     },
     "stimulusInfos" : [ ]
   }
