@@ -112,7 +112,9 @@ public class JCollapsablePanel extends JPanel implements Observer {
         private final JPanel contentPanel;
 
         private SectionHeaderMouseInputAdapter(JPanel contentPanel) {
+
             this.contentPanel = contentPanel;
+            head.setIcon(UIManager.getIcon("Tree.expandedIcon"));
         }
 
         @Override
@@ -121,10 +123,12 @@ public class JCollapsablePanel extends JPanel implements Observer {
             if (hidden) {
                 contentPanel.setVisible(true);
                 hidden = false;
+                head.setIcon(UIManager.getIcon("Tree.expandedIcon"));
 
             } else {
                 contentPanel.setVisible(false);
                 hidden = true;
+                head.setIcon(UIManager.getIcon("Tree.collapsedIcon"));
             }
             getParent().invalidate();
         }
@@ -143,6 +147,7 @@ public class JCollapsablePanel extends JPanel implements Observer {
         public GroupHeaderMouseInputAdapter(JLabel head,JPanel contentPanel) {
             this.head = head;
             this.contentPanel = contentPanel;
+            head.setIcon(UIManager.getIcon("Tree.expandedIcon"));
         }
 
         @Override
