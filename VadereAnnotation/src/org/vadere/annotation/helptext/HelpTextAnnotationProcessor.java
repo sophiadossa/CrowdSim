@@ -27,6 +27,9 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 
+import static org.vadere.util.other.Strings.removeAttribute;
+import static org.vadere.util.other.Strings.splitCamelCase;
+
 @SupportedAnnotationTypes({"*"}) // run for all annotations. process must return false so annotations are not consumed
 @SupportedSourceVersion(SourceVersion.RELEASE_17)
 @AutoService(Processor.class)
@@ -73,7 +76,7 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 						w.println("</head>");
 						w.println("<body>");
 						w.println("<div class='header'>");
-						w.println("<h1> " + e.getSimpleName()+"</h1>");
+						w.println("<h1> " + splitCamelCase(removeAttribute(String.format("%s",e.getSimpleName())))+"</h1>");
 						w.println("</div>"); // header
 						w.println();
 						w.println("<div class='main'>");

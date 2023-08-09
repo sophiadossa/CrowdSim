@@ -15,6 +15,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.util.prefs.Preferences;
 
+import static org.vadere.util.other.Strings.removeAttribute;
+import static org.vadere.util.other.Strings.splitCamelCase;
+
 public class VDialogManager {
 
 	private static final Configuration CONFIG = VadereConfig.getConfig();
@@ -118,7 +121,7 @@ public class VDialogManager {
 	}
 
 	public static void showHelpDialogForClass(Class<?> clazz){
-		JDialog dialog = new JDialog(ProjectView.getMainWindow(),"Help: " + clazz.getSimpleName());
+		JDialog dialog = new JDialog(ProjectView.getMainWindow(),"Help: " + splitCamelCase(removeAttribute(clazz.getSimpleName())));
 		JScrollPane jsp = new JScrollPane(HelpTextView.create(clazz.getName()));
 		jsp.setPreferredSize(new Dimension(800, 600));
 		dialog.add(jsp);

@@ -16,6 +16,9 @@ import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.vadere.util.other.Strings.removeAttribute;
+import static org.vadere.util.other.Strings.splitCamelCase;
+
 /**
  * This AttributeEditor Class is used by JAttributeTable as the default fallback for
  * any type which has no preregistered editor and is an abstract type.
@@ -26,7 +29,7 @@ import java.util.stream.Collectors;
 //TODO: add jtable to constructor for revalidation & repaint
 
 public class AbstractTypeCellEditor extends AttributeEditor{
-    public static final String STRING_NULL = "[null]";
+    public static final String STRING_NULL = "None";
     protected JComboBox<Object> comboBox;
     private AbstractTypeCellEditor self;
     private RunnableRegistry runnableRegistry;
@@ -186,7 +189,7 @@ public class AbstractTypeCellEditor extends AttributeEditor{
 
     @NotNull
     private static String getSimpleName(Class<?> clazz) {
-        return clazz.getSimpleName().replace("Attributes", "");
+        return splitCamelCase(removeAttribute(clazz.getSimpleName()));
     }
 
     private void initializeGridBagConstraint() {
