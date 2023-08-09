@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This scenario element represents a source of agents. Agents can be spawned at this source and travel to a target.
+ * The source can be of different types. The type of the source is defined by the {@link AttributesSpawner} which is
+ * stored in this class. The {@link AttributesSpawner} defines the type of the source and the attributes of the
+ * spawner.
+ */
 public class AttributesSource extends AttributesVisualElement {
 	@Deprecated
 	@VadereAttribute(exclude = true)
@@ -21,24 +27,32 @@ public class AttributesSource extends AttributesVisualElement {
 	 */
 	@JsonView(Views.CacheViewExclude.class) // ignore when determining if floor field cache is valid
 	private List<Integer> targetIds = new ArrayList<>();
+
 	/**
-	 * This attribute stores the spawner which controls the type of spawning behaviour of this source.
+	 * The spawner attributes define the behaviour of the source.
+	 * The possible spawners are:
+	 * <ul>
+	 *     <li><b>RegularSpawner</b> A spawner with a single distribution for sampling spawn events</li>
+	 *     <li><b>LERPSpawner</b> </li>
+	 *     <li><b>TimeseriesSpawner</b> A spawner which stores the number of elements to spawn each interval</li>
+	 *     <li><b>MixedSpawner</b> A spawner which switches between distributions at given switchpoints</li>
+	 * </ul>
 	 */
 	@JsonView(Views.CacheViewExclude.class)
 	private AttributesSpawner spawner = new AttributesRegularSpawner();
 	/**
-	 *  This Attribute only takes affect if a model org.vadere.simulator.models.groups.GroupModel
-	 *  is present in the scenario. When this is the case this list defines the group size
-	 *  distribution of this source. The list can be arbitrary long but must add up to 1.
-	 *  The index of the list represents the size of the  groups and the value the probability
-	 *  index 0 => GroupSize = 1
-	 *  index 1 => GroupSize = 2
+	 *  This Attribute only takes affect if a model org.vadere.simulator.models.groups.GroupModel<br>
+	 *  is present in the scenario. When this is the case this list defines the group size<br>
+	 *  distribution of this source. The list can be arbitrary long but must add up to 1.<br>
+	 *  The index of the list represents the size of the  groups and the value the probability<br>
+	 *  index 0 => GroupSize = 1<br>
+	 *  index 1 => GroupSize = 2<br>
 	 *  ...
 	 *
-	 *  Example: ----------------------------------------------------------------------------------
-	 *  probability [ 0.0, 0.0, 0.25, 0.25, 0.25, .... ] ------------------------------------------
-  	 *  GroupSize   [  1    2    3     4     5         ] ------------------------------------------
-	 *  uniform distribution of groups of the size from 3 to 5 ------------------------------------
+	 *  Example: ----------------------------------------------------------------------------------<br>
+	 *  probability [ 0.0, 0.0, 0.25, 0.25, 0.25, .... ] ------------------------------------------<br>
+  	 *  GroupSize   [  1    2    3     4     5         ] ------------------------------------------<br>
+	 *  uniform distribution of groups of the size from 3 to 5 ------------------------------------<br>
 	 */
 
 	@JsonView(Views.CacheViewExclude.class) // ignore when determining if floor field cache is valid
