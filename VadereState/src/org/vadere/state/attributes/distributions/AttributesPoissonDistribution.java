@@ -2,7 +2,8 @@ package org.vadere.state.attributes.distributions;
 
 
 /**
- * This is the parameter structure used with a poisson distribution.
+ * Poisson Distribution is a distribution that returns a number of events per second.
+ *
  * @author Lukas Gradl (lgradl@hm.edu), Ludwig Jaeck
  */
 
@@ -15,5 +16,8 @@ public class AttributesPoissonDistribution extends AttributesDistribution {
 		this.numberPedsPerSecond = numberPedsPerSecond;
 	}
 
+	/**
+	 * numberPedsPerSecond describes the number of events per second.
+	 */
 	Double numberPedsPerSecond = 0.0;
 }
