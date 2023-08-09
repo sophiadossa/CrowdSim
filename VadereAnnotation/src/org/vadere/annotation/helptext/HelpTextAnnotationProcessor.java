@@ -74,13 +74,15 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 						w.println("<body>");
 						w.println("<div class='header'>");
 						w.println("<h1> " + e.getSimpleName()+"</h1>");
-						w.println("</div>");
+						w.println("</div>"); // header
 						w.println();
 						w.println("<div class='main'>");
+						w.println("<div class='comment'>");
 						printComment(w, comment);
+						w.println("</div>"); // comment
 						w.println();
 						printMemberDocString(e, w);
-						w.println("</div>");
+						w.println("</div>"); // main
 						w.println("</body>");
 						w.println("</html>");
 					}

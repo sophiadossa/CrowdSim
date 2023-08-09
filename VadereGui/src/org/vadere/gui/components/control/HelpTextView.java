@@ -73,10 +73,6 @@ public class HelpTextView extends JEditorPane {
 		setEditorKit(htmlEditorKit);
 		StyleSheet sheet = htmlEditorKit.getStyleSheet();
 		sheet.importStyleSheet(getClass().getResource("/docstyle/style.css"));
-		//sheet.addRule("body {background-color: black;}");
-		//sheet.addRule(".local_link {font-style: italic; text-decoration: underline;}");
-		//sheet.addRule(".class_link {color: blue; font-style: italic; text-decoration: underline;}");
-		//sheet.addRule("p { padding-bottom: 5px;}");
 		setText(text);
 	}
 
