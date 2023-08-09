@@ -35,15 +35,14 @@ public class AttributeTablePage extends JPanel implements AttributeTreeModel.Val
     private final JAttributeTable view;
     AttributeTreeModel.TreeNode model;
 
-    public AttributeTablePage(AttributeTreeModel.TreeNode model, String title, JAttributeTable.Styler pageStyler) {
+    public AttributeTablePage(AttributeTreeModel.TreeNode model, Class<?> refClass, JAttributeTable.Styler pageStyler) {
         super(new BorderLayout());
         this.setBackground(Color.white);
 
         this.model = model;
 
         container = new JCollapsablePanel(
-                title,
-                JCollapsablePanel.Style.HEADER
+                refClass
         );
         view = new JAttributeTable(model, pageStyler);
         container.add(view);

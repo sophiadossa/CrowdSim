@@ -60,7 +60,7 @@ public class AttributeTableView extends JPanel implements ViewListener {
      */
     public void buildPageFor(Class clazz){
         var tree = AttributeTreeModel.parseClassTree(new TreeAdapter(this), null, clazz);
-        var page = new AttributeTablePage(tree,AttributeTablePage.generateHeaderName(clazz),new AttributeTablePage.TableStyler(tree));
+        var page = new AttributeTablePage(tree,clazz,new AttributeTablePage.TableStyler(tree));
         var f = new ManualAttributeTableFocus();
         page.applyFocusPolicy(f);
         this.pages.put(clazz, page);
@@ -68,7 +68,7 @@ public class AttributeTableView extends JPanel implements ViewListener {
     }
 
     public void buildPageFor(AttributeTreeModel.TreeNode tree){
-        var page = new AttributeTablePage(tree,AttributeTablePage.generateHeaderName(tree.getFieldType()),new AttributeTablePage.TableStyler(tree));
+        var page = new AttributeTablePage(tree,tree.getFieldType(),new AttributeTablePage.TableStyler(tree));
         var f = new ManualAttributeTableFocus();
         page.applyFocusPolicy(f);
         this.pages.put(tree.getFieldType(), page);

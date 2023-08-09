@@ -42,7 +42,7 @@ public class ListCellEditor extends ChildObjectCellEditor {
         });
         this.contentPanel.add(addBtn, BorderLayout.SOUTH);
         var type = ((ArrayNode)model).getGenericType();
-        return new AttributeTablePage(model,AttributeTablePage.generateHeaderName(type),new MyStyler());
+        return new AttributeTablePage(model,type,new MyStyler());
     }
 
     private class MyStyler extends JAttributeTable.Styler {

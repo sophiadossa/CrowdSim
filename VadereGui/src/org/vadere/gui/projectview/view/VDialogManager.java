@@ -2,6 +2,7 @@ package org.vadere.gui.projectview.view;
 
 
 import org.apache.commons.configuration2.Configuration;
+import org.vadere.gui.components.control.HelpTextView;
 import org.vadere.gui.components.utils.Messages;
 import org.vadere.gui.projectview.VadereApplication;
 import org.vadere.util.config.VadereConfig;
@@ -114,6 +115,15 @@ public class VDialogManager {
 		JOptionPane.showMessageDialog(
 				ProjectView.getMainWindow(),
 				jsp, title, messageType);
+	}
+
+	public static void showHelpDialogForClass(Class<?> clazz){
+		JDialog dialog = new JDialog(ProjectView.getMainWindow(),"Help: " + clazz.getSimpleName());
+		JScrollPane jsp = new JScrollPane(HelpTextView.create(clazz.getName()));
+		jsp.setPreferredSize(new Dimension(800, 600));
+		dialog.add(jsp);
+		dialog.pack();
+		dialog.setVisible(true);
 	}
 
 	public static boolean continueSavingDespitePossibleJsonError() {

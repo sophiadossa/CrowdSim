@@ -77,6 +77,6 @@ public class ChildObjectCellEditor extends AttributeEditor  {
     }
 
     protected AttributeTablePage createInternalPropertyPane(Object newObject) {
-        return new AttributeTablePage(model,AttributeTablePage.generateHeaderName(model.getFieldType()),new AttributeTablePage.TableStyler(model));
+        return new AttributeTablePage(model,model.getFieldType(),new AttributeTablePage.TableStyler(model));
     }
 }

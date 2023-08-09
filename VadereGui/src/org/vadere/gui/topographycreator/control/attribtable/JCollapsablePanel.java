@@ -1,9 +1,15 @@
 package org.vadere.gui.topographycreator.control.attribtable;
 
+import org.vadere.gui.components.control.HelpTextView;
+import org.vadere.gui.components.utils.Resources;
+import org.vadere.gui.projectview.view.VDialogManager;
+import org.vadere.gui.topographycreator.control.attribtable.ui.AttributeTablePage;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.event.MouseInputAdapter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -22,7 +28,10 @@ public class JCollapsablePanel extends JPanel implements Observer {
     /**
      * head is used as the header displayed at the top
      */
-    private final JLabel head;
+    private final JLabel headerLabel;
+    private final JPanel headerPanel;
+
+    private final JButton helpButton;
     private GridBagConstraints gbc;
 
 
@@ -31,42 +40,50 @@ public class JCollapsablePanel extends JPanel implements Observer {
      */
     private boolean hidden = false;
 
-    public enum Style {
-        HEADER, GROUP
-    }
-
     private final Observable observable;
 
-    public JCollapsablePanel(String title, Style panelStyle) {
+    public JCollapsablePanel(Class<?> refClass) {
         super(new GridBagLayout());
         this.observable = new Observable();
-        contentPanel = new JPanel(new GridBagLayout());
-        head = new JLabel(title);
+        this.contentPanel = new JPanel(new GridBagLayout());
+        this.headerPanel = new JPanel();
+        this.headerLabel = new JLabel(AttributeTablePage.generateHeaderName(refClass));
+        this.helpButton = new JButton();
 
-
+        //add headerLabel into headerPanel anchored left
+        this.headerPanel.setLayout(new BorderLayout());
+        this.headerPanel.add(this.headerLabel, BorderLayout.WEST);
+        this.headerPanel.add(this.helpButton, BorderLayout.EAST);
         initializeGridBagConstraint();
 
-        if (panelStyle.equals(Style.GROUP)) {
-            initializeGroupHeaderStyle(head);
-            head.addMouseListener(new GroupHeaderMouseInputAdapter(head,contentPanel));
-        } else {
-            initializeSectionHeaderStyle(head);
-            head.addMouseListener(new SectionHeaderMouseInputAdapter(contentPanel));
-        }
+        initializeHeaderPanelStyle(headerPanel);
+        initializeHeaderLabelStyle(headerLabel);
+        initializeHelpButtonStyle(helpButton);
 
-        this.add(head,gbc);
-        this.add(contentPanel,gbc);
+        headerPanel.addMouseListener(new SectionHeaderMouseInputAdapter(contentPanel,helpButton));
+        helpButton.addMouseListener(new HelpButtonMouseInputAdapter(helpButton,refClass));
+
+        this.add(this.headerPanel,gbc);
+        this.add(this.contentPanel,gbc);
     }
 
-    private static void initializeSectionHeaderStyle(JLabel head) {
+    private static void initializeHeaderPanelStyle(JPanel headerPanel) {
         var margin = new EmptyBorder(4,4,4,4);
-        var color = UIManager.getColor("Component.borderColor");
-        var border = new LineBorder(color,1);
-        head.setFont(head.getFont().deriveFont(Font.BOLD));
-        head.setBorder(new CompoundBorder(border,margin));
-        head.setBackground(UIManager.getColor("Menu.background"));
+        var boderColor = UIManager.getColor("Component.borderColor");
+        //
+        MatteBorder lineBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, boderColor);
+        headerPanel.setBorder(new CompoundBorder(lineBorder ,margin));
+        headerPanel.setBackground(UIManager.getColor("Menu.background"));
+    }
+    private static void initializeHelpButtonStyle(JButton helpButton) {
+        helpButton.setIcon(Resources.getInstance("global").getIcon("help.png", 12, 12));
+        helpButton.setBorderPainted(false);
+        helpButton.setVisible(false);
     }
 
+    private static void initializeHeaderLabelStyle(JLabel headerLabel) {
+        headerLabel.setFont(headerLabel.getFont().deriveFont(Font.BOLD));
+    }
     private void initializeGroupHeaderStyle(JLabel head) {
         var c= UIManager.getColor("Table.selectionBackground");
         setBackground(new Color(c.getRed(),c.getGreen(),c.getBlue(),(int)(c.getAlpha()*0.5)));
@@ -111,10 +128,13 @@ public class JCollapsablePanel extends JPanel implements Observer {
 
         private final JPanel contentPanel;
 
-        private SectionHeaderMouseInputAdapter(JPanel contentPanel) {
+        private final JButton headerButton;
+
+        private SectionHeaderMouseInputAdapter(JPanel contentPanel,JButton headerButton) {
 
             this.contentPanel = contentPanel;
-            head.setIcon(UIManager.getIcon("Tree.expandedIcon"));
+            this.headerButton = headerButton;
+            headerLabel.setIcon(UIManager.getIcon("Tree.expandedIcon"));
         }
 
         @Override
@@ -123,48 +143,50 @@ public class JCollapsablePanel extends JPanel implements Observer {
             if (hidden) {
                 contentPanel.setVisible(true);
                 hidden = false;
-                head.setIcon(UIManager.getIcon("Tree.expandedIcon"));
+                headerLabel.setIcon(UIManager.getIcon("Tree.expandedIcon"));
 
             } else {
                 contentPanel.setVisible(false);
                 hidden = true;
-                head.setIcon(UIManager.getIcon("Tree.collapsedIcon"));
+                headerLabel.setIcon(UIManager.getIcon("Tree.collapsedIcon"));
             }
             getParent().invalidate();
         }
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            headerButton.setVisible(true);
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            headerButton.setVisible(false);
+        }
     }
 
-    /**
-     * GroupHeaderMouseInputAdapter is used as a listener
-     * for mouse input to hande the state switching of the
-     * contents visibility if the panel is group panel
-     */
-    private class GroupHeaderMouseInputAdapter extends MouseInputAdapter {
+    private class HelpButtonMouseInputAdapter extends MouseInputAdapter {
 
-        private final JLabel head;
-        private final JPanel contentPanel;
+        private final JButton headerButton;
+        private final Class<?> refClass;
 
-        public GroupHeaderMouseInputAdapter(JLabel head,JPanel contentPanel) {
-            this.head = head;
-            this.contentPanel = contentPanel;
-            head.setIcon(UIManager.getIcon("Tree.expandedIcon"));
+        private HelpButtonMouseInputAdapter(JButton headerButton, Class<?> refClass) {
+            this.headerButton = headerButton;
+            this.refClass = refClass;
         }
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (hidden) {
-                contentPanel.setVisible(true);
-                head.setIcon(UIManager.getIcon("Tree.expandedIcon"));
-                hidden = false;
+            VDialogManager.showHelpDialogForClass(refClass);
+            getParent().invalidate();
+        }
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            headerButton.setVisible(true);
+        }
 
-            } else {
-                contentPanel.setVisible(false);
-                head.setIcon(UIManager.getIcon("Tree.collapsedIcon"));
-                hidden = true;
-            }
-            revalidate();
-            repaint();
-            getParent().validate();
+        @Override
+        public void mouseExited(MouseEvent e) {
+            headerButton.setVisible(false);
         }
     }
+
 }
