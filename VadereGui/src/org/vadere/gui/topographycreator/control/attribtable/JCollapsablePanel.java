@@ -1,14 +1,12 @@
 package org.vadere.gui.topographycreator.control.attribtable;
 
-import org.vadere.gui.components.control.HelpTextView;
 import org.vadere.gui.components.utils.Resources;
 import org.vadere.gui.projectview.view.VDialogManager;
-import org.vadere.gui.topographycreator.control.attribtable.ui.AttributeTablePage;
+import org.vadere.util.other.Strings;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.MouseInputAdapter;
 import java.awt.*;
@@ -47,7 +45,7 @@ public class JCollapsablePanel extends JPanel implements Observer {
         this.observable = new Observable();
         this.contentPanel = new JPanel(new GridBagLayout());
         this.headerPanel = new JPanel();
-        this.headerLabel = new JLabel(AttributeTablePage.generateHeaderName(refClass));
+        this.headerLabel = new JLabel(Strings.generateHeaderName(refClass));
         this.helpButton = new JButton();
 
         //add headerLabel into headerPanel anchored left

@@ -1,6 +1,5 @@
 package org.vadere.gui.topographycreator.control.attribtable.ui;
 
-import org.jetbrains.annotations.NotNull;
 import org.vadere.gui.topographycreator.control.AttributeHelpView;
 import org.vadere.gui.topographycreator.control.attribtable.JAttributeTable;
 import org.vadere.gui.topographycreator.control.attribtable.JCollapsablePanel;
@@ -10,7 +9,6 @@ import org.vadere.gui.topographycreator.control.attribtable.cells.delegates.Attr
 import org.vadere.gui.topographycreator.control.attribtable.tree.AttributeTreeModel;
 import org.vadere.gui.topographycreator.control.attribtable.tree.TreeException;
 import org.vadere.gui.topographycreator.control.attribtable.util.ManualAttributeTableFocus;
-import org.vadere.util.reflection.VadereAttribute;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -55,28 +53,6 @@ public class AttributeTablePage extends JPanel implements AttributeTreeModel.Val
         focusTraversalPolicy.add(view.getFocusOrder());
         focusTraversalPolicy.addListener();
 
-    }
-
-
-    @NotNull
-    public static String generateHeaderName(Class<?> clazz) {
-        var annotation = (VadereAttribute)clazz.getAnnotation(VadereAttribute.class);
-        if(annotation != null) {
-            if (!annotation.name().isEmpty())
-                return splitCamelCase(annotation.name());
-        }
-        return splitCamelCase(clazz.getSimpleName().replaceFirst("Attributes", ""));
-    }
-
-    private static String splitCamelCase(String s) {
-        return s.replaceAll(
-                String.format("%s|%s|%s",
-                        "(?<=[A-Z])(?=[A-Z][a-z])",
-                        "(?<=[^A-Z])(?=[A-Z])",
-                        "(?<=[A-Za-z])(?=[^A-Za-z])"
-                ),
-                " "
-        );
     }
 
     public void updateModel(Object object) throws TreeException, IllegalAccessException {

@@ -2,6 +2,7 @@ package org.vadere.gui.topographycreator.control.attribtable.cells.delegates;
 
 import org.vadere.gui.topographycreator.control.attribtable.tree.AttributeTreeModel;
 import org.vadere.gui.topographycreator.control.attribtable.ui.AttributeTablePage;
+import org.vadere.util.other.Strings;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -49,7 +50,7 @@ public class ChildObjectCellEditor extends AttributeEditor  {
         initializeGridBagConstraint();
     }
     private void initializeButton(JPanel contentPanel) {
-        this.button = new JButton(AttributeTablePage.generateHeaderName(clazz));
+        this.button = new JButton(Strings.generateHeaderName(clazz));
         this.button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
