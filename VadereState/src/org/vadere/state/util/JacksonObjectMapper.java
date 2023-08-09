@@ -148,6 +148,7 @@ public class JacksonObjectMapper extends ObjectMapper {
 
 
 	@SuppressWarnings("unused")
+	@VadereAttribute(name = "RectangularGeometry")
     public static class VRectangleStore extends VShapeStore{
 		/**
 		 * This attribute stores the x coordinate of the origin point
@@ -190,6 +191,7 @@ public class JacksonObjectMapper extends ObjectMapper {
 	}
 
 	@SuppressWarnings("unused")
+	@VadereAttribute(name = "PolygonGeometry")
 	public static class VPolygon2DStore extends VShapeStore{
 		@VadereAttribute(exclude = true)
 		public ShapeType type = ShapeType.POLYGON;
@@ -211,6 +213,7 @@ public class JacksonObjectMapper extends ObjectMapper {
 	}
 
 	@SuppressWarnings("unused")
+	@VadereAttribute(name = "CircleGeometry")
 	public static class VCircleStore extends VShapeStore{
 		/**
 		 * This attribute stores the radius of the circle.<br>
