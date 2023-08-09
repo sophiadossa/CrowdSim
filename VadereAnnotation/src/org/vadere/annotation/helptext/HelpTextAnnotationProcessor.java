@@ -3,6 +3,7 @@ package org.vadere.annotation.helptext;
 import com.google.auto.service.AutoService;
 
 import org.vadere.annotation.ImportScanner;
+import org.vadere.util.reflection.VadereAttribute;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -66,11 +67,22 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 					String relname = buildClassHelpTextPath(e);
 					FileObject file = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", relname);
 					try (PrintWriter w = new PrintWriter(file.openWriter())) {
+						w.println("<DOCTYPE html>");
+						w.println("<html>");
+						w.println("<head>");
+						w.println("</head>");
+						w.println("<body>");
+						w.println("<div class='header'>");
 						w.println("<h1> " + e.getSimpleName()+"</h1>");
+						w.println("</div>");
 						w.println();
+						w.println("<div class='main'>");
 						printComment(w, comment);
 						w.println();
 						printMemberDocString(e, w);
+						w.println("</div>");
+						w.println("</body>");
+						w.println("</html>");
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -150,17 +162,21 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 				.filter(o->o.getKind().isField())
 				.collect(Collectors.toSet());
 		for(Element field : fields){
-			w.println("<hr>");
+			if(field.getAnnotation(VadereAttribute.class) != null && field.getAnnotation(VadereAttribute.class).exclude())
+				continue;
+			w.println("<div class='param'>");
 			String typeString;
 			if(isPrimitiveType(field)) {
 				typeString = getTypeString(field);
+				typeString = typeString.replace("java.util.","");
+				typeString = typeString.replace("java.lang.","");
 			}else{
 				typeString = String.format("<a href='%s' class='class_link'>%s</a>",findFullPath(getTypeString(field)),strippedTypeString(field));
-				//System.out.println(typeString);
 			}
-			w.println("<h2> Field: " + field.getSimpleName() + " [" + typeString + "]" + "</h2>");
+			w.println("<h2>" + field.getSimpleName() + " : " + typeString +  "</h2>");
 			String comment = processingEnv.getElementUtils().getDocComment(field);
 			printComment(w, comment);
+			w.println("</div>");
 			w.println();
 		}
 
@@ -170,6 +186,8 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 			String typeString;
 			if(isPrimitiveType(e)) {
 				typeString = getTypeString(e);
+				if(!typeString.contains("List"))
+					typeString = typeString.substring(typeString.lastIndexOf(".") + 1);
 			}else{
 				typeString = String.format("<a href='%s' class='class_link'>%s</a>",findFullPath(getTypeString(e)),strippedTypeString(e));
 			}
@@ -178,7 +196,7 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 	}
 
 	private boolean isPrimitiveType(Element field){
-		return primitiveTypes.contains(field.asType().toString());
+		return field.asType().getKind().isPrimitive() || !field.asType().toString().startsWith("org.vadere");
 	}
 
 	private String getTypeString(Element field){

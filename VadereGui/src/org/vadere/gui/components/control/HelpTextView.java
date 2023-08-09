@@ -70,12 +70,13 @@ public class HelpTextView extends JEditorPane {
 			text = "No Help found.";
 		}
 		HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
+		setEditorKit(htmlEditorKit);
 		StyleSheet sheet = htmlEditorKit.getStyleSheet();
-		sheet.addRule(".local_link {font-style: italic; text-decoration: underline;}");
-		sheet.addRule(".class_link {color: blue; font-style: italic; text-decoration: underline;}");
-		sheet.addRule("p { padding-bottom: 5px;}");
-		Document doc = htmlEditorKit.createDefaultDocument();
-		setDocument(doc);
+		sheet.importStyleSheet(getClass().getResource("/docstyle/style.css"));
+		//sheet.addRule("body {background-color: black;}");
+		//sheet.addRule(".local_link {font-style: italic; text-decoration: underline;}");
+		//sheet.addRule(".class_link {color: blue; font-style: italic; text-decoration: underline;}");
+		//sheet.addRule("p { padding-bottom: 5px;}");
 		setText(text);
 	}
 
