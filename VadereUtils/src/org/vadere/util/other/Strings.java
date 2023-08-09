@@ -24,9 +24,12 @@ public class Strings {
         }
         return splitCamelCase(removeAttribute(clazz.getSimpleName()));
     }
-
+    // is used to strip the "Attributes" from the name of the class, e.g. AttributesAgent -> Agent
+    // but since we want to keep the "Attributes" name, we need to check for it
     @NotNull
     public static String removeAttribute(String name) {
+        if (name.equals("Attributes"))
+            return name;
         return name.replaceFirst("Attributes", "");
     }
 }
