@@ -4,6 +4,9 @@ import org.vadere.util.geometry.shapes.VShape;
 
 import java.util.Objects;
 
+/**
+ * An <i>Obstacle</i> is a scenario element that is not traversable by pedestrians.
+ */
 public class AttributesObstacle extends AttributesVisualElement{
 
 	public AttributesObstacle() {}
