@@ -12,11 +12,16 @@ import org.vadere.util.geometry.shapes.VShape;
 import org.vadere.util.logging.Logger;
 
 import java.awt.geom.Rectangle2D;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Change target id of an agent which enters the corresponding {@link TargetChanger} area.
- * <p>
+ *
  * {@link TargetChanger}'s attributes contain two important parameters to control the changing behavior:
  * <ul>
  *     <li>
@@ -29,7 +34,7 @@ import java.util.*;
  *     </li>
  * </ul>
  */
-public class TargetChangerController extends ScenarioElementController {
+public class TargetChangerController  extends ScenarioElementController  {
 
     // Static Variables
     private static final Logger log = Logger.getLogger(TargetChangerController.class);
@@ -39,6 +44,8 @@ public class TargetChangerController extends ScenarioElementController {
     // Member Variables
     public final TargetChanger targetChanger;
     private Topography topography;
+    private Map<Integer, Agent> processedAgents;
+
     private Random random;
     private TargetChangerAlgorithm changerAlgorithm;
 
@@ -50,9 +57,17 @@ public class TargetChangerController extends ScenarioElementController {
 
         this.targetChanger = targetChanger;
         this.topography = topography;
+        this.processedAgents = new HashMap<>();
         this.random = random;
     }
 
+    // Getters
+    public Map<Integer, Agent> getProcessedAgents() {
+        return processedAgents;
+    }
+
+
+    // Public Methods
     public void update(double simTimeInSec) {
         for (DynamicElement element : getDynamicElementsNearTargetChangerArea()) {
 
@@ -64,12 +79,20 @@ public class TargetChangerController extends ScenarioElementController {
                 continue;
             }
 
-            if (hasAgentReachedTargetChangerArea(agent) &&
-                    !agent.getElementsEncountered(TargetChanger.class).contains(targetChanger.getId())) {
+            if (hasAgentReachedTargetChangerArea(agent) && processedAgents.containsKey(agent.getId()) == false) {
                 logEnteringTimeOfAgent(agent, simTimeInSec);
-                notifyListenersTargetChangerAreaReached(agent);
                 changerAlgorithm.setAgentTargetList(agent);
-                agent.elementEncountered(TargetChanger.class, targetChanger);
+                notifyListenersTargetChangerAreaReached(agent);
+
+                if (agent instanceof Pedestrian){
+                    Pedestrian p = (Pedestrian) agent;
+                    if (p.isAgentsInGroup()) {
+                        for (Pedestrian ped : p.getPedGroupMembers()) {
+                            processedAgents.put(ped.getId(), ped);
+                        }
+                    }
+                }
+                processedAgents.put(agent.getId(), agent);
             }
         }
     }
@@ -81,9 +104,12 @@ public class TargetChangerController extends ScenarioElementController {
         final double reachDistance = targetChanger.getAttributes().getReachDistance();
         final double reachRadius = Math.max(areaBounds.getHeight(), areaBounds.getWidth()) + reachDistance;
 
-        List<Pedestrian> pedestriansNearArea = topography.getSpatialMap(Pedestrian.class).getObjects(areaCenter, reachRadius);
+        final Collection<DynamicElement> elementsNearArea = new LinkedList<>();
 
-        return new LinkedList<>(pedestriansNearArea);
+        List<Pedestrian> pedestriansNearArea = topography.getSpatialMap(Pedestrian.class).getObjects(areaCenter, reachRadius);
+        elementsNearArea.addAll(pedestriansNearArea);
+
+        return elementsNearArea;
     }
 
     private boolean hasAgentReachedTargetChangerArea(Agent agent) {
@@ -99,7 +125,7 @@ public class TargetChangerController extends ScenarioElementController {
         Map<Integer, Double> enteringTimes = targetChanger.getEnteringTimes();
         Integer agentId = agent.getId();
 
-        if (!enteringTimes.containsKey(agentId)) {
+        if (enteringTimes.containsKey(agentId) == false) {
             enteringTimes.put(agentId, simTimeInSec);
         }
     }

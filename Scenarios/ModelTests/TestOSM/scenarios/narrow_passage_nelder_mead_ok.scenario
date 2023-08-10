@@ -1,8 +1,8 @@
 {
   "name" : "narrow_passage_nelder_mead_ok",
   "description" : "",
-  "release" : "2.5",
-  "commithash" : "095591dd79df47e1f43ee0d7c7accfe007d67ca0",
+  "release" : "2.6",
+  "commithash" : "117a3f85b8dc6a6329ca9fa2eb2d93fa60ba70a4",
   "processWriters" : {
     "files" : [ {
       "type" : "org.vadere.simulator.projects.dataprocessing.outputfile.NoDataKeyOutputFile",

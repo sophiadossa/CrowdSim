@@ -106,27 +106,21 @@ public class TargetChangerControllerTest {
     private List<Pedestrian> createGroupOfPedestriansTargetT1(int startId) {
         int seed = 0;
         Random random = new Random(seed);
-        CentroidGroup cg = new CentroidGroup(1, 2, new CentroidGroupModel());
 
-
-        LinkedList<Integer> target = new LinkedList<>();
+        LinkedList<Integer> target= new LinkedList<>();
         target.add(1);
 
-        LinkedList<Integer> groupId = new LinkedList<>();
+        LinkedList<Integer> groupId= new LinkedList<>();
         groupId.add(42);
 
         Pedestrian pedestrian1 = new Pedestrian(new AttributesAgent(startId), random);
         pedestrian1.setPosition(new VPoint(5, 1));
         pedestrian1.setTargets(target);
-        cg.addMember(pedestrian1);
-        pedestrian1.addAgentListener(cg);
         pedestrian1.setGroupIds(groupId);
 
-        Pedestrian pedestrian2 = new Pedestrian(new AttributesAgent(startId + 1), random);
+        Pedestrian pedestrian2 = new Pedestrian(new AttributesAgent(startId +  1), random);
         pedestrian2.setPosition(new VPoint(1, 1));
         pedestrian2.setTargets(target);
-        cg.addMember(pedestrian2);
-        pedestrian2.addAgentListener(cg);
         pedestrian2.setGroupIds(groupId);
 
         LinkedList<Pedestrian> list1 = new LinkedList<>();
@@ -186,13 +180,7 @@ public class TargetChangerControllerTest {
         TargetChanger targetChanger = new TargetChanger(attributesTargetChanger);
 
         TargetChangerController controllerUnderTest = createTargetChangerController(targetChanger);
-
-        List<Pedestrian> processedAgents = new LinkedList<>();
-        pedestrians.forEach(pedestrian -> {
-            if (pedestrian.getElementsEncountered(TargetChanger.class).contains(targetChanger.getId())) {
-                processedAgents.add(pedestrian);
-            }
-        });
+        Map<Integer, Agent> processedAgents = controllerUnderTest.getProcessedAgents();
         assertTrue(processedAgents.isEmpty());
     }
 
@@ -205,13 +193,7 @@ public class TargetChangerControllerTest {
 
         controllerUnderTest.update(simTimeInSec);
 
-        Map<Integer, Agent> processedAgents = new HashMap<>();
-        pedestrians.forEach(pedestrian -> {
-            if (pedestrian.getElementsEncountered(TargetChanger.class).contains(targetChanger.getId())) {
-                processedAgents.put(pedestrian.getId(), pedestrian);
-            }
-        });
-
+        Map<Integer, Agent> processedAgents = controllerUnderTest.getProcessedAgents();
         Agent processedAgent = processedAgents.get(pedestrians.get(1).getId());
 
         assertEquals(1, processedAgents.size());
@@ -736,6 +718,5 @@ public class TargetChangerControllerTest {
         assertEquals(2, peds.get(1).getNextTargetId());
 
     }
-
 
 }

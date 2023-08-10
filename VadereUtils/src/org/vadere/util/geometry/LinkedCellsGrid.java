@@ -1,7 +1,11 @@
 package org.vadere.util.geometry;
 
 import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -22,8 +26,6 @@ public class LinkedCellsGrid<T extends PointPositioned> implements Iterable<T> {
 	private GridCell<T>[][] grid;
 	private int[] gridSize = new int[2];
 	private double[] cellSize = new double[2];
-
-	private double sideLength;
 	private int size;
 
 	/**
@@ -143,7 +145,7 @@ public class LinkedCellsGrid<T extends PointPositioned> implements Iterable<T> {
 	 * @param left
 	 *        x-position of top left corner
 	 * @param top
-	 *        y-position of top left corner // TODO is it not bottom left corner?
+	 *        y-position of top left corner
 	 * @param width
 	 *        width of the grid, in world units (e.g. [m])
 	 * @param height
@@ -159,7 +161,6 @@ public class LinkedCellsGrid<T extends PointPositioned> implements Iterable<T> {
 		this.width = width;
 		this.height = height;
 		this.size = 0;
-		this.sideLength = sideLength;
 
 
 		// create grid
@@ -201,18 +202,6 @@ public class LinkedCellsGrid<T extends PointPositioned> implements Iterable<T> {
 		return new int[] {iX, iY};
 	}
 
-	public VRectangle getGridCellAsRectangle(int iX, int iY) {
-//		double width = sideLength;
-//		double height = sideLength;
-		double width = this.cellSize[0];
-		double height = this.cellSize[1];
-		double lowerLeftX = left + iX * this.cellSize[0];
-		double lowerLeftY = top + iY * this.cellSize[1];
-//		double lowerLeftX = left + iX * sideLength;
-//		double lowerLeftY = top + iY * sideLength;
-		return new VRectangle(lowerLeftX, lowerLeftY, width, height);
-	}
-
 	public int[][] getCellObjectCount(){
 		int[][] count = new int[this.gridSize[0]][this.gridSize[1]];
 		for (int r = 0; r < grid.length; r++) {
@@ -221,17 +210,6 @@ public class LinkedCellsGrid<T extends PointPositioned> implements Iterable<T> {
 			}
 		}
 		return count;
-	}
-
-	public Map<int[], List<T>> getElementsByCell() {
-		Map<int[], List<T>> elementsByCell = new HashMap<>();
-		for (int r = 0; r < grid.length; r++) {
-			for (int c = 0; c < grid[r].length; c++) {
-				List<T> cellElements = grid[r][c].objects;
-				elementsByCell.put(new int[]{r, c}, cellElements);
-			}
-		}
-		return elementsByCell;
 	}
 
 	/**

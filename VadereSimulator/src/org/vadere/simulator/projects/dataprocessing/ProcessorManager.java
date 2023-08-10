@@ -8,7 +8,6 @@ import org.vadere.simulator.projects.dataprocessing.outputfile.OutputFile;
 import org.vadere.simulator.projects.dataprocessing.processor.DataProcessor;
 import org.vadere.state.scenario.MeasurementArea;
 import org.vadere.state.scenario.Topography;
-import org.vadere.util.geometry.shapes.VShape;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -69,9 +68,6 @@ public class ProcessorManager {
 		}
 
 		return measurementArea;
-	}
-	public List<VShape> getObstacles() {
-		return topography.getObstacleShapes();
 	}
 
 	public MainModel getMainModel() {
