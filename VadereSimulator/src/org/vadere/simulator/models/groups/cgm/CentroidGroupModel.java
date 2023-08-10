@@ -186,8 +186,6 @@ public class CentroidGroupModel extends AbstractGroupModel<CentroidGroup> {
 
 		// add ped to group. If group is full remove it from the sourceNextGroups list.
 		currentGroup.addMember(ped);
-		//add Agentlistener to pedestrian
-		ped.addAgentListener(currentGroup);
 		ped.addGroupId(currentGroup.getID(), currentGroup.getSize());
 		registerMember(ped, currentGroup);
 		if (currentGroup.getOpenPersons() == 0) {
@@ -236,5 +234,4 @@ public class CentroidGroupModel extends AbstractGroupModel<CentroidGroup> {
 	protected Topography getTopography() {
 		return topography;
 	}
-
 }

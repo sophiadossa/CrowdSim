@@ -2,9 +2,10 @@ package org.vadere.simulator.models.groups;
 
 import org.vadere.simulator.models.Model;
 import org.vadere.simulator.models.potential.fields.IPotentialFieldTarget;
-import org.vadere.state.scenario.*;
+import org.vadere.state.scenario.DynamicElementAddListener;
+import org.vadere.state.scenario.DynamicElementRemoveListener;
+import org.vadere.state.scenario.Pedestrian;
 
-import java.beans.PropertyEditor;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ import java.util.Map;
  * @param <T> Group Type
  */
 public interface GroupModel<T extends Group>
-		extends Model, DynamicElementAddListener<Pedestrian>, DynamicElementRemoveListener<Pedestrian>, GroupIterator {
+		extends Model, DynamicElementAddListener<Pedestrian>, DynamicElementRemoveListener<Pedestrian> {
 
 	/**
 	 * @param pedestrian Pedestrian object

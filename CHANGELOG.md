@@ -20,6 +20,12 @@
 
 ### Other
 
+## v2.6
+
+### Removed
+- Removed `lostMembers` from `AttributesCGM` because the extension of the Centroid Group Model has not been validated.
+- Removed `waitBehaviourRelevantAgentsFactor` from `AttributesCGM` because the extension of the Centroid Group Model has not been validated.
+
 ## v2.5 (2023-08-03)
 
 ### Added

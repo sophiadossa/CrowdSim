@@ -1,8 +1,8 @@
 {
   "name" : "complex_NAVIGATION_groups_001",
   "description" : "",
-  "release" : "2.5",
-  "commithash" : "095591dd79df47e1f43ee0d7c7accfe007d67ca0",
+  "release" : "2.6",
+  "commithash" : "117a3f85b8dc6a6329ca9fa2eb2d93fa60ba70a4",
   "processWriters" : {
     "files" : [ {
       "type" : "org.vadere.simulator.projects.dataprocessing.outputfile.TimestepPedestrianIdOutputFile",
@@ -46,9 +46,7 @@
     "attributesModel" : {
       "org.vadere.state.attributes.models.AttributesCGM" : {
         "groupMemberRepulsionFactor" : 0.01,
-        "leaderAttractionFactor" : 0.003,
-        "lostMembers" : false,
-        "waitBehaviourRelevantAgentsFactor" : -1
+        "leaderAttractionFactor" : 0.003
       },
       "org.vadere.state.attributes.models.AttributesFloorField" : {
         "createMethod" : "HIGH_ACCURACY_FAST_MARCHING",

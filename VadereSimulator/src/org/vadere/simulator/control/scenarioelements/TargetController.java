@@ -160,7 +160,15 @@ public class TargetController extends ScenarioElementController {
 			changeTargetOfFollowers(agent);
 			topography.removeElement(agent);
 		} else {
-			agent.checkNextTarget(target.getAttributes().getLeavingSpeed());
+			agent.checkNextTarget();
+
+			// set a new desired speed, if possible. you can model street networks with differing
+			// maximal speeds with this.
+			double nextSpeed = target.getAttributes().getLeavingSpeed();
+			if (nextSpeed >= 0) {
+				agent.setFreeFlowSpeed(nextSpeed);
+			}
+
 		}
 	}
 
