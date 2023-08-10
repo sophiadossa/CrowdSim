@@ -2,6 +2,7 @@ package org.vadere.state.attributes;
 
 import org.vadere.state.attributes.models.psychology.cognition.AttributesSimpleCognitionModel;
 import org.vadere.state.attributes.models.psychology.perception.AttributesSimplePerceptionModel;
+import org.vadere.util.reflection.VadereAttribute;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,9 @@ public class AttributesPsychologyLayer {
 
     // Constants
     // Watch out: Make sure these classes exist!
+    @VadereAttribute(exclude = true)
     public static final String DEFAULT_PERCEPTION_MODEL = "SimplePerceptionModel";
+    @VadereAttribute(exclude = true)
     public static final String DEFAULT_COGNITION_MODEL = "SimpleCognitionModel";
 
 

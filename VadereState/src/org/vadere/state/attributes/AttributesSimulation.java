@@ -1,5 +1,8 @@
 package org.vadere.state.attributes;
 
+import org.checkerframework.framework.qual.Unused;
+import org.vadere.util.reflection.VadereAttribute;
+
 import java.util.Objects;
 import java.util.Random;
 
@@ -10,18 +13,47 @@ import java.util.Random;
 public class AttributesSimulation extends Attributes {
 
 	/** Store the members of this class under this key in the JSON file. */
+	@VadereAttribute(exclude = true)
 	public static final String JSON_KEY = "attributesSimulation";
-
+	/**
+	 * <i>finishTime</i> is the time in seconds when the simulation should stop.
+	 */
 	private double finishTime = 500;
-	/** Progress of simulation time between two simulation steps in a row. */
+	/**
+	 * <i>simTimeStepLength</i> is the length of one simulation time step in seconds.
+	 */
 	private double simTimeStepLength = 0.4;
+	/**
+	 * <i>realTimeSimTimeRatio</i> is the ratio between real time and simulation time.
+	 */
 	private double realTimeSimTimeRatio = 0.1;
+	/**
+	 * <i>writeSimulationData</i> indicates whether the simulation output data should be written to the filesystem.
+	 */
 	private boolean writeSimulationData = true;
+	/**
+	 * <i>visualizationEnabled</i> indicates the simulation should be run in real time. ??? TODO: check this ???
+	 */
 	private boolean visualizationEnabled = true;
+	/**
+	 * <i>printFPS</i> is not used currently
+	 */
 	private boolean printFPS = false;
+	/**
+	 * <i>digitsPerCoordinate</i> is the number of digits after the decimal point for the coordinates.
+	 */
 	private int digitsPerCoordinate = 2;
+	/**
+	 * <i>useFixedSeed</i> indicates whether a fixed seed should be used for the simulation.
+	 */
 	private boolean useFixedSeed = true;
+	/**
+	 * <i>fixedSeed</i> is the fixed seed used for the simulation.
+	 */
 	private long fixedSeed = new Random().nextLong();
+	/**
+	 * <i>simulationSeed</i> is the seed used for the simulation.
+	 */
 	private long simulationSeed;
 
 	// Getter...
