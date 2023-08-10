@@ -1,6 +1,5 @@
 package org.vadere.gui.topographycreator.view;
 
-import org.vadere.gui.components.control.HelpTextView;
 import org.vadere.gui.projectview.view.VDialogManager;
 
 import java.awt.*;
@@ -11,7 +10,6 @@ import javax.swing.*;
 
 public class JLinkLabel extends JLabel {
 
-	private String fullName;
 	private String shortName;
 
 	public JLinkLabel(String fullName){
@@ -20,7 +18,6 @@ public class JLinkLabel extends JLabel {
 
 	public JLinkLabel(String fullName, String prefix,  String suffix){
 		super();
-		this.fullName = fullName;
 		String[] tmp = fullName.split("\\.");
 		this.shortName = tmp[tmp.length-1];
 		setText(prefix + shortName + suffix);
@@ -29,9 +26,7 @@ public class JLinkLabel extends JLabel {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String body = shortName + ": Help and Field Description";
-				VDialogManager.showMessageDialogWithBodyAndTextEditorPane("Help", body,
-						HelpTextView.create(fullName), JOptionPane.INFORMATION_MESSAGE);
+				VDialogManager.showHelpDialogForClass(fullName);
 			}
 
 			@Override

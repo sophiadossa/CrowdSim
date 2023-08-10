@@ -31,8 +31,7 @@ public class JLabelObserver extends JLabel implements Observer {
 			public void mouseClicked(MouseEvent e) {
 				if (!selectedElementAttrFQN.equals("")){
 					String body = getText() + ": Help and Field Description";
-					VDialogManager.showMessageDialogWithBodyAndTextEditorPane("Help", body,
-							HelpTextView.create(selectedElementAttrFQN), JOptionPane.INFORMATION_MESSAGE);
+					VDialogManager.showHelpDialogForClass(selectedElementAttrFQN);
 				}
 			}
 
