@@ -35,8 +35,8 @@ public class AttributesPsychologyLayer {
      * <br><br>
      * Available models:
      * <ul>
-     *     <li>"SimplePerceptionModel" {@link org.vadere.state.attributes.models.psychology.perception.AttributesSimplePerceptionModel}</li>
-     *     <li>"MultiPerceptionModel" {@link org.vadere.state.attributes.models.psychology.perception.AttributesMultiPerceptionModel}</li>
+     *     <li>{@link org.vadere.state.attributes.models.psychology.perception.AttributesSimplePerceptionModel}</li>
+     *     <li>{@link org.vadere.state.attributes.models.psychology.perception.AttributesMultiPerceptionModel}</li>
      * </ul>
      */
     private String perception;
@@ -50,13 +50,13 @@ public class AttributesPsychologyLayer {
      * <br><br>
      * Available models:
      * <ul>
-     *     <li>"ChangeTargetScriptedCognitionModel" {@link org.vadere.state.attributes.models.psychology.cognition.AttributesChangeTargetScriptedCognitionModel}</li>
-     *     <li>"CooperativeCognitionModel" {@link org.vadere.state.attributes.models.psychology.cognition.AttributesCooperativeCognitionModel}</li>
-     *     <li>"CounterflowCognitionModel" {@link org.vadere.state.attributes.models.psychology.cognition.AttributesCounterflowCognitionModel}</li>
-     *     <li>"ProbabilisticCognitionModel" {@link org.vadere.state.attributes.models.psychology.cognition.AttributesProbabilisticCognitionModel}</li>
-     *     <li>"SimpleCognitionModel" {@link org.vadere.state.attributes.models.psychology.cognition.AttributesSimpleCognitionModel}</li>
-     *     <li>"SocialDistancingCognitionModel" {@link org.vadere.state.attributes.models.psychology.cognition.AttributesSocialDistancingCognitionModel}</li>
-     *     <li>"ThreatCognitionModel" {@link org.vadere.state.attributes.models.psychology.cognition.AttributesThreatCognitionModel}</li>
+     *     <li>{@link org.vadere.state.attributes.models.psychology.cognition.AttributesChangeTargetScriptedCognitionModel}</li>
+     *     <li>{@link org.vadere.state.attributes.models.psychology.cognition.AttributesCooperativeCognitionModel}</li>
+     *     <li>{@link org.vadere.state.attributes.models.psychology.cognition.AttributesCounterflowCognitionModel}</li>
+     *     <li>{@link org.vadere.state.attributes.models.psychology.cognition.AttributesProbabilisticCognitionModel}</li>
+     *     <li>{@link org.vadere.state.attributes.models.psychology.cognition.AttributesSimpleCognitionModel}</li>
+     *     <li>{@link org.vadere.state.attributes.models.psychology.cognition.AttributesSocialDistancingCognitionModel}</li>
+     *     <li>{@link org.vadere.state.attributes.models.psychology.cognition.AttributesThreatCognitionModel}</li>
      */
     private String cognition;
     /**
