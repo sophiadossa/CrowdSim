@@ -32,7 +32,7 @@ public class AttributesSimulation extends Attributes {
 	 */
 	private boolean writeSimulationData = true;
 	/**
-	 * <i>visualizationEnabled</i> indicates the simulation should be run in real time. ??? TODO: check this ???
+	 * <i>visualizationEnabled</i> enables visualization of the potential fields and enables hardware independent rendering.
 	 */
 	private boolean visualizationEnabled = true;
 	/**
@@ -45,14 +45,26 @@ public class AttributesSimulation extends Attributes {
 	private int digitsPerCoordinate = 2;
 	/**
 	 * <i>useFixedSeed</i> indicates whether a fixed seed should be used for the simulation.
+	 * <br>
+	 * A seed defines how the random number generator in Vadere determines random numbers.
+	 * Random numbers are used, e.g., by the optimal steps model when the next step of an agent
+	 * is calculated. If useFixedSeed is true and a simulation is repeated without altering any parameters,
+	 * the result remains exactly the same. If useFixedSeed is false, e.g., the pedestrians’
+	 * spawning positions, their trajectories, etc. may vary
 	 */
 	private boolean useFixedSeed = true;
 	/**
-	 * <i>fixedSeed</i> is the fixed seed used for the simulation.
+	 * <i>fixedSeed</i> determines the random numbers used in the simulation uniquely
+	 * <br>
+	 * See <i>useFixedSeed</i>. Only plays a role if useFixedSeed is true.
 	 */
 	private long fixedSeed = new Random().nextLong();
 	/**
 	 * <i>simulationSeed</i> is the seed used for the simulation.
+	 * <br>
+	 * Editing this parameter has no effect on a simulation. It only returns the seed that has been used
+	 * for simulation in the scenario output file (if <i>useFixedSeed</i> is true, simulationSeed equals <i>fixedSeed</i>;
+	 * if <i>useFixed</i> is false, <i>simulationSeed</i> is some arbitrary number).
 	 */
 	private long simulationSeed;
 
