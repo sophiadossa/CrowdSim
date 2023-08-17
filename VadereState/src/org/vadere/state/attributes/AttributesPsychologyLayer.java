@@ -45,7 +45,7 @@ public class AttributesPsychologyLayer {
      * <br><br>
      * A cognition model decides to which {@link org.vadere.state.psychology.cognition.SelfCategory} a {@link org.vadere.state.scenario.Pedestrian}
      * identifies to. From this {@link org.vadere.state.psychology.cognition.SelfCategory} a specific behavior derives.
-     * E.g. if {@link org.vadere.state.psychology.cognition.SelfCategory} = {@link org.vadere.state.psychology.cognition.SelfCategory#COOPERATIVE}, pedestrians
+     * E.g. if {@link org.vadere.state.psychology.cognition.SelfCategory} = COOPERATIVE, pedestrians
      * can swap places.
      * <br><br>
      * Available models:
