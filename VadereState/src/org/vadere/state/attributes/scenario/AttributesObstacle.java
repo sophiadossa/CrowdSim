@@ -1,11 +1,14 @@
 package org.vadere.state.attributes.scenario;
 
+import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.util.geometry.shapes.VShape;
-
 import java.util.Objects;
 
 /**
- * An <i>Obstacle</i> is a scenario element that is not traversable by pedestrians.
+ * An Obstacle is a {@link ScenarioElement} which blocks agents and cannot be passed by them.
+ * <div class = "warning">
+ *     <b>Warning:</b> If used with a OptimalStepsModel a width / height of &lt; 0.1 may lead to problems of agents ignoring it.
+ * </div>
  */
 public class AttributesObstacle extends AttributesVisualElement{
 

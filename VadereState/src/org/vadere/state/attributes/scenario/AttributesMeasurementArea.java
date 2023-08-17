@@ -1,7 +1,13 @@
 package org.vadere.state.attributes.scenario;
 
+import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.util.geometry.shapes.VShape;
 
+/**
+ * A MeasurementArea is a {@link ScenarioElement} which is used by many DataProcessors,
+ * usually used to measure crowd density, number of agents, etc. A DataProcessor uses
+ * the MeasurementArea's id to identify the area.
+ */
 public class AttributesMeasurementArea extends AttributesVisualElement {
 	public AttributesMeasurementArea(){};
 

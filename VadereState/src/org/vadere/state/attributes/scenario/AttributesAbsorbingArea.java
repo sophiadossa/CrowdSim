@@ -1,13 +1,17 @@
 package org.vadere.state.attributes.scenario;
 
 import org.vadere.state.attributes.AttributesAbsorber;
+import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.util.geometry.shapes.VShape;
 import org.vadere.util.reflection.VadereAttribute;
 
 /**
- * Attributes of an absorbing area, used by "AbsorbingAreaController" during simulation.
+ * An AbsorbingArea is a {@link ScenarioElement} which absorbs agents.
  */
 public class AttributesAbsorbingArea extends AttributesVisualElement {
+    /**
+     * <i>absorber</i> specifies the attributes of the absorbing area.
+     */
     @VadereAttribute
     protected AttributesAbsorber absorber = new AttributesAbsorber();
 

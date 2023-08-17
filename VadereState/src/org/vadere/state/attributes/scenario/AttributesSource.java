@@ -12,10 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This scenario element represents a source of agents. Agents can be spawned at this source and travel to a target.
- * The source can be of different types. The type of the source is defined by the {@link AttributesSpawner} which is
- * stored in this class. The {@link AttributesSpawner} defines the type of the source and the attributes of the
- * spawner.
+ * A source is a {@link ScenarioElement} which spawns agents.
+ * The spawning behaviour is controlled by a {@link AttributesSpawner}.
  */
 public class AttributesSource extends AttributesVisualElement {
 	@Deprecated
