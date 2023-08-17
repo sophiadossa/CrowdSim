@@ -104,6 +104,7 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 		w.println("<div class='header'>");
 		Element superElement = ((DeclaredType)((TypeElement) e).getSuperclass()).asElement();
 		var superString = String.format("<a href='%s' class='class_link'>%s</a>",findFullPath(String.format("%s",superElement.getSimpleName())),splitCamelCase(removeAttribute(String.format("%s",superElement.getSimpleName()))));
+		w.println("<a href='/returnToLastPage/' class='return_link'>&lt; Back</a>");
 		w.println("<h1> " + splitCamelCase(removeAttribute(String.format("%s", e.getSimpleName())))+" : "+ superString +"</h1>");
 		w.println("</div>"); // header
 		w.println();
