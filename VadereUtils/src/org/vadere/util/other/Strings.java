@@ -30,6 +30,8 @@ public class Strings {
     public static String removeAttribute(String name) {
         if (name.equals("Attributes"))
             return name;
-        return name.replaceFirst("Attributes", "");
+        if(name.startsWith("Attribute"))
+            return name.substring("Attributes".length());
+        return name;
     }
 }

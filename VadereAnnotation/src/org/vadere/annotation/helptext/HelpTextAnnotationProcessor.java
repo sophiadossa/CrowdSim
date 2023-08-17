@@ -151,7 +151,8 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 			Matcher m = r.matcher(e);
 			while (m.find()){
 				String linkId = findFullPath(m.group(2));
-				e = m.replaceFirst(String.format("<a href='%s' class='class_link'>$2</a>", linkId));
+				String fieldType = removeAttribute(stripToBaseString(m.group(2)));
+				e = m.replaceFirst(String.format("<a href='%s' class='class_link'>%s</a>", linkId,fieldType));
 				m = r.matcher(e);
 			}
 			return e;
@@ -160,7 +161,7 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 	}
 
 	private String findFullPath(String className){
-		String n = importedTypes.stream().filter(e-> e.endsWith(className)).findFirst().orElse("rel_/"+className);
+		String n = importedTypes.stream().filter(e-> e.endsWith(className)).findFirst().orElse(className);
 		return "/helpText/" + n + ".html";
 	}
 
@@ -222,6 +223,14 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 
 	private String strippedTypeString(Element field){
 		var str = field.asType().toString();
+		str = str.substring(str.lastIndexOf(".") + 1);
+		if(str.startsWith("Attribute")){
+			str = str.substring("Attributes".length());
+		}
+		return str;
+	}
+
+	private String stripToBaseString(String str){
 		return str.substring(str.lastIndexOf(".") + 1);
 	}
 }
