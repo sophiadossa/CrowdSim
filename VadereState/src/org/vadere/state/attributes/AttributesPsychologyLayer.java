@@ -1,17 +1,21 @@
 package org.vadere.state.attributes;
 
-import org.vadere.state.attributes.models.psychology.cognition.AttributesSimpleCognitionModel;
+import org.vadere.state.attributes.models.psychology.cognition.*;
+import org.vadere.state.attributes.models.psychology.perception.AttributesMultiPerceptionModel;
 import org.vadere.state.attributes.models.psychology.perception.AttributesSimplePerceptionModel;
+import org.vadere.state.psychology.cognition.SelfCategory;
+import org.vadere.state.psychology.perception.types.Stimulus;
+import org.vadere.state.scenario.Pedestrian;
 import org.vadere.util.reflection.VadereAttribute;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * This class beautifies the JSON content by mapping
- * the words "perception" and "cognition" to existing class names.
- */
+
+// This class beautifies the JSON content by mapping
+// the words "perception" and "cognition" to existing class names.
+
 public class AttributesPsychologyLayer {
 
     // Constants
@@ -26,9 +30,43 @@ public class AttributesPsychologyLayer {
     // Both should reference to concrete "IPerception" and "ICognition"
     // implementations! We do not reference them here to avoid cyclic
     // dependencies between state and controller packages
+    /**
+     * <i>perception</i> parameter is the name of the perception model.
+     * <br><br>
+     * A perception model decides which {@link Stimulus} is most important for a
+     * {@link Pedestrian} at a specific simulation step based on pedestrian's
+     * attributes or its surrounding. It is designed as an interface so that
+     * different models can be used for different scenarios
+     * <br><br>
+     * Available models:
+     * <ul>
+     *     <li>"SimplePerceptionModel" {@link AttributesSimplePerceptionModel}</li>
+     *     <li>"MultiPerceptionModel" {@link AttributesMultiPerceptionModel}</li>
+     * </ul>
+     */
     private String perception;
+    /**
+     * <i>cognition</i> parameter is the name of the cognition model.
+     * <br><br>
+     * A cognition model decides to which {@link SelfCategory} a {@link Pedestrian}
+     * identifies to. From this {@link SelfCategory} a specific behavior derives.
+     * E.g. if {@Link SelfCategory} = {@link SelfCategory#COOPERATIVE}, pedestrians
+     * can swap places.
+     * <br><br>
+     * Available models:
+     * <ul>
+     *     <li>"ChangeTargetScriptedCognitionModel" {@link AttributesChangeTargetScriptedCognitionModel}</li>
+     *     <li>"CooperativeCognitionModel" {@link AttributesCooperativeCognitionModel}</li>
+     *     <li>"CounterflowCognitionModel" {@link AttributesCounterflowCognitionModel}</li>
+     *     <li>"ProbabilisticCognitionModel" {@link AttributesProbabilisticCognitionModel}</li>
+     *     <li>"SimpleCognitionModel" {@link AttributesSimpleCognitionModel}</li>
+     *     <li>"SocialDistancingCognitionModel" {@link AttributesSocialDistancingCognitionModel}</li>
+     *     <li>"ThreatCognitionModel" {@link AttributesThreatCognitionModel}</li>
+     */
     private String cognition;
-
+    /**
+     * <i>attributesModel</i> parameter is a list of attributes for the perception and cognition models.
+     */
     public List<Attributes> attributesModel;
 
     // Constructors

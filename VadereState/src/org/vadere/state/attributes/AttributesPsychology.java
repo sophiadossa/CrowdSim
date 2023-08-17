@@ -15,6 +15,9 @@ public class AttributesPsychology extends Attributes {
 
 	/** Allows agents to change their behavior (e.g. from TARGET_ORIENTIED to COOPERATIVE if it is too dense) */
 	private boolean usePsychologyLayer = false;
+	/**
+	 * <i>psychologyLayer</i> represents the psychology layer of the simulation.
+	 */
 	private AttributesPsychologyLayer psychologyLayer = new AttributesPsychologyLayer();
 
 	// Getter
