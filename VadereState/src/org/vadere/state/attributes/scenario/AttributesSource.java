@@ -49,10 +49,10 @@ public class AttributesSource extends AttributesVisualElement {
 	 *  index 1 => GroupSize = 2<br>
 	 *  ...
 	 *
-	 *  Example: ----------------------------------------------------------------------------------<br>
-	 *  probability [ 0.0, 0.0, 0.25, 0.25, 0.25, .... ] ------------------------------------------<br>
-  	 *  GroupSize   [  1    2    3     4     5         ] ------------------------------------------<br>
-	 *  uniform distribution of groups of the size from 3 to 5 ------------------------------------<br>
+	 *  Example:<br>
+	 *  probability [ 0.0, 0.0, 0.25, 0.25, 0.25, .... ]<br>
+  	 *  GroupSize   [  1    2    3     4     5         ]<br>
+	 *  uniform distribution of groups of the size from 3 to 5<br>
 	 */
 
 	@JsonView(Views.CacheViewExclude.class) // ignore when determining if floor field cache is valid
