@@ -13,10 +13,14 @@ import java.util.Random;
 /**
  * Interface for a cognition model.
  *
+ * In the cognition phase, agent make decision based on their perception.
+ * Basically, any choice model like for example route choice models could be implemented here.
+ *
  * A cognition model decides to which {@link SelfCategory} a {@link Pedestrian}
  * identifies to. From this {@link SelfCategory} a specific behavior derives.
  * E.g. if {@Link SelfCategory} = {@link SelfCategory#COOPERATIVE}, pedestrians
  * can swap places.
+ *
  *
  * It is designed as an interface so that different models can be used for
  * different scenarios (by specifying in the JSON file).

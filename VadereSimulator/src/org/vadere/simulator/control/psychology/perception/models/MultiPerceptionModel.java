@@ -8,11 +8,12 @@ import org.vadere.state.scenario.Topography;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
 /**
- * Use a very simple strategy to rank stimulus priority:
+ * Implementation for a perception model.
  *
- * ChangeTargetScripted > ChangeTarget > Threat > Wait > WaitInArea > ElapsedTime
+ * An agent perceives multiple stimuli from the environment like for example a sound or visual information (see {@link Stimulus} for stimuli available).
+ * We assume that the intensity of every single stimuli exceeds the respective sensory threshold.
+
  */
 public class MultiPerceptionModel extends PerceptionModel {
 
@@ -26,6 +27,11 @@ public class MultiPerceptionModel extends PerceptionModel {
         this.attributes = new AttributesMultiPerceptionModel();
 
     }
+
+    /**
+     * We assume that the intensity of all stimuli exceed the sensory threshold.
+     * These stimuli are then evaluated in the cognition phase.
+     */
 
     @Override
     public void update(HashMap<Pedestrian, List<Stimulus>> pedSpecificStimuli) {
