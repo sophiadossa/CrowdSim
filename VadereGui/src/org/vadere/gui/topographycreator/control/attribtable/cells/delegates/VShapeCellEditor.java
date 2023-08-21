@@ -6,15 +6,14 @@ import org.vadere.gui.topographycreator.control.attribtable.tree.AttributeTreeMo
 import org.vadere.gui.topographycreator.control.attribtable.tree.TreeException;
 import org.vadere.gui.topographycreator.control.attribtable.ui.AttributeTableView;
 import org.vadere.state.util.JacksonObjectMapper;
-import org.vadere.util.geometry.shapes.VCircle;
-import org.vadere.util.geometry.shapes.VPolygon;
-import org.vadere.util.geometry.shapes.VRectangle;
+import org.vadere.util.geometry.shapes.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Path2D;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -53,7 +52,9 @@ public class VShapeCellEditor extends AttributeEditor implements ViewListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                var rect = new VRectangle();
+                VShape shape = (VShape) model.getReference();
+                VPoint point = shape.getCentroid();
+                var rect = new VRectangle(point.getX()-0.5,point.getY()-0.5,1,1);
                 onModelChanged(rect);
                 try {
                     model.getValueNode().setValue(rect);
@@ -70,7 +71,9 @@ public class VShapeCellEditor extends AttributeEditor implements ViewListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                var poly = new VPolygon();
+                VShape shape = (VShape) model.getReference();
+                VPoint point = shape.getCentroid();
+                var poly = new VPolygon(new Path2D.Double(new VRectangle(point.getX()-0.5,point.getY()-0.5,1,1)));
                 onModelChanged(poly);
                 try {
                     model.getValueNode().setValue(poly);
@@ -88,7 +91,9 @@ public class VShapeCellEditor extends AttributeEditor implements ViewListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                var circ = new VCircle();
+                VShape shape = (VShape) model.getReference();
+                VPoint point = shape.getCentroid();
+                var circ = new VCircle(point,0.5);
                 onModelChanged(circ);
                 try {
                     model.getValueNode().setValue(circ);

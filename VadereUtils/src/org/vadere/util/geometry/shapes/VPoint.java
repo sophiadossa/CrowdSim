@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 import java.math.BigDecimal;
 
 import org.vadere.util.geometry.GeometryUtils;
-
+import org.vadere.util.reflection.VadereAttribute;
 
 
 /**
@@ -13,6 +13,7 @@ import org.vadere.util.geometry.GeometryUtils;
  * TODO: this class should be final
  * 
  */
+@VadereAttribute(name = "Point")
 public class VPoint implements Cloneable, IPoint {
 
 	public static final VPoint ZERO = new VPoint(0, 0);
