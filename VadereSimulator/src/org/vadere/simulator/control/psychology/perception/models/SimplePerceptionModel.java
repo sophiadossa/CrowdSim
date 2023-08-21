@@ -10,9 +10,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Use a very simple strategy to rank stimulus priority:
+ * Implementation for a perception model.
  *
- * ChangeTargetScripted > ChangeTarget > Threat > Wait > WaitInArea > ElapsedTime
+ * An agent perceives multiple stimuli from the environment like for example a sound or visual information (see {@link Stimulus} for stimuli available).
+ * We assume that some stimuli are more important than other stimuli.
+ * For example a Threat like a fire is more important than a waiting signal in a queue.
+ * We assume that only the most important stimulus has an intensity that exceeds the sensory threshold.
+ * The ranking of the stimuli can be specific using the {@link AttributesSimplePerceptionModel}.
  */
 public class SimplePerceptionModel extends PerceptionModel {
 
@@ -25,7 +29,10 @@ public class SimplePerceptionModel extends PerceptionModel {
         this.attributes = new AttributesSimplePerceptionModel();
     }
 
-
+    /**
+     * We assume that only the most important stimulus exceeds the sensory threshold.
+     * Only this stimulus will be used in the cognition phase for the behavior choice.
+     */
     @Override
     public void update(HashMap<Pedestrian, List<Stimulus>> pedSpecificStimuli) {
         for (Pedestrian pedestrian : pedSpecificStimuli.keySet()) {
@@ -45,6 +52,10 @@ public class SimplePerceptionModel extends PerceptionModel {
     }
 
 
+    /**
+     * We assume that some stimuli are more important than other stimuli.
+     * This method ranks the perceived stimuli according to the ranking provided in  {@link AttributesSimplePerceptionModel}.
+     */
     private Stimulus rankChangeTargetAndThreatHigherThanWait(List<Stimulus> stimuli, Pedestrian pedestrian) {
         // Assume the "ElapsedTime" is the most important stimulus
         // unless there is something more important.

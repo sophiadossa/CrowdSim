@@ -18,8 +18,8 @@ import java.util.HashMap;
 import java.util.Random;
 
 /**
- * Suppose a distance recommendation (a {@link DistanceRecommendation}) occurred (keyword: social distancing).
- * In this case, agents perform social distancing behavior.
+ * This model decides whether agents perform social distancing or not.
+ * If a distance recommendation (a {@link DistanceRecommendation}) has been received, agents perform social distancing.
  * The distancing behavior depends on two parameters that are defined in {@link DistanceRecommendation}
  * The parameter socialDistance controls the distancing behavior, see implementation in the locomotion layer.
  * The parameter cloggingTimeAllowedInSecs controls after which time

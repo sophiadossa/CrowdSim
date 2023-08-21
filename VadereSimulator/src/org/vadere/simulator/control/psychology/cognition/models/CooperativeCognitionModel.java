@@ -11,14 +11,9 @@ import java.util.Collection;
 import java.util.Random;
 
 /**
- * The {@link CooperativeCognitionModel} makes a pedestrian cooperative if its
- * average speed falls below a certain threshold. I.e., usually the agent
- * could not move for some time steps. For example, in case of other
- * counter-flowing agents.
- *
- * {@link SelfCategory#COOPERATIVE} should motivate pedestrians to swap places
- * instead of blindly walking to a target and colliding with other pedestrians.
- */
+ * Like the {@link CounterflowCognitionModel}, this model models how people behave in a counterflow.
+ * Use this model is you are using the Optimal Steps Model.
+*/
 public class CooperativeCognitionModel implements ICognitionModel {
 
     private Topography topography;
@@ -54,6 +49,7 @@ public class CooperativeCognitionModel implements ICognitionModel {
     }
 
     protected boolean pedestrianCannotMove(Pedestrian pedestrian) {
+        //TODO: this method should be moved to the perception layer
         boolean cannotMove = false;
 
         FootstepHistory footstepHistory = pedestrian.getFootstepHistory();

@@ -1,11 +1,22 @@
 package org.vadere.simulator.control.psychology.cognition.models;
 
+import org.vadere.simulator.models.Model;
+import org.vadere.state.psychology.cognition.SelfCategory;
 import org.vadere.state.psychology.information.InformationState;
 import org.vadere.state.psychology.perception.types.ElapsedTime;
 import org.vadere.state.psychology.perception.types.Stimulus;
+import org.vadere.state.psychology.perception.types.Threat;
 import org.vadere.state.scenario.Pedestrian;
 
 import java.util.Collection;
+
+/**
+ * Abstract class for a cognition model.
+ * A probabilistic cognition model is a model that assigns a {@link SelfCategory} according to a probability function.
+ * This is necessary, because people can behave differently even if they perceive the same stimuli
+ * due to their individual experiences.
+ * Usually, it is very difficult to model such individual experiences. That is why we use probability functions instead.
+ */
 
 public abstract class AProbabilisticModel implements ICognitionModel {
 
