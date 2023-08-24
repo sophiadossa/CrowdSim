@@ -2,6 +2,7 @@ package org.vadere.annotation.helptext;
 
 import com.google.auto.service.AutoService;
 
+import org.jetbrains.annotations.NotNull;
 import org.vadere.annotation.ImportScanner;
 import org.vadere.util.reflection.VadereAttribute;
 
@@ -38,7 +39,6 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 	ArrayList<Function<String, String>> pattern;
 	Set<String> importedTypes;
 
-	List<String> primitiveTypes = Arrays.asList(new String[]{"int","double","float","boolean","Double","Boolean","Integer","java.lang.String"});
 
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
@@ -102,19 +102,36 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 
 	private void composeHTMLHeader(Element e, PrintWriter w) {
 		w.println("<div class='header'>");
-		Element superElement = ((DeclaredType)((TypeElement) e).getSuperclass()).asElement();
-		var superString = String.format("<a href='%s' class='class_link'>%s</a>",findFullPath(String.format("%s",superElement.getSimpleName())),splitCamelCase(removeAttribute(String.format("%s",superElement.getSimpleName()))));
-		w.println("<a href='/returnToLastPage/' class='return_link'>&lt; Back</a>");
-		w.println("<h1> " + splitCamelCase(removeAttribute(String.format("%s", e.getSimpleName())))+" : "+ superString +"</h1>");
+		w.println("<a href='/back'>&lt; Back</a>");
+
+		Element superElement = getSuperElement(e);
+		if(isIgnorableSuperClass(superElement))
+			w.print("<h1> " + composeHeaderName(e)+"</h1>");
+		else
+			w.println("<h1> " + composeHeaderName(e) +" : "+ composeSuperClassLink(superElement) +"</h1>");
 		w.println("</div>"); // header
 		w.println();
 		w.println("<div class='main'>");
 	}
 
+	@NotNull
+	private static String composeHeaderName(Element e) {
+		return removeAttribute(String.format("%s", e.getSimpleName()));
+	}
+
+	private String composeSuperClassLink(Element superElement) {
+		return String.format("<a href='%s' class='class_link'>%s</a>", findFullPath(String.format("%s", superElement.getSimpleName())), removeAttribute(String.format("%s", superElement.getSimpleName())));
+	}
+
+	private static Element getSuperElement(Element e) {
+		return ((DeclaredType)((TypeElement)e).getSuperclass()).asElement();
+	}
+
 	private static void composeHTMLBegin(PrintWriter w) {
-		w.println("<DOCTYPE html>");
+		w.println("<!DOCTYPE html>");
 		w.println("<html>");
 		w.println("<head>");
+		w.println("<meta charset=\"UTF-16\">");
 		w.println("</head>");
 		w.println("<body>");
 	}
@@ -166,9 +183,7 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 	}
 
 	private void printComment(PrintWriter w, String multiLine){
-		if (multiLine == null){
-			w.println("<p>---</p>");
-		} else {
+		if(multiLine != null){
 			w.println("<p>");
 			multiLine.lines().map(String::strip).map(this::applyMatcher).forEach(w::println);
 			w.println("</p>");
@@ -232,5 +247,21 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 
 	private String stripToBaseString(String str){
 		return str.substring(str.lastIndexOf(".") + 1);
+	}
+
+	private boolean isIgnorableSuperClass(Element e){
+		checkElementIsClass(e);
+		return Arrays.stream(new String[]{
+				"Object",
+				"Enum",
+				"Cloneable",
+				"Serializable",
+				"Attributes"
+		}).anyMatch(s -> s.equals(e.getSimpleName().toString()));
+	}
+
+	private static void checkElementIsClass(Element e) {
+		if(e.getKind() != ElementKind.CLASS)
+			throw new IllegalArgumentException("Unexpected usage of this function, parameter must be an element of kind 'Class'.");
 	}
 }
