@@ -1,5 +1,10 @@
 package org.vadere.state.attributes.models.psychology.cognition;
 
+/**
+ * This model decides whether agents perform social distancing or not.
+ * It perfoms social distancing by modifying the agents repulsion.
+ * (See https://doi.org/10.17815/CD.2021.116)
+ */
 public class AttributesSocialDistancingCognitionModel extends AttributesCognitionModel {
     /**
      *
