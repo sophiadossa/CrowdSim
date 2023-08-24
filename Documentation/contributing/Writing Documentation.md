@@ -3,7 +3,6 @@
   color: rgb(162,82,0) !important;
   padding: 10px;
     background-color: rgb(255,147,38);
-    border-color: rgb(255,147,38);
     border-radius: 5px;
     border-color: rgb(162,82,0);
 }
