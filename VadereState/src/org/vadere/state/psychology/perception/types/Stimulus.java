@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.vadere.state.psychology.perception.json.StimulusInfo;
+import org.vadere.util.reflection.VadereAttribute;
 
 import java.util.List;
 
@@ -26,6 +28,8 @@ import java.util.List;
   *     <li>DistanceRecommendation</li>
   *     <li>InformationStimulus</li>
   * </ul>
+  * <br><br>
+  * Stimuli are defined by {@link StimulusInfo}.
   */
  // The base class for all stimuli.
  // This class and its subclasses should be de-/serialized as JSON. Therefore,
@@ -56,9 +60,10 @@ import java.util.List;
 public abstract class Stimulus implements Cloneable {
 
     // Member Variables
+    @VadereAttribute(exclude = true)
     protected double time;
 
-
+    @VadereAttribute(exclude = true)
     protected int id;
 
     // Constructors
