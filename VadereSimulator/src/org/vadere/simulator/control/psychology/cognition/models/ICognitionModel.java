@@ -10,7 +10,7 @@ import org.vadere.state.scenario.Topography;
 import java.util.Collection;
 import java.util.Random;
 
-/**
+/*
  * Interface for a cognition model.
  *
  * In the cognition phase, agent make decision based on their perception.
@@ -39,14 +39,14 @@ import java.util.Random;
  */
 public interface ICognitionModel {
 
-	/**
+	/*
 	 * This method initializes the model. It gets the {@link Topography} so that
 	 * a model can acquire additional information about a pedestrian's surrounding
 	 * when evaluating pedestrian's cognition.
 	 */
 	void initialize(Topography topography, Random random);
 
-	/**
+	/*
 	 * Usually, this method iterates over the pededestrians and calls
 	 * {@link Pedestrian#setSelfCategory(SelfCategory)}.
 	 *

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-/**
+/*
  * The {@link ChangeTargetScriptedCognitionModel} changes the target id of agents. The stimulus
  * {@link org.vadere.state.psychology.perception.types.ChangeTargetScripted} describes at which
  * simulation time agents should change their target.

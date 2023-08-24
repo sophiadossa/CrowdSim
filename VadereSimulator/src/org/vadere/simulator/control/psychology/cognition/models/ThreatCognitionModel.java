@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-/**
+/*
  * This model models how agents decide what to do when they perceive a {@link Threat}).
  */
 public class ThreatCognitionModel implements ICognitionModel {

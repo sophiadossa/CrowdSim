@@ -17,15 +17,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Random;
 
-/**
+/*
  * This model decides whether agents perform social distancing or not.
  * If a distance recommendation (a {@link DistanceRecommendation}) has been received, agents perform social distancing.
  * The distancing behavior depends on two parameters that are defined in {@link DistanceRecommendation}
  * The parameter socialDistance controls the distancing behavior, see implementation in the locomotion layer.
  * The parameter cloggingTimeAllowedInSecs controls after which time
  * agents ignore the distance recommendation when they have been clogged.
- **/
-
+ */
 public class SocialDistancingCognitionModel implements ICognitionModel {
 
     private HashMap<Pedestrian, Double> cloggingStartTimes = new HashMap<>();

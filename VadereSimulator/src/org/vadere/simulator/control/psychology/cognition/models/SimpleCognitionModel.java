@@ -10,7 +10,7 @@ import org.vadere.state.scenario.Topography;
 import java.util.Collection;
 import java.util.Random;
 
-/**
+/*
  * The {@link SimpleCognitionModel} just passes the perceived stimulus to the
  * behavioral/locomotion layer without further processing.
  */

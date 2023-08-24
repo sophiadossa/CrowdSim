@@ -11,6 +11,9 @@ import java.util.Objects;
 // This class beautifies the JSON content by mapping
 // the words "perception" and "cognition" to existing class names.
 
+/**
+ * The Psychology Layer defines the perception and cognition models of the simulation.
+ */
 public class AttributesPsychologyLayer {
 
     // Constants
@@ -60,7 +63,7 @@ public class AttributesPsychologyLayer {
      */
     private String cognition;
     /**
-     * <i>attributesModel</i> parameter is a list of attributes for the perception and cognition models.
+     * Edit the attributes of the perception and the cognition models here.
      */
     public List<Attributes> attributesModel;
 

@@ -7,25 +7,35 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.util.List;
 
-/**
- * The base class of all available stimuli.
- *
- * A stimulus has a time and possibly additional information.
- *
- * The additional information depend on the type of the stimulus and should be
- * added by subclasses. For instance, a stimulus "ElapsedTime" can provide
- * the current time. A stimulus "Threat" can have a loudness and a polygon
- * which describes where the threat can be perceived.
- *
- * This class and its subclasses should be de-/serialized as JSON. Therefore,
- * provide some annotations so that serialized objects do not reveal Java
- * type information like "util.ArrayList".
- *
- * See @link http://www.baeldung.com/jackson-inheritance
- *
- * Watch out: subclasses require a default constructor so that
- * de-/serialization works!
- */
+ /**
+  * A stimulus has a time and possibly additional information.
+  * <br><br>
+  * The additional information depend on the type of the stimulus and should be
+  * added by subclasses. For instance, a stimulus "ElapsedTime" can provide
+  * the current time. A stimulus "Threat" can have a loudness and a polygon
+  * which describes where the threat can be perceived.
+  * <br><br>
+  * The following stimuli are available:
+  * <ul>
+  *     <li>Threat</li>
+  *     <li>ElapsedTime</li>
+  *     <li>Wait</li>
+  *     <li>WaitInArea</li>
+  *     <li>ChangeTarget</li>
+  *     <li>ChangeTargetScripted</li>
+  *     <li>DistanceRecommendation</li>
+  *     <li>InformationStimulus</li>
+  * </ul>
+  */
+ // The base class for all stimuli.
+ // This class and its subclasses should be de-/serialized as JSON. Therefore,
+ // provide some annotations so that serialized objects do not reveal Java
+ // type information like "util.ArrayList".
+ //
+ // See http://www.baeldung.com/jackson-inheritance
+ //
+ // Watch out: subclasses require a default constructor so that
+ // de-/serialization works!
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,

@@ -4,9 +4,6 @@ import org.vadere.util.reflection.VadereAttribute;
 
 import java.util.Objects;
 
-/**
- * This class encapsulates psychology-related simulation attributes.
- */
 public class AttributesPsychology extends Attributes {
 
 	/** Store the members of this class under this key in the JSON file. */

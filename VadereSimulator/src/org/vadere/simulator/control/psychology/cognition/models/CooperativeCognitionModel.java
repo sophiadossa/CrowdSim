@@ -10,7 +10,7 @@ import org.vadere.state.simulation.FootstepHistory;
 import java.util.Collection;
 import java.util.Random;
 
-/**
+/*
  * Like the {@link CounterflowCognitionModel}, this model models how people behave in a counterflow.
  * Use this model is you are using the Optimal Steps Model.
 */
