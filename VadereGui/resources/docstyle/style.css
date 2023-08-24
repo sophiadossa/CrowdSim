@@ -37,13 +37,11 @@ header h1 {
 }
 
 .warning {
-    background-color: rgba(255, 130, 0, 0.5);
-    color: #ff8200;
-    padding: 20px;
-    border: 1px solid rgb(255, 147, 38);
-    border-radius: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    color: rgb(162,82,0) !important;
+    padding: 10px;
+    background-color: rgb(255,147,38);
+    border-radius: 5px;
+    border-color: rgb(162,82,0);
 }
 
 h1,
