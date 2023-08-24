@@ -14,8 +14,24 @@ import java.util.TreeMap;
  * We assume that only the most important stimulus has an intensity that exceeds the sensory threshold.
  */
 public class AttributesSimplePerceptionModel extends AttributesPerceptionModel {
-    /**
+    /** <p>
      *  <i>priority</i> specifies the ranking of the stimuli.
+     *  </p>
+     *  <p>
+     *  Example: <br>
+     *  <code>
+     *  "priority" : {<br>
+     *           "1" : "InformationStimulus",<br>
+     *           "2" : "ChangeTargetScripted",<br>
+     *           "3" : "ChangeTarget",<br>
+     *           "4" : "Threat",<br>
+     *           "5" : "Wait",<br>
+     *           "6" : "WaitInArea",<br>
+     *           "7" : "DistanceRecommendation"<br>
+     *  }
+     *  </code>
+     *  </p>
+     *
      */
     Map<Integer, String> priority;
 

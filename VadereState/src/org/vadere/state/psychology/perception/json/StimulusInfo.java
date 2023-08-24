@@ -15,34 +15,34 @@ import java.util.List;
  * This makes it possible to inject stimuli at a specific time, at a specific location.
  * </p>
  * <p>
- * Example:
+ * Example: <br>
  * <code>
- * {
- *   "stimulusInfos" : [ {
- *     "timeframe" : {
- *       "startTime" : 0.0,
- *       "endTime" : 10.0,
- *       "repeat" : false,
- *       "waitTimeBetweenRepetition" : 0.0
- *     },
- *     "location" : {
- *       "areas" : [ {
- *         "x" : 0.0,
- *         "y" : 0.0,
- *         "width" : 1000.0,
- *         "height" : 500.0,
- *         "type" : "RECTANGLE"
- *       } ]
- *     },
- *     "subpopulationFilter" : {
- *       "affectedPedestrianIds" : [ ]
- *     },
- *     "stimuli" : [ {
- *       "type" : "Threat",
- *       "originAsTargetId" : -1,
- *       "loudness" : 1.0
- *     } ]
- *   } ]
+ * {<br>
+ *   "stimulusInfos" : [ {<br>
+ *     "timeframe" : {<br>
+ *       "startTime" : 0.0,<br>
+ *       "endTime" : 10.0,<br>
+ *       "repeat" : false,<br>
+ *       "waitTimeBetweenRepetition" : 0.0<br>
+ *     },<br>
+ *     "location" : {<br>
+ *       "areas" : [ {<br>
+ *         "x" : 0.0,<br>
+ *         "y" : 0.0,<br>
+ *         "width" : 1000.0,<br>
+ *         "height" : 500.0,<br>
+ *         "type" : "RECTANGLE"<br>
+ *       } ]<br>
+ *     },<br>
+ *     "subpopulationFilter" : {<br>
+ *       "affectedPedestrianIds" : [ ]<br>
+ *     },<br>
+ *     "stimuli" : [ {<br>
+ *       "type" : "Threat",<br>
+ *       "originAsTargetId" : -1,<br>
+ *       "loudness" : 1.0<br>
+ *     } ]<br>
+ *   } ]<br>
  * }
  * </code>
  * </p>

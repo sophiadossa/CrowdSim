@@ -10,7 +10,7 @@ import org.vadere.state.scenario.Topography;
 import java.util.HashMap;
 import java.util.List;
 
-/**
+/*
  * Interface for a perception model.
  *
  * A perception model models the perception of an agent.
