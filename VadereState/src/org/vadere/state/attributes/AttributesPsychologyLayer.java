@@ -1,5 +1,6 @@
 package org.vadere.state.attributes;
 
+import org.vadere.annotation.helptext.HelpIgnore;
 import org.vadere.util.reflection.VadereAttribute;
 import org.vadere.state.attributes.models.psychology.perception.AttributesSimplePerceptionModel;
 import org.vadere.state.attributes.models.psychology.cognition.AttributesSimpleCognitionModel;
@@ -18,9 +19,9 @@ public class AttributesPsychologyLayer {
 
     // Constants
     // Watch out: Make sure these classes exist!
-    @VadereAttribute(exclude = true)
+    @HelpIgnore
     public static final String DEFAULT_PERCEPTION_MODEL = "SimplePerceptionModel";
-    @VadereAttribute(exclude = true)
+    @HelpIgnore
     public static final String DEFAULT_COGNITION_MODEL = "SimpleCognitionModel";
 
 
@@ -60,6 +61,7 @@ public class AttributesPsychologyLayer {
      *     <li>{@link org.vadere.state.attributes.models.psychology.cognition.AttributesSimpleCognitionModel}</li>
      *     <li>{@link org.vadere.state.attributes.models.psychology.cognition.AttributesSocialDistancingCognitionModel}</li>
      *     <li>{@link org.vadere.state.attributes.models.psychology.cognition.AttributesThreatCognitionModel}</li>
+     * </ul>
      */
     private String cognition;
     /**

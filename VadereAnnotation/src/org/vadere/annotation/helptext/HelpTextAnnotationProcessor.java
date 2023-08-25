@@ -4,12 +4,11 @@ import com.google.auto.service.AutoService;
 
 import org.jetbrains.annotations.NotNull;
 import org.vadere.annotation.ImportScanner;
-import org.vadere.util.reflection.VadereAttribute;
+import tech.tablesaw.util.StringUtils;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.regex.Matcher;
@@ -25,12 +24,14 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.PrimitiveType;
+import javax.lang.model.type.TypeMirror;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 
 import static org.vadere.util.other.Strings.removeAttribute;
-import static org.vadere.util.other.Strings.splitCamelCase;
 
 @SupportedAnnotationTypes({"*"}) // run for all annotations. process must return false so annotations are not consumed
 @SupportedSourceVersion(SourceVersion.RELEASE_17)
@@ -42,48 +43,67 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-
 		initPattern();
+		processAnnotations(roundEnv);
+		return false; // allow further processing
+	}
+
+	private void processAnnotations(RoundEnvironment roundEnv) {
 		ImportScanner scanner = new ImportScanner();
 		scanner.scan(roundEnv.getRootElements(), null);
 		importedTypes = scanner.getImportedTypes();
+
 		for (Element e: roundEnv.getRootElements()){
-			if ((e.getKind().isClass())  && e.asType().toString().startsWith("org.vadere.")) {
-				for(Element f : e.getEnclosedElements()){
-					if(f.getKind().isField()){
-						try {
-							//String comment = processingEnv.getElementUtils().getDocComment(e);
-							//String relname = buildHelpTextPath(e.asType().toString());
-							String comment = processingEnv.getElementUtils().getDocComment(f);
-							String relname = buildFieldHelpTextPath(e,f);
-							FileObject file = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", relname);
-							try (PrintWriter w = new PrintWriter(file.openWriter())) {
-								printSingleMemberString(f,w);
-							}
-						} catch (Exception ex) {
-							ex.printStackTrace();
-						}
+			processClassElements(e);
+		}
+	}
 
-					}
-				}
-				try {
-					String comment = processingEnv.getElementUtils().getDocComment(e);
-					String relname = buildClassHelpTextPath(e);
-					FileObject file = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", relname);
-					try (PrintWriter w = new PrintWriter(file.openWriter())) {
-						composeHTMLBegin(w);
-						composeHTMLHeader(e, w);
-						composeHTMLClassDscription(w, comment);
-						composeHTMLEnd(e, w);
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
+	private void processClassElements(Element e) {
+		if ((e.getKind().isClass())  && e.asType().toString().startsWith("org.vadere.")) {
+			processFields(e);
+			processClass(e);
+		}
+	}
 
+	private void processClass(Element e) {
+		try {
+			String relativePath = generateClassHelpFilepath(e);
+			FileObject file = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", relativePath);
+
+			PrintWriter w = new PrintWriter(file.openWriter());
+			composeHTML(e, w);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void composeHTML(Element e, PrintWriter w) {
+		composeHTMLBegin(w);
+		composeHTMLHeader(e, w);
+		String comment = processingEnv.getElementUtils().getDocComment(e);
+		composeHTMLClassDescription(w, comment);
+		composeHTMLEnd(e, w);
+	}
+
+	private void processFields(Element e) {
+		for(Element f : e.getEnclosedElements()){
+			processField(e, f);
+		}
+	}
+
+	private void processField(Element e, Element f) {
+		if(f.getKind().isField()){
+			try {
+				String relname = generateMemberHelpFilepath(e, f);
+				FileObject file = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", relname);
+
+				PrintWriter w = new PrintWriter(file.openWriter());
+				writeFieldDoc(f,w);
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
 
 		}
-		return false; // allow further processing
 	}
 
 	private void composeHTMLEnd(Element e, PrintWriter w) {
@@ -91,26 +111,21 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 		w.println("</div>"); // main
 		w.println("</body>");
 		w.println("</html>");
+		w.close();
 	}
 
-	private void composeHTMLClassDscription(PrintWriter w, String comment) {
-		w.println("<div class='comment'>");
-		printComment(w, comment);
-		w.println("</div>"); // comment
-		w.println();
+	private void composeHTMLClassDescription(PrintWriter w, String comment) {
+		w.println(String.format("<div class='comment'>%s</div>", parseComment(comment)));
 	}
 
 	private void composeHTMLHeader(Element e, PrintWriter w) {
-		w.println("<div class='header'>");
-		w.println("<a href='/back'>&lt; Back</a>");
-
 		Element superElement = getSuperElement(e);
+		String title = "";
 		if(isIgnorableSuperClass(superElement))
-			w.print("<h1> " + composeHeaderName(e)+"</h1>");
+			title = composeHeaderName(e);
 		else
-			w.println("<h1> " + composeHeaderName(e) +" : "+ composeSuperClassLink(superElement) +"</h1>");
-		w.println("</div>"); // header
-		w.println();
+			title = composeHeaderName(e) + " : " + composeSuperClassLink(superElement);
+		w.println("<doc-header>"+title+"</doc-header>");
 		w.println("<div class='main'>");
 	}
 
@@ -128,25 +143,29 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 	}
 
 	private static void composeHTMLBegin(PrintWriter w) {
-		w.println("<!DOCTYPE html>");
-		w.println("<html>");
-		w.println("<head>");
-		w.println("<meta charset=\"UTF-16\">");
-		w.println("</head>");
-		w.println("<body>");
+		w.print("<!DOCTYPE html>" +
+				"<html>" +
+				"<head>" +
+				"</head>" +
+				"<body>" +
+				"{{javascript}}"
+		);
 	}
 
-	private String buildClassHelpTextPath(Element e) {
+	private String generateClassHelpFilepath(Element e) {
 		String className = e.asType().toString();
 		className = className.replace("<", "_");
 		className = className.replace(">", "_");
 		return "helpText/" + className + ".html";
 	}
-	private String buildFieldHelpTextPath(Element e, Element f) {
+	private String generateMemberHelpFilepath(Element e, Element f) {
 		String className = e.asType().toString();
+
 		className = className.replace("<", "_");
 		className = className.replace(">", "_");
+
 		String fieldName = f.getSimpleName().toString();
+
 		if (f.getKind() == ElementKind.ENUM_CONSTANT) {
 			fieldName = fieldName + "_ENUM";
 		}
@@ -154,7 +173,8 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 	}
 	private void initPattern() {
 		pattern = new ArrayList<>();
-		pattern.add( e -> {
+		//Local links are broken right now
+		/*pattern.add( e -> {
 			Pattern r = Pattern.compile("(\\{@link\\s+#)(.*?)(})");
 			Matcher m = r.matcher(e);
 			while (m.find()){
@@ -162,7 +182,7 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 				m = r.matcher(e);
 			}
 			return e;
-		});
+		});*/
 		pattern.add( e -> {
 			Pattern r = Pattern.compile("(\\{@link\\s+)(.*?)(})");
 			Matcher m = r.matcher(e);
@@ -182,12 +202,11 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 		return "/helpText/" + n + ".html";
 	}
 
-	private void printComment(PrintWriter w, String multiLine){
+	private String parseComment(String multiLine){
 		if(multiLine != null){
-			w.println("<p>");
-			multiLine.lines().map(String::strip).map(this::applyMatcher).forEach(w::println);
-			w.println("</p>");
+			return multiLine.lines().map(String::strip).map(this::applyMatcher).collect(Collectors.joining("\n"));
 		}
+		return "";
 	}
 
 	private String applyMatcher(String line){
@@ -196,39 +215,34 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 		}
 		return line;
 	}
-
 	private void printMemberDocString(Element e, PrintWriter w) {
-		Set<? extends Element> fields = e.getEnclosedElements()
-				.stream()
-				.filter(o->o.getKind().isField())
-				.collect(Collectors.toSet());
+		Set<? extends Element> fields = collectHelpFields(e);
 		for(Element field : fields){
-			if(field.getAnnotation(VadereAttribute.class) != null && field.getAnnotation(VadereAttribute.class).exclude())
-				continue;
-			w.println("<div class='param'>");
-			String typeString;
-			if(isPrimitiveType(field)) {
-				typeString = getTypeString(field);
-				typeString = typeString.replace("java.util.","");
-				typeString = typeString.replace("java.lang.","");
-			}else{
-				typeString = String.format("<a href='%s' class='class_link'>%s</a>",findFullPath(getTypeString(field)),strippedTypeString(field));
-			}
-			w.println("<h2>" + field.getSimpleName() + " : " + typeString +  "</h2>");
-			String comment = processingEnv.getElementUtils().getDocComment(field);
-			printComment(w, comment);
-			w.println("</div>");
-			w.println();
+			String comment = parseComment(processingEnv.getElementUtils().getDocComment(field));
+			w.println(String.format("<doc-member name=\"%s\" type=\"%s\" href=\"%s\">%s</doc-member>",
+					field.getSimpleName(),
+					prettyPrintType(field),
+					isNonVadereType(field) ? "" :findFullPath(getTypeString(field)),
+					comment));
 		}
 
 	}
 
-	private void printSingleMemberString(Element e, PrintWriter w) {
+	@NotNull
+	private static Set<? extends Element> collectHelpFields(Element e) {
+		return e.getEnclosedElements()
+				.stream()
+				.filter(o -> o.getKind().isField())
+				.filter(o -> o.getAnnotation(HelpIgnore.class) == null)
+				.collect(Collectors.toSet());
+	}
+
+	private void writeFieldDoc(Element e, PrintWriter w) {
 			String comment = processingEnv.getElementUtils().getDocComment(e);
 			w.println("<b>" + e.getSimpleName() + ":</b><br>" + comment);
 	}
 
-	private boolean isPrimitiveType(Element field){
+	private boolean isNonVadereType(Element field){
 		return field.asType().getKind().isPrimitive() || !field.asType().toString().startsWith("org.vadere");
 	}
 
@@ -236,11 +250,25 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 		return field.asType().toString();
 	}
 
-	private String strippedTypeString(Element field){
-		var str = field.asType().toString();
-		str = str.substring(str.lastIndexOf(".") + 1);
-		if(str.startsWith("Attribute")){
-			str = str.substring("Attributes".length());
+	private String prettyPrintType(Element field){ // one depth for generic types
+		var str = "";
+		VariableElement fieldElement = (VariableElement) field;
+		TypeMirror typeMirror = fieldElement.asType();
+		if(typeMirror instanceof PrimitiveType primitiveType){
+			str = StringUtils.capitalize(primitiveType.toString());
+		}else if (typeMirror instanceof DeclaredType declaredType) {
+			str = declaredType.asElement().getSimpleName().toString(); // name of class
+			if(str.startsWith("Attributes") && str.length() > "Attributes".length()){
+				str = str.substring("Attributes".length());
+			}
+			if(!declaredType.getTypeArguments().isEmpty()){
+				str += "< "; // TODO: figure out why "<" produces encoding bug
+				str += declaredType.getTypeArguments().stream()
+						.map(t -> ((DeclaredType)t).asElement().getSimpleName().toString())
+						.map(t -> t.startsWith("Attributes") && t.length() > "Attributes".length() ? t.substring("Attributes".length()) : t)
+						.collect(Collectors.joining(","));
+				str += " >";
+			}
 		}
 		return str;
 	}

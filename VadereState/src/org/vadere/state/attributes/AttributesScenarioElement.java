@@ -6,7 +6,6 @@ import org.vadere.state.util.Views;
 public abstract class AttributesScenarioElement extends Attributes {
     /**
      * This attribute serves as an unique identifier for a scenario element.<br>
-     * <b>NOTE:</b> ids are not unique over all scenario elements but are only unique over their types.
      */
     @JsonView(Views.CacheViewExclude.class)
     protected Integer id;

@@ -1,6 +1,7 @@
 package org.vadere.state.attributes.scenario;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.vadere.annotation.helptext.HelpIgnore;
 import org.vadere.state.attributes.spawner.AttributesRegularSpawner;
 import org.vadere.state.attributes.spawner.AttributesSpawner;
 import org.vadere.state.util.Views;
@@ -18,6 +19,7 @@ import java.util.List;
 public class AttributesSource extends AttributesVisualElement {
 	@Deprecated
 	@VadereAttribute(exclude = true)
+	@HelpIgnore
 	public static final String CONSTANT_DISTRIBUTION = "constant";
 
 	/**

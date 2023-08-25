@@ -1,6 +1,6 @@
 body {
     font-family: 'Open Sans', sans-serif;
-    font-size: 15px;
+    font-size: 16px;
     color: #414559;
 }
 
@@ -11,10 +11,10 @@ body {
 }
 
 .comment{
-    margin-bottom: 10px;
+    margin-bottom: 25px;
 }
 
-.param {
+.doc-member-container {
     background-color: rgba(230, 230, 230, 0.5);
     padding: 20px;
     margin-bottom: 10px;
@@ -23,7 +23,7 @@ body {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12);
 }
 
-.header {
+.doc-header-container {
     background-color: rgba(0, 119, 181, 0.2);
     color: #fff;
     padding: 20px;
@@ -31,16 +31,17 @@ body {
     border-radius: 4px 4px 0 0;
 }
 
-header h1 {
+.doc-header-container h1 {
     font-size: 24px;
     font-weight: 600;
 }
 
-.warning {
+.warning-box-container {
     color: rgb(162,82,0) !important;
     padding: 10px;
     background-color: rgb(255,147,38);
     border-radius: 5px;
+    border-width: 1px;
     border-color: rgb(162,82,0);
 }
 
@@ -76,7 +77,7 @@ code {
 
 @media (max-width: 600px) {
 
-    header h1 {
+    .doc-header-container h1 {
         font-size: 18px;
     }
 

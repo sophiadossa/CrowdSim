@@ -3,6 +3,7 @@ package org.vadere.state.attributes.spawner;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.vadere.annotation.helptext.HelpIgnore;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.distributions.AttributesDistribution;
 import org.vadere.state.attributes.scenario.AttributesAgent;
@@ -22,8 +23,10 @@ import org.vadere.util.reflection.VadereAttribute;
 })
 public abstract class AttributesSpawner extends Attributes {
     @VadereAttribute(exclude = true)
+    @HelpIgnore
     public static final int NO_MAX_SPAWN_NUMBER_TOTAL = -1;
     @VadereAttribute(exclude = true)
+    @HelpIgnore
     public static final String CONSTANT_DISTRIBUTION = "org.vadere.state.scenario.distribution.impl.ConstantDistribution";
     /**
      * This attribute stores the maximum number of agents that can be spawned by this spawner. No limit, if set to -1.

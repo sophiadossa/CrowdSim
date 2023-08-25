@@ -1,6 +1,7 @@
 package org.vadere.state.attributes;
 
 import org.checkerframework.framework.qual.Unused;
+import org.vadere.annotation.helptext.HelpIgnore;
 import org.vadere.util.reflection.VadereAttribute;
 
 import java.util.Objects;
@@ -14,6 +15,7 @@ public class AttributesSimulation extends Attributes {
 
 	/** Store the members of this class under this key in the JSON file. */
 	@VadereAttribute(exclude = true)
+	@HelpIgnore
 	public static final String JSON_KEY = "attributesSimulation";
 	/**
 	 * <i>finishTime</i> is the time in seconds when the simulation should stop.

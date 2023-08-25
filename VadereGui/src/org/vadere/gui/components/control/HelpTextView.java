@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Stack;
 
 import javafx.application.Platform;
@@ -17,11 +16,11 @@ import netscape.javascript.JSObject;
 
 public class HelpTextView extends JFXPanel {
 
-	private ArrayList<String> filenames;
-
 	private WebView webView;
 
 	private Stack<String> history;
+
+	private String javaScriptBlock;
 
 	public static HelpTextView create(String className){
 		HelpTextView view = new HelpTextView();
@@ -30,21 +29,25 @@ public class HelpTextView extends JFXPanel {
 	}
 
 	public HelpTextView() {
-		this.filenames  = new ArrayList<>();
 		this.history = new Stack<>();
-		extractFiles();
+		this.javaScriptBlock = buildJavaScriptBlock();
 	}
 
-	private void extractFiles() {
-		try (InputStream in = getClass().getResourceAsStream("/helpText");
+	// load all js files from the js folder
+	// necessary since WebEngine does not support external js file loading
+	private String buildJavaScriptBlock() {
+		StringBuilder result = new StringBuilder();
+		try (InputStream in = getClass().getResourceAsStream("/js");
 			 BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
 			String resource;
 			while ((resource = br.readLine()) != null) {
-				filenames.add(resource);
+				InputStream in2 = getClass().getResourceAsStream("/js/"+resource);
+				result.append(new String(in2.readAllBytes()));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return "<script>" + result + "</script>";
 	}
 
 	public void loadHelpFromClass(String fullClassName){
@@ -59,13 +62,13 @@ public class HelpTextView extends JFXPanel {
 				this.history.push(helpTextId);
 			}
 		}
-
 		InputStream instream = getClass().getResourceAsStream(helpTextId);
 		var ref = new Object() {
 			String html = null;
 		};
 		try {
 			ref.html = new String(instream.readAllBytes());
+			ref.html = ref.html.replace("{{javascript}}", javaScriptBlock);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -89,22 +92,21 @@ public class HelpTextView extends JFXPanel {
 			if (newState == Worker.State.SUCCEEDED) {
 				JSObject jsobj = (JSObject) webView.getEngine().executeScript("window");
 				jsobj.setMember("java", this);
-				webView.getEngine().executeScript(
-						"document.addEventListener('click', function(e) { " +
-								"if(e.target.tagName === 'A') { " +
-									"if(e.target.href.startsWith('/helpText/')){" +
-										"e.preventDefault();" +
-									"} " +
-									"java.handleLinkClick(e.target.href); " +
-								"} " +
-						"});");
+				webView.getEngine().executeScript("" +
+						"document.addEventListener('click', function(e) {" +
+							"let anchor = e.composedPath().find(el => el.tagName === 'A');" +
+							"if(anchor) {" +
+								"e.preventDefault();" +
+								"java.handleLinkClick(anchor.href);" +
+							"}" +
+						"});"
+				);
 
 			}
 		});
 	}
 	@SuppressWarnings("unused")
 	public void handleLinkClick(String href) {
-		System.out.println("Link clicked: " + href);
 		if (href.startsWith("/helpText/")) {
 			loadHelpText(href);
 			//this.history.push(href);
@@ -112,7 +114,6 @@ public class HelpTextView extends JFXPanel {
 			if(this.history.size() > 1) {
 				this.history.pop();
 				loadHelpText(this.history.peek());
-				System.out.println(this.history);
 			}
 		}
 	}
