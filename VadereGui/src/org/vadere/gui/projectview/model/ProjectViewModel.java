@@ -218,7 +218,7 @@ public class ProjectViewModel implements IScenarioChecker {
 	public OutputBundle getSelectedOutputBundle() throws IOException {
 		File directory = outputTableModel.getValue(outputTable.getSelectedRow());
 		Scenario scenarioRM = IOOutput.readScenarioRunManager(project, directory.getName());
-		return new OutputBundle(directory, project, IOOutput.listSelectedOutputDirs(project, scenarioRM));
+		return new OutputBundle(directory, project);
 	}
 
 	public ScenarioBundle getRunningScenario() {
@@ -328,13 +328,10 @@ public class ProjectViewModel implements IScenarioChecker {
 	public static class OutputBundle {
 		private final File directory;
 		private final VadereProject project;
-		private final Collection<File> outputDirectories;
 
-		public OutputBundle(final File directory, final VadereProject project,
-							final Collection<File> outputDirectories) {
+		public OutputBundle(final File directory, final VadereProject project) {
 			this.directory = directory;
 			this.project = project;
-			this.outputDirectories = outputDirectories;
 		}
 
 		public File getDirectory() {
@@ -343,10 +340,6 @@ public class ProjectViewModel implements IScenarioChecker {
 
 		public VadereProject getProject() {
 			return project;
-		}
-
-		public Collection<File> getOutputDirectories() {
-			return outputDirectories;
 		}
 
 		public Scenario getScenarioRM() {
