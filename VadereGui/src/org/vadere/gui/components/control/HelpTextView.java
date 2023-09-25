@@ -1,10 +1,6 @@
 package org.vadere.gui.components.control;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
+import java.io.*;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
 import java.nio.file.Files;
@@ -18,7 +14,6 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.web.WebView;
 import javafx.scene.Scene;
 import netscape.javascript.JSObject;
-import org.vadere.gui.components.utils.Resources;
 import org.vadere.util.logging.Logger;
 
 
@@ -53,7 +48,7 @@ public class HelpTextView extends JFXPanel {
 	private String buildJavaScriptBlock() {
 		StringBuilder script = new StringBuilder();
 		try {
-			Files.walkFileTree(Path.of(getClass().getResource("/js").getPath()), new JSConcatter(script));
+			Files.walkFileTree(new File(getClass().getResource("/js").getFile()).toPath(), new JSConcatter(script));
 		} catch (IOException e) {
 
 		}
