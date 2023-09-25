@@ -9,6 +9,7 @@ import tech.tablesaw.util.StringUtils;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.regex.Matcher;
@@ -60,7 +61,6 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 
 	private void processClassElements(Element e) {
 		if ((e.getKind().isClass())  && e.asType().toString().startsWith("org.vadere.")) {
-			processFields(e);
 			processClass(e);
 		}
 	}
@@ -83,27 +83,6 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 		String comment = processingEnv.getElementUtils().getDocComment(e);
 		composeHTMLClassDescription(w, comment);
 		composeHTMLEnd(e, w);
-	}
-
-	private void processFields(Element e) {
-		for(Element f : e.getEnclosedElements()){
-			processField(e, f);
-		}
-	}
-
-	private void processField(Element e, Element f) {
-		if(f.getKind().isField()){
-			try {
-				String relname = generateMemberHelpFilepath(e, f);
-				FileObject file = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", relname);
-
-				PrintWriter w = new PrintWriter(file.openWriter());
-				writeFieldDoc(f,w);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-
-		}
 	}
 
 	private void composeHTMLEnd(Element e, PrintWriter w) {
@@ -216,7 +195,7 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 		return line;
 	}
 	private void printMemberDocString(Element e, PrintWriter w) {
-		Set<? extends Element> fields = collectHelpFields(e);
+		List<? extends Element> fields = collectHelpFields(e);
 		for(Element field : fields){
 			String comment = parseComment(processingEnv.getElementUtils().getDocComment(field));
 			w.println(String.format("<doc-member name=\"%s\" type=\"%s\" href=\"%s\">%s</doc-member>",
@@ -229,12 +208,12 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 	}
 
 	@NotNull
-	private static Set<? extends Element> collectHelpFields(Element e) {
+	private static List<? extends Element> collectHelpFields(Element e) {
 		return e.getEnclosedElements()
 				.stream()
 				.filter(o -> o.getKind().isField())
 				.filter(o -> o.getAnnotation(HelpIgnore.class) == null)
-				.collect(Collectors.toSet());
+				.collect(Collectors.toList());
 	}
 
 	private void writeFieldDoc(Element e, PrintWriter w) {
