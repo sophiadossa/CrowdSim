@@ -1,15 +1,12 @@
 package org.vadere.state.util;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.vadere.util.geometry.shapes.ShapeType;
-import org.vadere.util.geometry.GeometryUtils;
 import org.vadere.state.scenario.DynamicElement;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VCircle;
-import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VPolygon;
 import org.vadere.util.geometry.shapes.VRectangle;
 import org.vadere.util.geometry.shapes.VShape;
@@ -146,97 +143,5 @@ public class JacksonObjectMapper extends ObjectMapper {
 		public abstract VShape newInstance();
 	}
 
-
-	@SuppressWarnings("unused")
-	@VadereAttribute(name = "RectangularGeometry")
-    public static class VRectangleStore extends VShapeStore{
-		/**
-		 * This attribute stores the x coordinate of the origin point
-		 */
-		public Double x;
-		/**
-		 * This attribute stores the x coordinate of the origin point
-		 */
-		public Double y;
-		/**
-		 * This attribute stores the width of the rectangle.<br>
-		 * It cannot be less or equals zero.
-		 */
-		public Double width;
-		/**
-		 * This attribute stores the height of the rectangle.<br>
-		 * It cannot be less or equals zero.
-		 */
-		public Double height;
-		@VadereAttribute(exclude = true)
-		public ShapeType type = ShapeType.RECTANGLE;
-
-		public VRectangleStore() {
-			x = 0.0;
-			y = 0.0;
-			width = 1.0;
-			height = 1.0;
-		}
-
-		public VRectangleStore(VRectangle vRect) {
-			x = vRect.x;
-			y = vRect.y;
-			height = vRect.height;
-			width = vRect.width;
-		}
-
-		public VRectangle newInstance() {
-			return new VRectangle(x, y, width, height);
-		}
-	}
-
-	@SuppressWarnings("unused")
-	@VadereAttribute(name = "PolygonGeometry")
-	public static class VPolygon2DStore extends VShapeStore{
-		@VadereAttribute(exclude = true)
-		public ShapeType type = ShapeType.POLYGON;
-		/**
-		 * This list is a collection of all point that make up the polygon.
-		 * The points are lay out clockwise.
-		 */
-		public List<VPoint> points;
-
-		public VPolygon2DStore() {}
-
-		public VPolygon2DStore(VPolygon vPoly) {
-			points = vPoly.getPoints();
-		}
-
-		public VPolygon newInstance() {
-			return GeometryUtils.polygonFromPoints2D(points);
-		}
-	}
-
-	@SuppressWarnings("unused")
-	@VadereAttribute(name = "CircleGeometry")
-	public static class VCircleStore extends VShapeStore{
-		/**
-		 * This attribute stores the radius of the circle.<br>
-		 * It cannot be less or equals zero.
-		 */
-		public Double radius;
-		/**
-		 * This attribute stores the center origin point of the circle.
-		 */
-		public VPoint center;
-		@VadereAttribute(exclude = true)
-		public ShapeType type = ShapeType.CIRCLE;
-
-		public VCircleStore() {}
-
-		public VCircleStore(VCircle vCircle) {
-			radius = vCircle.getRadius();
-			center = vCircle.getCenter();
-		}
-
-		public VCircle newInstance() {
-			return new VCircle(center, radius);
-		}
-	}
 
 }

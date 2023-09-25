@@ -6,6 +6,9 @@ import org.vadere.gui.topographycreator.control.attribtable.tree.AttributeTreeMo
 import org.vadere.gui.topographycreator.control.attribtable.tree.TreeException;
 import org.vadere.gui.topographycreator.control.attribtable.ui.AttributeTableView;
 import org.vadere.state.util.JacksonObjectMapper;
+import org.vadere.state.util.VCircleStore;
+import org.vadere.state.util.VPolygon2DStore;
+import org.vadere.state.util.VRectangleStore;
 import org.vadere.util.geometry.shapes.*;
 
 import javax.swing.*;
@@ -14,7 +17,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Path2D;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,9 +39,9 @@ public class VShapeCellEditor extends AttributeEditor implements ViewListener {
         super(model, contentPanel, initialValue);
         initializeGridBagConstraint();
         view = new AttributeTableView(this);
-        view.buildPageFor(JacksonObjectMapper.VRectangleStore.class);
-        view.buildPageFor(JacksonObjectMapper.VCircleStore.class);
-        view.buildPageFor(JacksonObjectMapper.VPolygon2DStore.class);
+        view.buildPageFor(VRectangleStore.class);
+        view.buildPageFor(VCircleStore.class);
+        view.buildPageFor(VPolygon2DStore.class);
 
 
         var toolBar = new JToolBar();
@@ -123,15 +125,15 @@ public class VShapeCellEditor extends AttributeEditor implements ViewListener {
     protected void onModelChanged(Object object) {
         Object wrapper = null;
        if(object.getClass().isAssignableFrom(VRectangle.class)){
-           wrapper = new JacksonObjectMapper.VRectangleStore((VRectangle)object);
+           wrapper = new VRectangleStore((VRectangle)object);
            rectButton.setSelected(true);
        }
        else if(object.getClass().isAssignableFrom(VCircle.class)){
-           wrapper = new JacksonObjectMapper.VCircleStore((VCircle)object);
+           wrapper = new VCircleStore((VCircle)object);
            circButton.setSelected(true);
        }
        else if(object.getClass().isAssignableFrom(VPolygon.class)){
-           wrapper = new JacksonObjectMapper.VPolygon2DStore((VPolygon) object);
+           wrapper = new VPolygon2DStore((VPolygon) object);
            polyButton.setSelected(true);
 
        }else {
