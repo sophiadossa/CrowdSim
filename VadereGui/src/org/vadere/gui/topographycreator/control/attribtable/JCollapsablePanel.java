@@ -1,5 +1,6 @@
 package org.vadere.gui.topographycreator.control.attribtable;
 
+import org.vadere.gui.components.control.HelpTextView;
 import org.vadere.gui.components.utils.Resources;
 import org.vadere.gui.projectview.view.VDialogManager;
 import org.vadere.util.other.Strings;
@@ -56,7 +57,7 @@ public class JCollapsablePanel extends JPanel implements Observer {
 
         initializeHeaderPanelStyle(headerPanel);
         initializeHeaderLabelStyle(headerLabel);
-        initializeHelpButtonStyle(helpButton);
+        initializeHelpButtonStyle(helpButton,refClass);
 
         headerPanel.addMouseListener(new SectionHeaderMouseInputAdapter(contentPanel,helpButton));
         helpButton.addMouseListener(new HelpButtonMouseInputAdapter(helpButton,refClass));
@@ -73,10 +74,12 @@ public class JCollapsablePanel extends JPanel implements Observer {
         headerPanel.setBorder(new CompoundBorder(lineBorder ,margin));
         headerPanel.setBackground(UIManager.getColor("Menu.background"));
     }
-    private static void initializeHelpButtonStyle(JButton helpButton) {
+    private static void initializeHelpButtonStyle(JButton helpButton,Class<?> refClass) {
         helpButton.setIcon(Resources.getInstance("global").getIcon("help.png", 12, 12));
         helpButton.setBorderPainted(false);
-        helpButton.setVisible(false);
+        if(HelpTextView.exists(refClass.getName())) {
+            helpButton.setVisible(true);
+        }
     }
 
     private static void initializeHeaderLabelStyle(JLabel headerLabel) {
@@ -150,15 +153,6 @@ public class JCollapsablePanel extends JPanel implements Observer {
             }
             getParent().invalidate();
         }
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            headerButton.setVisible(true);
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-            headerButton.setVisible(false);
-        }
     }
 
     private class HelpButtonMouseInputAdapter extends MouseInputAdapter {
@@ -175,15 +169,6 @@ public class JCollapsablePanel extends JPanel implements Observer {
         public void mouseClicked(MouseEvent e) {
             VDialogManager.showHelpDialogForClass(refClass);
             getParent().invalidate();
-        }
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            headerButton.setVisible(true);
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-            headerButton.setVisible(false);
         }
     }
 

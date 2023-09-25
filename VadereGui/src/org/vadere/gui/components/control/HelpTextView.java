@@ -12,6 +12,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.web.WebView;
 import javafx.scene.Scene;
 import netscape.javascript.JSObject;
+import org.vadere.gui.components.utils.Resources;
 
 
 public class HelpTextView extends JFXPanel {
@@ -26,6 +27,12 @@ public class HelpTextView extends JFXPanel {
 		HelpTextView view = new HelpTextView();
 		view.loadHelpFromClass(className);
 		return view;
+	}
+
+	public static boolean exists(String className){
+		HelpTextView view = new HelpTextView();
+		InputStream instream = view.getClass().getResourceAsStream("/helpText/" + className + ".html");
+		return instream != null;
 	}
 
 	public HelpTextView() {
@@ -49,7 +56,6 @@ public class HelpTextView extends JFXPanel {
 		}
 		return "<script>" + result + "</script>";
 	}
-
 	public void loadHelpFromClass(String fullClassName){
 		loadHelpText("/helpText/" + fullClassName + ".html");
 	}
