@@ -13,7 +13,7 @@ The documentation is separated in two parts:
 - documentation for the users. 
 - and documentation for the developer.
 
-If you want to need to document a new feature, please follow the instructions below.
+If you want to document a new feature, please follow the instructions below.
 
 ## Documentation for the User
 The documentation for the user is automatically generated from the JavaDoc comments in the code.
