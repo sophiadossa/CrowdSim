@@ -19,9 +19,7 @@ If you want to need to document a new feature, please follow the instructions be
 The documentation for the user is automatically generated from the JavaDoc comments in the code.
 Therefore, any comment that uses JavaDoc syntax will be included in the documentation.
 
-<div class="alert-warning">
-  <strong>⚠ Warning:</strong> The HTML renderer component only supports HTML up to version 3.2. JavaScript is not supported.
-</div>
+See 'VadereGui/resources/js' for custom web components that can be used inside teh JavaDoc comments.
 
 The user usually interacts with the simulator via editing the AttributesXXX.java classes. 
 Therefore, those classes are the first place to add user documentation.
