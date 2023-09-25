@@ -7,9 +7,12 @@ import net.sourceforge.argparse4j.inf.Namespace;
 import org.vadere.gui.components.utils.Messages;
 import org.vadere.gui.projectview.view.ProjectView;
 import org.vadere.gui.topographycreator.control.attribtable.tree.TreeModelCache;
+import org.vadere.util.config.VadereConfig;
 import org.vadere.util.io.VadereArgumentParser;
 import org.vadere.util.logging.Logger;
 import org.vadere.util.logging.StdOutErrLog;
+
+import static org.vadere.gui.components.utils.SwingUtils.applySystemGUIScale;
 
 /**
  * Entry point for the Vadere GUI.
@@ -38,6 +41,7 @@ public class VadereApplication {
 			ns = vadereArgumentParser.parseArgsAndProcessInitialOptions(args);
 			Messages.loadLanguageFromPreferences(VadereApplication.class);
 			TreeModelCache.buildTreeModelCache();
+			applySystemGUIScale();
 			ProjectView.start(ns.getString("project-path"));
 		} catch (UnsatisfiedLinkError linkError) {
 			System.err.println("[LWJGL]: " + linkError.getMessage());
@@ -54,5 +58,4 @@ public class VadereApplication {
 
 
 	}
-
 }
