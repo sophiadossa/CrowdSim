@@ -3,6 +3,7 @@ package org.vadere.gui.components.utils;
 import javax.swing.*;
 
 import org.vadere.gui.projectview.view.ProjectView;
+import org.vadere.util.config.VadereConfig;
 
 import java.awt.*;
 
@@ -29,6 +30,12 @@ public class SwingUtils {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		component.setLocation(screenSize.width / 2 - component.getSize().width / 2,
 				screenSize.height / 2 - component.getSize().height / 2);
+	}
+
+
+	public static void  applySystemGUIScale() {
+		System.setProperty("sun.java2d.dpiAware","true");
+		System.setProperty("sun.java2d.uiScale", VadereConfig.getConfig().getString("Gui.scale"));
 	}
 
 }
