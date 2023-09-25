@@ -4,6 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.file.FileVisitResult;
+import java.nio.file.FileVisitor;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Stack;
 
 import javafx.application.Platform;
@@ -13,9 +19,11 @@ import javafx.scene.web.WebView;
 import javafx.scene.Scene;
 import netscape.javascript.JSObject;
 import org.vadere.gui.components.utils.Resources;
+import org.vadere.util.logging.Logger;
 
 
 public class HelpTextView extends JFXPanel {
+	private static final Logger logger = Logger.getLogger(HelpTextView.class);
 
 	private WebView webView;
 
@@ -43,18 +51,13 @@ public class HelpTextView extends JFXPanel {
 	// load all js files from the js folder
 	// necessary since WebEngine does not support external js file loading
 	private String buildJavaScriptBlock() {
-		StringBuilder result = new StringBuilder();
-		try (InputStream in = getClass().getResourceAsStream("/js");
-			 BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
-			String resource;
-			while ((resource = br.readLine()) != null) {
-				InputStream in2 = getClass().getResourceAsStream("/js/"+resource);
-				result.append(new String(in2.readAllBytes()));
-			}
+		StringBuilder script = new StringBuilder();
+		try {
+			Files.walkFileTree(Path.of(getClass().getResource("/js").getPath()), new JSConcatter(script));
 		} catch (IOException e) {
-			e.printStackTrace();
+
 		}
-		return "<script>" + result + "</script>";
+		return "<script>" + script + "</script>";
 	}
 	public void loadHelpFromClass(String fullClassName){
 		loadHelpText("/helpText/" + fullClassName + ".html");
@@ -130,4 +133,34 @@ public class HelpTextView extends JFXPanel {
 		});
 	}
 
+	private static class JSConcatter implements FileVisitor<Path> {
+		private final StringBuilder script;
+
+		public JSConcatter(StringBuilder script) {
+			this.script = script;
+		}
+
+		@Override
+		public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+			return FileVisitResult.CONTINUE;
+		}
+
+		@Override
+		public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+			if (file.getFileName().toString().endsWith(".js")){
+				script.append(new String(Files.readAllBytes(file)));
+			}
+			return FileVisitResult.CONTINUE;
+		}
+
+		@Override
+		public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+			return FileVisitResult.CONTINUE;
+		}
+
+		@Override
+		public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+			return FileVisitResult.CONTINUE;
+		}
+	}
 }
