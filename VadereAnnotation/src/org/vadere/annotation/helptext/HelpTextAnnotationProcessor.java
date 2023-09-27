@@ -29,6 +29,7 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.PrimitiveType;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.TypeVariable;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 
@@ -188,7 +189,7 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 			String comment = parseComment(processingEnv.getElementUtils().getDocComment(field));
 			w.println(String.format("<doc-member name=\"%s\" type=\"%s\" href=\"%s\">%s</doc-member>",
 					field.getSimpleName(),
-					prettyPrintType(field),
+					prettyPrintType(field.asType()),
 					isNonVadereType(field) ? "" :findFullPath(getTypeString(field)),
 					comment));
 		}
@@ -212,10 +213,8 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 		return field.asType().toString();
 	}
 
-	private String prettyPrintType(Element field){ // one depth for generic types
+	private String prettyPrintType(TypeMirror typeMirror){ // one depth for generic types
 		var str = "";
-		VariableElement fieldElement = (VariableElement) field;
-		TypeMirror typeMirror = fieldElement.asType();
 		if(typeMirror instanceof PrimitiveType primitiveType){
 			str = StringUtils.capitalize(primitiveType.toString());
 		}else if (typeMirror instanceof DeclaredType declaredType) {
@@ -226,7 +225,7 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 			if(!declaredType.getTypeArguments().isEmpty()){
 				str += "< "; // TODO: figure out why "<" produces encoding bug
 				str += declaredType.getTypeArguments().stream()
-						.map(t -> ((DeclaredType)t).asElement().getSimpleName().toString())
+						.map(t -> prettyPrintType(t))
 						.map(t -> t.startsWith("Attributes") && t.length() > "Attributes".length() ? t.substring("Attributes".length()) : t)
 						.collect(Collectors.joining(","));
 				str += " >";
