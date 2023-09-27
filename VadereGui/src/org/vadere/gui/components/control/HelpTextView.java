@@ -1,12 +1,14 @@
 package org.vadere.gui.components.control;
 
 import java.io.*;
-import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Enumeration;
 import java.util.Stack;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
@@ -24,7 +26,7 @@ public class HelpTextView extends JFXPanel {
 
 	private Stack<String> history;
 
-	private String javaScriptBlock;
+	private static String javaScriptBlock = "";
 
 	public static HelpTextView create(String className){
 		HelpTextView view = new HelpTextView();
@@ -40,20 +42,65 @@ public class HelpTextView extends JFXPanel {
 
 	public HelpTextView() {
 		this.history = new Stack<>();
-		this.javaScriptBlock = buildJavaScriptBlock();
+		InputStream test = getClass().getResourceAsStream("/js/_internal/doc_header.js");
+		if(javaScriptBlock.isEmpty())
+			this.javaScriptBlock = buildJavaScriptCache();
 	}
 
 	// load all js files from the js folder
 	// necessary since WebEngine does not support external js file loading
-	private String buildJavaScriptBlock() {
+	public static String buildJavaScriptCache() {
 		StringBuilder script = new StringBuilder();
-		try {
-			Files.walkFileTree(new File(getClass().getResource("/js").getFile()).toPath(), new JSConcatter(script));
-		} catch (IOException e) {
-
+		if(isJarFileContext()){
+			readFromJarFile(script);
+		}else{
+			readFromFileSystem(script);
 		}
-		return "<script>" + script + "</script>";
+		return "<script>" +script+ "</script>";
 	}
+
+	private static void readFromFileSystem(StringBuilder script) {
+		try {
+			URL url = HelpTextView.class.getResource("/js");
+			Files.walk(Path.of(url.getPath())).forEach(path -> {
+				if(path.toString().endsWith(".js")){
+					try {
+						script.append(new String(Files.readAllBytes(path)));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				}
+			});
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private static void readFromJarFile(StringBuilder script) {
+		try {
+			JarFile jarFile = new JarFile(new File(HelpTextView.class.getProtectionDomain().getCodeSource().getLocation().getPath()));
+			Enumeration<JarEntry> entries = jarFile.entries();
+			entries.asIterator().forEachRemaining(entry -> {
+				String name = entry.getName();
+				if(name.startsWith("js") && name.endsWith(".js")){
+					InputStream instream = HelpTextView.class.getResourceAsStream("/" + name);
+					try {
+						script.append(new String(instream.readAllBytes()));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				}
+			});
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private static boolean isJarFileContext() {
+		boolean isJar = HelpTextView.class.getResource("/js").getProtocol().equals("jar");
+		return isJar;
+	}
+
 	public void loadHelpFromClass(String fullClassName){
 		loadHelpText("/helpText/" + fullClassName + ".html");
 	}
@@ -126,36 +173,5 @@ public class HelpTextView extends JFXPanel {
 		Platform.runLater(() -> {
 			webView.getEngine().setUserStyleSheetLocation(getClass().getResource("/docstyle/style.css").toString());
 		});
-	}
-
-	private static class JSConcatter implements FileVisitor<Path> {
-		private final StringBuilder script;
-
-		public JSConcatter(StringBuilder script) {
-			this.script = script;
-		}
-
-		@Override
-		public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-			return FileVisitResult.CONTINUE;
-		}
-
-		@Override
-		public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-			if (file.getFileName().toString().endsWith(".js")){
-				script.append(new String(Files.readAllBytes(file)));
-			}
-			return FileVisitResult.CONTINUE;
-		}
-
-		@Override
-		public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-			return FileVisitResult.CONTINUE;
-		}
-
-		@Override
-		public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-			return FileVisitResult.CONTINUE;
-		}
 	}
 }

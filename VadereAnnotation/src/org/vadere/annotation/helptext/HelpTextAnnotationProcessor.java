@@ -137,19 +137,7 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 		className = className.replace(">", "_");
 		return "helpText/" + className + ".html";
 	}
-	private String generateMemberHelpFilepath(Element e, Element f) {
-		String className = e.asType().toString();
 
-		className = className.replace("<", "_");
-		className = className.replace(">", "_");
-
-		String fieldName = f.getSimpleName().toString();
-
-		if (f.getKind() == ElementKind.ENUM_CONSTANT) {
-			fieldName = fieldName + "_ENUM";
-		}
-		return "helpText/" + className +"_"+ fieldName + ".html";
-	}
 	private void initPattern() {
 		pattern = new ArrayList<>();
 		//Local links are broken right now
@@ -214,11 +202,6 @@ public class HelpTextAnnotationProcessor extends AbstractProcessor {
 				.filter(o -> o.getKind().isField())
 				.filter(o -> o.getAnnotation(HelpIgnore.class) == null)
 				.collect(Collectors.toList());
-	}
-
-	private void writeFieldDoc(Element e, PrintWriter w) {
-			String comment = processingEnv.getElementUtils().getDocComment(e);
-			w.println("<b>" + e.getSimpleName() + ":</b><br>" + comment);
 	}
 
 	private boolean isNonVadereType(Element field){
