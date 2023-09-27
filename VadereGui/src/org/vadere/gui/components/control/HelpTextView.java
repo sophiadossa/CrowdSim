@@ -61,8 +61,7 @@ public class HelpTextView extends JFXPanel {
 
 	private static void readFromFileSystem(StringBuilder script) {
 		try {
-			URL url = HelpTextView.class.getResource("/js");
-			Files.walk(Path.of(url.getPath())).forEach(path -> {
+			Files.walk(new File(HelpTextView.class.getResource("/js").getFile()).toPath()).forEach(path -> {
 				if(path.toString().endsWith(".js")){
 					try {
 						script.append(new String(Files.readAllBytes(path)));
