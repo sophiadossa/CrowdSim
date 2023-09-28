@@ -2,6 +2,7 @@ package org.vadere.gui.topographycreator.control;
 
 
 import org.jetbrains.annotations.NotNull;
+import org.vadere.gui.components.utils.ResourceStrings;
 import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 import org.vadere.gui.topographycreator.model.TopographyCreatorModel;
 import org.vadere.gui.topographycreator.view.ActionTranslateTopographyDialog;
@@ -17,13 +18,10 @@ public class ActionTranslateElements extends TopographyAction {
 	private final TopographyAction action;
 	private final UndoableEditSupport undoableEditSupport;
 
-	public ActionTranslateElements(final String name,
-	                               final String iconPath,
-								   String shortDescription,
-	                               @NotNull final IDrawPanelModel<?> panelModel,
+	public ActionTranslateElements(@NotNull final IDrawPanelModel<?> panelModel,
 	                               @NotNull final TopographyAction action,
 	                               @NotNull final UndoableEditSupport undoSupport) {
-		super(name, iconPath, shortDescription, panelModel);
+		super("TranslateElements", ResourceStrings.ICONS_TRANSLATION_ELEMENTS_ICON_PNG, ResourceStrings.TOPOGRAPHY_CREATOR_BTN_ELEMENT_TRANSLATION_TOOLTIP, panelModel);
 		this.action = action;
 		this.undoableEditSupport = undoSupport;
 	}

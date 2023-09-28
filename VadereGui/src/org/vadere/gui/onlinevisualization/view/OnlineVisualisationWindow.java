@@ -32,6 +32,8 @@ public class OnlineVisualisationWindow extends JPanel implements Observer {
 	private static final Resources resources = Resources.getInstance("global");
 	private static final Configuration CONFIG = VadereConfig.getConfig();
 
+	private static final int ICON_SIZE = (int)(VadereConfig.getConfig().getInt("ProjectView.icon.height.value")*VadereConfig.getConfig().getFloat("Gui.scale"));
+	private final Resources RESOURCE = Resources.getInstance("global");
 
 	private final JToolBar toolbar;				// top
 	private final SimulationInfoPanel infoPanel;	// footer
@@ -88,7 +90,7 @@ public class OnlineVisualisationWindow extends JPanel implements Observer {
 		int iconHeight = CONFIG.getInt("ProjectView.icon.height.value");
 		int iconWidth = CONFIG.getInt("ProjectView.icon.width.value");
 
-		AbstractAction openSettingsDialog = new ActionVisualization("settings", resources.getIcon("settings.png", iconWidth, iconHeight), model) {
+		AbstractAction openSettingsDialog = new ActionVisualization("settings",RESOURCE.getIconSVG("settings",ICON_SIZE,ICON_SIZE), model) {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						DialogFactory.createSettingsDialog(model).setVisible(true);
@@ -96,8 +98,7 @@ public class OnlineVisualisationWindow extends JPanel implements Observer {
 				};
 
 
-		AbstractAction paintArrowAction = new AbstractAction("paintArrowAction",
-				resources.getIcon("walking_direction.png", iconWidth, iconHeight)) {
+		AbstractAction paintArrowAction = new AbstractAction("paintArrowAction", RESOURCE.getIconSVG("walking_direction",ICON_SIZE,ICON_SIZE)) {
 
 			private static final long serialVersionUID = 14131313L;
 
@@ -121,7 +122,7 @@ public class OnlineVisualisationWindow extends JPanel implements Observer {
 		};
 
 		AbstractAction showGroupInformationAction = new AbstractAction("showGroupInformationAction",
-				resources.getIcon("group.png", iconWidth, iconHeight)) {
+				RESOURCE.getIconSVG("group",ICON_SIZE,ICON_SIZE)) {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				model.config.setShowGroups(!model.config.isShowGroups());
@@ -129,13 +130,13 @@ public class OnlineVisualisationWindow extends JPanel implements Observer {
 			}
 		};
 
-		AbstractAction drawVoronoiDiagram = new ActionSwapSelectionMode("draw_voronoi_diagram", resources.getIcon("voronoi.png", iconWidth, iconHeight), model);
+		AbstractAction drawVoronoiDiagram = new ActionSwapSelectionMode("draw_voronoi_diagram", RESOURCE.getIconSVG("voronoi",ICON_SIZE,ICON_SIZE), model);
 
-		AbstractAction drawMesh = new ActionShowMesh("draw_mesh", resources.getIcon("triangulation.png", iconWidth, iconHeight), model);
+		AbstractAction drawMesh = new ActionShowMesh("draw_mesh", RESOURCE.getIconSVG("triangulation",ICON_SIZE,ICON_SIZE), model);
 
 
 		AbstractAction paintGridAction = new AbstractAction("paintGridAction",
-				resources.getIcon("grid.png", iconWidth, iconHeight)) {
+				RESOURCE.getIconSVG("grid",ICON_SIZE,ICON_SIZE)) {
 
 			private static final long serialVersionUID = 1123132132L;
 
@@ -147,7 +148,7 @@ public class OnlineVisualisationWindow extends JPanel implements Observer {
 		};
 
 		AbstractAction paintTrajectories = new AbstractAction("paintTrajectoriesAction",
-				resources.getIcon("trajectories.png", iconWidth, iconHeight)) {
+				RESOURCE.getIconSVG("trajectories",ICON_SIZE,ICON_SIZE)) {
 
 			private static final long serialVersionUID = 1123132132L;
 
@@ -159,7 +160,7 @@ public class OnlineVisualisationWindow extends JPanel implements Observer {
 		};
 
 		AbstractAction paintDensity = new AbstractAction("paintDensityAction",
-				resources.getIcon("density.png", iconWidth, iconHeight)) {
+				RESOURCE.getIconSVG("density",ICON_SIZE,ICON_SIZE)) {
 
 			private static final long serialVersionUID = 1123132132L;
 
@@ -174,42 +175,39 @@ public class OnlineVisualisationWindow extends JPanel implements Observer {
 		renderer.setLogo(resources.getImage("vadere.png"));
 		ActionGeneratePNG generatePNG = new ActionGeneratePNG(
 				Messages.getString("ProjectView.btnPNGSnapshot.tooltip"),
-				resources.getIcon("camera_png.png", iconWidth, iconHeight),
+				RESOURCE.getIconSVG("camera_png",ICON_SIZE,ICON_SIZE),
 				renderer,
 				model);
 
 		ActionGenerateSVG generateSVG = new ActionGenerateSVG(
 				Messages.getString("ProjectView.btnSVGSnapshot.tooltip"),
-				resources.getIcon("camera_svg.png", iconWidth, iconHeight),
+				RESOURCE.getIconSVG("camera_svg",ICON_SIZE,ICON_SIZE),
 				renderer,
 				model);
 
 		ActionGenerateTikz generateTikz = new ActionGenerateTikz(
 				Messages.getString("ProjectView.btnTikZSnapshot.tooltip"),
-				resources.getIcon("camera_tikz.png", iconWidth, iconHeight),
+				RESOURCE.getIconSVG("camera_tikz",ICON_SIZE,ICON_SIZE),
 				renderer,
 				model);
 
 		ActionGenerateINETenv generateINETenv = new ActionGenerateINETenv(
 				Messages.getString("ProjectView.btnINETSnapshot.tooltip"),
-				resources.getIcon("camera_tikz.png", iconWidth, iconHeight),
+				RESOURCE.getIconSVG("camera_tikz",ICON_SIZE,ICON_SIZE),
 				renderer,
 				model);
 
 		ActionGeneratePoly generatePoly = new ActionGeneratePoly(
-				Messages.getString("ProjectView.btnPolySnapshot.tooltip"),
-				resources.getIcon("camera_poly.png", iconWidth, iconHeight),
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_GENERATE_POLY_TOOLTIP,
 				model);
 
         ActionShowPotentialField showPotentialField = new ActionShowPotentialField(
                 "showPotentialField",
-				resources.getIcon("potentialField.png", iconWidth, iconHeight),
+				RESOURCE.getIconSVG("potential",ICON_SIZE,ICON_SIZE),
                 model);
 
 		ActionRecording recording = new ActionRecording(
 				"showPotentialField",
-				resources.getIcon("record.png", iconWidth, iconHeight),
+				RESOURCE.getIconSVG("record",ICON_SIZE,ICON_SIZE),
 				renderer);
 
 
@@ -243,7 +241,7 @@ public class OnlineVisualisationWindow extends JPanel implements Observer {
 
 		ActionOnlineVisMenu imgDialog = new ActionOnlineVisMenu(
 				"camera_menu",
-				resources.getIcon("camera.png", iconWidth, iconHeight), imgOptions);
+				RESOURCE.getIconSVG("camera",ICON_SIZE,ICON_SIZE), imgOptions);
 		JButton imgMenuBtn = SwingUtils.addActionToToolbar(toolbar, imgDialog, Messages.getString("ProjectView.btnSnapshot.tooltip"));
 		imgDialog.setParent(imgMenuBtn);
 

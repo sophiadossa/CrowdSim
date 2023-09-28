@@ -60,8 +60,8 @@ public class AdjustPanel extends JPanel implements Observer {
 		sStep = new JSpinner(sModelTimeStep);
 		sTimeResolution = new JSpinner(sModelTimeResolution);
 
-		sStep.setPreferredSize(new Dimension(50, 30));
-		sVelocity.setPreferredSize(new Dimension(50, 30));
+		sStep.setPreferredSize(new Dimension(70, 30));
+		sVelocity.setPreferredSize(new Dimension(70, 30));
 		sTime.setPreferredSize(new Dimension(70, 30));
 		sTimeResolution.setPreferredSize(new Dimension(70, 30));
 

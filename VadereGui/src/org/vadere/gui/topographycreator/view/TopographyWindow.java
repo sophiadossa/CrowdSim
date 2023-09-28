@@ -52,6 +52,9 @@ public class TopographyWindow extends JPanel {
 	private final UndoableEditSupport undoSupport;
 	private final UndoManager undoManager;
 
+	private static final int ICON_SIZE = (int)(VadereConfig.getConfig().getInt("ProjectView.icon.height.value")*VadereConfig.getConfig().getFloat("Gui.scale"));
+
+	private static final int ICON_SIZE_ERASOR = (int)(1.5*VadereConfig.getConfig().getInt("ProjectView.icon.height.value")*VadereConfig.getConfig().getFloat("Gui.scale"));
 	public TopographyWindow(final Scenario currentScenario, @NotNull final ProjectViewModel model) {
 		toolbar = new ScenarioToolBar("Toolbar");
 		// undo-redo installation
@@ -100,61 +103,19 @@ public class TopographyWindow extends JPanel {
 		/* basic action */
 		final TopographyAction basicAction = new ActionBasic("notify", panelModel);
 
-		Action zoomInAction = new ActionZoomIn(
-				"zoom in",
-				ResourceStrings.ICONS_ZOOM_IN_ICON_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_ZOOM_IN_TOOLTIP,
-				panelModel);
+		Action zoomInAction = new ActionZoomIn(panelModel);
+		Action zoomOutAction = new ActionZoomOut(panelModel);
+		Action zoomFit = new ActionZoomFit(panelModel);
+		Action selectCutAction = new ActionSelectCut(panelModel,undoSupport);
 
-		Action zoomOutAction = new ActionZoomOut(
-				"zoom out",
-				ResourceStrings.ICONS_ZOOM_OUT_ICON_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_ZOOM_OUT_TOOLTIP,
-				panelModel);
+		Action resetScenarioAction = new ActionResetTopography(panelModel,undoSupport);
+		Action saveScenarioAction = new ActionQuickSaveTopography(panelModel);
 
-
-		Action selectCutAction = new ActionSelectCut(
-				"select zoom",
-				ResourceStrings.ICONS_ZOOM_ICON_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_CUT_TOPOGRAPHY_TOOLTIP,
-				panelModel,
-				undoSupport);
-
-		Action maximizeAction = new ActionMaximizeSize(
-				"maximize",
-				ResourceStrings.ICONS_MAXIMIZE_ICON_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_MAXIMIZE_TOPOGRAPHY_TOOLTIP,
-				panelModel);
-
-		Action resetScenarioAction = new ActionResetTopography(
-				"reset scenario",
-				ResourceStrings.ICONS_RESET_SCENARIO_ICON_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_NEW_TOPOGRAPHY_TOOLTIP,
-				panelModel,
-				undoSupport);
-		Action saveScenarioAction = new ActionQuickSaveTopography(
-				"save scenario",
-				ResourceStrings.ICONS_SAVE_ICON_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_QUICK_SAVE_TOOLTIP,
-				panelModel);
-
-		Action undoAction = new ActionUndo("undo",
-				ResourceStrings.ICONS_UNDO_ICON_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_UNDO_TOOLTIP,
+		Action undoAction = new ActionUndo(
 				undoManager,
 				basicAction);
-		Action redoAction = new ActionRedo(
-				"redo",
-				ResourceStrings.ICONS_REDO_ICON_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_REDO_TOOLTIP,
-				undoManager,
-				basicAction);
-
-		Action mergeObstaclesAction = new ActionMergeObstacles(
-				"mergeObstacles",
-				ResourceStrings.ICONS_MERGE_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_MERGE_OBSTACLES_TOOLTIP,
-				panelModel, undoSupport);
+		Action redoAction = new ActionRedo(undoManager,basicAction);
+		Action mergeObstaclesAction = new ActionMergeObstacles(panelModel, undoSupport);
 
 		FormLayout layout = new FormLayout("2dlu, default:grow(0.75), 2dlu, default:grow(0.25), 2dlu", // col
 				"2dlu, default, 2dlu, default, 2dlu, default, 2dlu"); // rows
@@ -257,24 +218,24 @@ public class TopographyWindow extends JPanel {
 		/* list of actions for the sub-dialog */
 		Action pen = new ActionSwitchSelectionMode(
 				Messages.getString("TopographyCreator.btnConvexHull.label"),
-				"/icons/convexHull.png",
+				"convex_hull",
 				"",
 				panelModel, new DrawConvexHullMode(panelModel,
 				undoSupport),
 				basicAction);
 		Action pen2 = new ActionSwitchSelectionMode(
 				Messages.getString("TopographyCreator.btnSimplePolygon.label"),
-				"/icons/simplePolygon.png","", panelModel, new DrawSimplePolygonMode(panelModel,
+				"simple_polygon","", panelModel, new DrawSimplePolygonMode(panelModel,
 				undoSupport),
 				basicAction);
 		Action rectangle = new ActionSwitchSelectionMode(
 				Messages.getString("TopographyCreator.btnRectangle.label"),
-				"/icons/paint_method_rectangle_icon.png","", panelModel, new DrawRectangleMode(
+				"paint_rectangle","", panelModel, new DrawRectangleMode(
 				panelModel, undoSupport),
 				basicAction);
 		Action dot = new ActionSwitchSelectionMode(
 				Messages.getString("TopographyCreator.btnCircle.label"),
-				"/icons/paint_method_circle_icon.png","", panelModel, new DrawDotMode(panelModel,
+				"paint_circle","", panelModel, new DrawDotMode(panelModel,
 				undoSupport),
 				basicAction);
 
@@ -392,35 +353,20 @@ public class TopographyWindow extends JPanel {
 				sourceDrawModes);
 
 		ActionSelectSelectShape selectShape = new ActionSelectSelectShape(
-				"select shape mode",
-				ResourceStrings.ICONS_SELECT_SHAPES_ICON_PNG,
-				ResourceStrings.SELECT_SHAPE_TOOLTIP,
 				panelModel,
 				undoSupport);
 
 		/* resize Topography */
 		TopographyAction resizeTopographyBound = new ActionResizeTopographyBound(
-				Messages.getString("TopographyBoundDialog.tooltip"),
-				ResourceStrings.ICONS_TOPOGRAPHY_ICON_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_TOPOGRAPHY_BOUND_TOOLTIP,
 				panelModel, selectShape, undoSupport);
 
 		TopographyAction simplifyObstacle = new ActionSimplifyObstacles(
-				"Simplify",
-				ResourceStrings.ICONS_MERGE_CONVEX_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_SIMPLIFY_OBSTACLE_TOOLTIP,
 				panelModel, selectShape, undoSupport);
 
 		TopographyAction translateTopography =new ActionTranslateTopography(
-				"TranslateTopography",
-				ResourceStrings.ICONS_TRANSLATION_ICON_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_TRANSLATION_TOOLTIP,
 				panelModel, selectShape, undoSupport);
 
 		TopographyAction translateElements =new ActionTranslateElements(
-				"TranslateElements",
-				ResourceStrings.ICONS_TRANSLATION_ELEMENTS_ICON_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_ELEMENT_TRANSLATION_TOOLTIP,
 				panelModel, selectShape, undoSupport);
 
 		/* Makros */
@@ -430,25 +376,16 @@ public class TopographyWindow extends JPanel {
 						ResourceStrings.ICONS_AUTO_GENERATE_IDS_PNG,
 						ResourceStrings.TOPOGRAPHY_CREATOR_BTN_GENERATE_IDS_TOOLTIP,
 						panelModel);
+		
 
-		int iconHeight = VadereConfig.getConfig().getInt("ProjectView.icon.height.value");
-		int iconWidth = VadereConfig.getConfig().getInt("ProjectView.icon.width.value");
+		AbstractAction polyImg = new ActionGeneratePoly(panelModel);
 
-		AbstractAction polyImg = new ActionGeneratePoly(
-				Messages.getString("ProjectView.btnPolySnapshot.tooltip"),
-				CREATOR_RESOURCES.getIcon("camera_poly.png", iconWidth, iconHeight),
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_GENERATE_POLY_TOOLTIP,
-				panelModel);
-
-		AbstractAction generateMesh = new ActionGenerateMesh(Messages.getString("ProjectView.btnGenerateMesh.tooltip"),
-				CREATOR_RESOURCES.getIcon("generate_mesh.png", iconWidth, iconHeight),
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_GENERATE_MESH_TOOLTIP,
-				model);
+		AbstractAction generateMesh = new ActionGenerateMesh(model);
 
 		AbstractAction eraseMode = new ActionSwitchSelectionMode(
-				"erase mode",
-				ResourceStrings.ICONS_ERASER_ICON_PNG,
-				ResourceStrings.TOPOGRAPHY_CREATOR_BTN_ERASE_TOOLTIP,
+				"erase mode"
+				,Resources.getInstance("global").getIconSVG(ResourceStrings.ICONS_ERASER_ICON_PNG,ICON_SIZE_ERASOR,ICON_SIZE_ERASOR,Color.lightGray)
+				,ResourceStrings.TOPOGRAPHY_CREATOR_BTN_ERASE_TOOLTIP,
 				panelModel,
 				new EraserMode(panelModel, undoSupport),
 				basicAction);
@@ -463,7 +400,7 @@ public class TopographyWindow extends JPanel {
 		pane.setLayout(new OverlayLayout(pane));
 		var overlayToolBar = new ScenarioToolBar("");
 		overlayToolBar.setOrientation(SwingConstants.VERTICAL);
-		overlayToolBar.addSections( new ScenarioToolBarSection(selectShape,eraseMode),new ScenarioToolBarSection(zoomInAction,zoomOutAction,maximizeAction));
+		overlayToolBar.addSections( new ScenarioToolBarSection(selectShape,eraseMode),new ScenarioToolBarSection(zoomInAction,zoomOutAction,zoomFit));
 		var color = UIManager.getColor("Component.borderColor");
 		var border = new LineBorder(color,1);
 		overlayToolBar.setBorder(border);
