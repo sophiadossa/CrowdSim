@@ -228,7 +228,17 @@
           <artifactId>reflections</artifactId>
           <version>0.10.2</version>
       </dependency>
-
+      <dependency>
+          <groupId>com.twelvemonkeys.imageio</groupId>
+          <artifactId>imageio-core</artifactId>
+          <version>3.9.4</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/com.twelvemonkeys.imageio/imageio-batik -->
+      <dependency>
+          <groupId>com.twelvemonkeys.imageio</groupId>
+          <artifactId>imageio-batik</artifactId>
+          <version>3.9.4</version>
+      </dependency>
   </dependencies>
 
 </project>

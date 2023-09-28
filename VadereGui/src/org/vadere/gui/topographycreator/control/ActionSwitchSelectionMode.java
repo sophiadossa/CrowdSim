@@ -3,6 +3,7 @@ package org.vadere.gui.topographycreator.control;
 import org.vadere.gui.components.control.IMode;
 import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 /**
@@ -18,6 +19,13 @@ public class ActionSwitchSelectionMode extends TopographyAction {
 
 	public ActionSwitchSelectionMode(final String name, final String icon,String shortDescription, final IDrawPanelModel panelModel,
 			final IMode mode, final TopographyAction action) {
+		super(name, icon,shortDescription, panelModel);
+		this.mode = mode;
+		this.action = action;
+	}
+
+	public ActionSwitchSelectionMode(final String name, final Icon icon, String shortDescription, final IDrawPanelModel panelModel,
+									 final IMode mode, final TopographyAction action) {
 		super(name, icon,shortDescription, panelModel);
 		this.mode = mode;
 		this.action = action;

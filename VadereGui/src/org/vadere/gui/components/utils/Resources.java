@@ -2,13 +2,14 @@ package org.vadere.gui.components.utils;
 
 
 import org.vadere.util.logging.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,15 @@ import java.util.Properties;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 /**
  * The Resource class is for loading, changing, adding and manipulating properties in the
@@ -120,6 +130,88 @@ public class Resources {
 		ImageIcon icon = new ImageIcon(Resources.class.getResource("/icons/" + name));
 		Image img = icon.getImage().getScaledInstance(iconWidth, iconHeight, java.awt.Image.SCALE_AREA_AVERAGING);
 		return new ImageIcon(img);
+	}
+
+	public Icon getIconSVG(final String name, final int iconWidth, final int iconHeight){
+		return getIconSVG(name, iconWidth, iconHeight, new Color(0,0,0));
+	}
+	public Icon getIconSVG(final String name, final int iconWidth, final int iconHeight, Color newColor) {
+        final Color oldColor = new Color(100, 100, 100); // override this color
+		String svgString = "";
+		InputStream is = Resources.class.getResourceAsStream("/icons/" + name + ".svg");
+		try {
+			svgString = new String(is.readAllBytes());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		String scaledSVGString = scaleSVG(iconWidth, iconHeight, svgString);
+		ByteArrayInputStream svgStream = new ByteArrayInputStream(scaledSVGString.getBytes());
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(svgStream);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		Image bufferedImage = replaceColor(image,newColor, oldColor);
+        return new ImageIcon(bufferedImage);
+    }
+
+	private static String scaleSVG(int iconWidth, int iconHeight, String svgData) {
+		DocumentBuilder builder = null;
+		try {
+			builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			throw new RuntimeException(e);
+		}
+		Document doc;
+		try {
+			doc = builder.parse(new ByteArrayInputStream(svgData.getBytes()));
+		} catch (SAXException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
+		Element svgElem = doc.getDocumentElement();
+
+		svgElem.setAttribute("width", String.valueOf(iconWidth));
+		svgElem.setAttribute("height", String.valueOf(iconHeight));
+
+		Transformer transformer = null;
+		try {
+			transformer = TransformerFactory.newInstance().newTransformer();
+		} catch (TransformerConfigurationException e) {
+			throw new RuntimeException(e);
+		}
+		StreamResult result = new StreamResult(new StringWriter());
+		try {
+			transformer.transform(new DOMSource(doc), result);
+		} catch (TransformerException e) {
+			throw new RuntimeException(e);
+		}
+
+		String scaledSVGString = result.getWriter().toString();
+		return scaledSVGString;
+	}
+
+	private static Image replaceColor(BufferedImage image,Color baseColor, Color REF_COLOR) {
+		float[] rgb = null;
+		rgb = image.getRaster().getPixels(0, 0, image.getWidth(), image.getHeight(), rgb);
+		if (!baseColor.equals(REF_COLOR)) {
+			for (int i = 0; i < rgb.length; i+=4) {
+				var r = rgb[i];
+				var g = rgb[i+1];
+				var b = rgb[i+2];
+				if (Math.abs(r - REF_COLOR.getRed()) < 5 && Math.abs(g - REF_COLOR.getGreen())<5 && Math.abs(b - REF_COLOR.getBlue())<5) {
+					rgb[i] = baseColor.getRed();
+					rgb[i+1] = baseColor.getGreen();
+					rgb[i+2] = baseColor.getBlue();
+				}
+			}
+		}
+		Image bufferedImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		((BufferedImage) bufferedImage).getRaster().setPixels(0, 0, image.getWidth(), image.getHeight(), rgb);
+		return bufferedImage;
 	}
 
 	public Color getColor(final String name) {

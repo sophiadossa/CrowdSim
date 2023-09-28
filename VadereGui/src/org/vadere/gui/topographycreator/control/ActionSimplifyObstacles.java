@@ -1,5 +1,6 @@
 package org.vadere.gui.topographycreator.control;
 
+import org.vadere.gui.components.utils.ResourceStrings;
 import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 import org.vadere.gui.topographycreator.model.TopographyCreatorModel;
 import org.vadere.gui.topographycreator.view.ActionCombineDialog;
@@ -20,9 +21,9 @@ public class ActionSimplifyObstacles extends TopographyAction{
 	ActionCombineDialog dialog;
 	private List<Integer> obstacleIds;
 
-	public ActionSimplifyObstacles(final String name, final String iconPath,String shortDescription, IDrawPanelModel<?> panelModel,
+	public ActionSimplifyObstacles(IDrawPanelModel<?> panelModel,
 									   TopographyAction action, final UndoableEditSupport undoSupport) {
-		super(name, iconPath, shortDescription, panelModel);
+		super("Simplify", ResourceStrings.ICONS_MERGE_CONVEX_PNG, ResourceStrings.TOPOGRAPHY_CREATOR_BTN_SIMPLIFY_OBSTACLE_TOOLTIP, panelModel);
 		this.action = action;
 		this.undoableEditSupport = undoSupport;
 		this.obstacleIds = new ArrayList<>();
