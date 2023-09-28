@@ -2,7 +2,9 @@ package org.vadere.gui.topographycreator.control;
 
 
 import org.vadere.gui.components.utils.Messages;
+import org.vadere.gui.components.utils.ResourceStrings;
 import org.vadere.gui.components.utils.Resources;
+import org.vadere.util.config.VadereConfig;
 import org.vadere.util.logging.Logger;
 
 import javax.swing.*;
@@ -21,11 +23,11 @@ public class ActionRedo extends AbstractAction {
 	private final UndoManager undoManager;
 	private final TopographyAction action;
 	private static final Logger logger = Logger.getLogger(ActionRedo.class);
+	private static final int ICON_SIZE = (int)(VadereConfig.getConfig().getInt("ProjectView.icon.height.value")*VadereConfig.getConfig().getFloat("Gui.scale"));
 
-	public ActionRedo(final String name, final String iconPath,String shortDescription, final UndoManager undoManager,
-			final TopographyAction action) {
-		super(name,new ImageIcon(Resources.class.getResource(iconPath)));
-		putValue(SHORT_DESCRIPTION, Messages.getString(shortDescription));
+	public ActionRedo(final UndoManager undoManager,final TopographyAction action) {
+		super("redo",Resources.getInstance("global").getIconSVG(ResourceStrings.ICONS_REDO_ICON_PNG,ICON_SIZE,ICON_SIZE));
+		putValue(SHORT_DESCRIPTION, Messages.getString(ResourceStrings.TOPOGRAPHY_CREATOR_BTN_REDO_TOOLTIP));
 		this.undoManager = undoManager;
 		this.action = action;
 	}

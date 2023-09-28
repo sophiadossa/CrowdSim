@@ -4,6 +4,7 @@ package org.vadere.gui.projectview.view;
 import com.formdev.flatlaf.FlatLightLaf;
 import org.jetbrains.annotations.NotNull;
 import org.vadere.gui.components.utils.Messages;
+import org.vadere.gui.components.utils.Resources;
 import org.vadere.gui.postvisualization.control.Player;
 import org.vadere.gui.postvisualization.model.ContactData;
 import org.vadere.gui.postvisualization.model.TableAerosolCloudData;
@@ -46,6 +47,8 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 	 */
 	private static final long serialVersionUID = -2081363246241235943L;
 	private static final Logger logger = Logger.getLogger(ProjectView.class);
+	private static final int ICON_SIZE = (int)(VadereConfig.getConfig().getInt("ProjectView.icon.height.value")*VadereConfig.getConfig().getFloat("Gui.scale"));
+	private final Resources RESOURCE = Resources.getInstance("global");
 	/**
 	 * Store a reference to the main window as "owner" parameter for dialogs.
 	 */
@@ -723,13 +726,23 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 		JToolBar toolBar = new JToolBar();
 		toolBar.setLayout(new FlowLayout(FlowLayout.CENTER));
 		controlPanel.add(toolBar,initializeConstraints());
-
 		ButtonGroup mainButtonsGroup = new ButtonGroup();
+
+		ActionRunSelectedScenarios runSelectedScenarios = new ActionRunSelectedScenarios(
+				Messages.getString("ProjectView.mntmRunSelectedTests.text"), model, scenarioTable);
+		runSelectedScenarios.putValue(Action.SHORT_DESCRIPTION,
+				Messages.getString("ProjectView.btnRunSelectedTest.toolTipText"));
+		runSelectedScenarios.putValue(Action.LARGE_ICON_KEY,
+				RESOURCE.getIconSVG("transport_play", ICON_SIZE, ICON_SIZE));
+		btnRunSelectedScenario = new JButton(runSelectedScenarios);
+		btnRunSelectedScenario.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRunSelectedScenario.setHorizontalTextPosition(SwingConstants.CENTER);
+		toolBar.add(btnRunSelectedScenario);
 
 		Action runAllScenariosAction =
 				new ActionRunAllScenarios(Messages.getString("ProjectView.btnRunAllTests.text"), model);
 		runAllScenariosAction.putValue(Action.LARGE_ICON_KEY,
-				new ImageIcon(ProjectView.class.getResource("/icons/greenarrows_right_small.png")));
+				RESOURCE.getIconSVG("transport_multiplay", ICON_SIZE, ICON_SIZE));
 		btnRunAllScenarios = new JButton(runAllScenariosAction);
 		btnRunAllScenarios.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRunAllScenarios.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -737,16 +750,7 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 		addToProjectSpecificActions(runAllScenariosAction);
 		mainButtonsGroup.add(btnRunAllScenarios);
 
-		ActionRunSelectedScenarios runSelectedScenarios = new ActionRunSelectedScenarios(
-				Messages.getString("ProjectView.mntmRunSelectedTests.text"), model, scenarioTable);
-		runSelectedScenarios.putValue(Action.SHORT_DESCRIPTION,
-				Messages.getString("ProjectView.btnRunSelectedTest.toolTipText"));
-		runSelectedScenarios.putValue(Action.LARGE_ICON_KEY,
-				new ImageIcon(ProjectView.class.getResource("/icons/greenarrow_right_small.png")));
-		btnRunSelectedScenario = new JButton(runSelectedScenarios);
-		btnRunSelectedScenario.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnRunSelectedScenario.setHorizontalTextPosition(SwingConstants.CENTER);
-		toolBar.add(btnRunSelectedScenario);
+
 		addToProjectSpecificActions(runSelectedScenarios);
 		mainButtonsGroup.add(btnRunSelectedScenario);
 
@@ -755,7 +759,7 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 		runRepeatedlyScenarios.putValue(Action.SHORT_DESCRIPTION,
 				Messages.getString("ProjectView.btnRunRepeatedlyTest.toolTipText"));
 		runRepeatedlyScenarios.putValue(Action.LARGE_ICON_KEY,
-				new ImageIcon(ProjectView.class.getResource("/icons/greenarrow_right_small.png")));
+				RESOURCE.getIconSVG("transport_multiplay", ICON_SIZE, ICON_SIZE));
 		btnRunRepeatedlyScenario = new JButton(runRepeatedlyScenarios);
 		btnRunRepeatedlyScenario.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRunRepeatedlyScenario.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -766,14 +770,14 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 		Action interruptScenariosAction =
 				new ActionInterruptScenarios(Messages.getString("ProjectView.btnStopRunningTests.text"), model);
 		interruptScenariosAction.putValue(Action.LARGE_ICON_KEY,
-				new ImageIcon(ProjectView.class.getResource("/icons/redcross_small.png")));
+				RESOURCE.getIconSVG("transport_stop", ICON_SIZE, ICON_SIZE));
 		btnStopRunningScenarios = new JButton(interruptScenariosAction);
 		toolBar.add(btnStopRunningScenarios);
 
 		ActionResumeNormalSpeed resumeNormalSpeedAction =
 				new ActionResumeNormalSpeed(Messages.getString("ProjectView.btnResumeNormalSpeed.text"), model);
 		resumeNormalSpeedAction.putValue(Action.LARGE_ICON_KEY,
-				new ImageIcon(ProjectView.class.getResource("/icons/greenarrow_right_small.png")));
+				RESOURCE.getIconSVG("transport_play", ICON_SIZE, ICON_SIZE));
 		btnResumeNormalSpeed = new JButton(resumeNormalSpeedAction);
 		toolBar.add(btnResumeNormalSpeed);
 
@@ -783,7 +787,7 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 				Messages.getString("ProjectView.btnPauseRunningTests.toolTipText") + " ("
 						+ Messages.getString("ProjectView.pauseTests.shortcut").charAt(0) + ")");
 		pauseScenarioAction.putValue(Action.LARGE_ICON_KEY,
-				new ImageIcon(ProjectView.class.getResource("/icons/greenpause_small.png")));
+				RESOURCE.getIconSVG("transport_pause", ICON_SIZE, ICON_SIZE));
 		btnPauseRunningScenarios = new JButton(pauseScenarioAction);
 		toolBar.add(btnPauseRunningScenarios);
 		toolBar.getInputMap().put(
@@ -794,7 +798,7 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 				new ActionNextTimeStep(Messages.getString("ProjectView.btnNextSimulationStep"), model);
 		nextTimeStepAction.putValue(Action.LONG_DESCRIPTION, "Next Step");
 		nextTimeStepAction.putValue(Action.LARGE_ICON_KEY,
-				new ImageIcon(ProjectView.class.getResource("/icons/greenarrow_step.png")));
+				RESOURCE.getIconSVG("transport_skip", ICON_SIZE, ICON_SIZE));
 		btnNextSimulationStep = new JButton(nextTimeStepAction);
 		toolBar.add(btnNextSimulationStep);
 

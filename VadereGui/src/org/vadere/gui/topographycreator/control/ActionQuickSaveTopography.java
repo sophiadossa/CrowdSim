@@ -1,6 +1,7 @@
 package org.vadere.gui.topographycreator.control;
 
 import org.apache.commons.configuration2.Configuration;
+import org.vadere.gui.components.utils.ResourceStrings;
 import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 import org.vadere.gui.topographycreator.utils.TopographyJsonWriter;
 import org.vadere.util.config.VadereConfig;
@@ -19,8 +20,8 @@ public class ActionQuickSaveTopography extends TopographyAction {
 	private static final long serialVersionUID = -6802761549259354252L;
 	private static final Configuration CONFIG = VadereConfig.getConfig();
 
-	public ActionQuickSaveTopography(String name, String iconPath,String shortDescription, IDrawPanelModel panelModel) {
-		super(name, iconPath, shortDescription, panelModel);
+	public ActionQuickSaveTopography(IDrawPanelModel panelModel) {
+		super("save scenario", ResourceStrings.ICONS_SAVE_ICON_PNG, ResourceStrings.TOPOGRAPHY_CREATOR_BTN_QUICK_SAVE_TOOLTIP, panelModel);
 	}
 
 	/**

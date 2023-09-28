@@ -6,6 +6,7 @@ import org.vadere.gui.components.control.ActionGeneratePoly;
 import org.vadere.gui.components.control.simulation.*;
 import org.vadere.gui.components.utils.Messages;
 import org.vadere.gui.components.utils.ResourceStrings;
+import org.vadere.gui.components.utils.Resources;
 import org.vadere.gui.components.utils.SwingUtils;
 import org.vadere.gui.components.view.DialogFactory;
 import org.vadere.gui.postvisualization.control.*;
@@ -41,6 +42,9 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
     private JButton stopButton;
     private ButtonGroup playControlGroup;
 
+    private static final Resources RESOURCE = Resources.getInstance("global");
+    private static final int ICON_SIZE = (int)(VadereConfig.getConfig().getInt("ProjectView.icon.height.value")*VadereConfig.getConfig().getFloat("Gui.scale"));
+
     public PostvisualizationWindowInterActive() {
         super();
         playControlGroup = new ButtonGroup();
@@ -61,13 +65,13 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
 
         // Player controls
         playButton = addActionToToolbar(toolbar,
-                new ActionPlay("play", resources.getIcon("play.png", iconWidth, iconHeight), model),
+                new ActionPlay("play", RESOURCE.getIconSVG("transport_play",ICON_SIZE,ICON_SIZE), model),
                 "PostVis.btnPlay.tooltip");
         pauseButton = addActionToToolbar(toolbar,
-                new ActionPause("pause", resources.getIcon("pause.png", iconWidth, iconHeight), model),
+                new ActionPause("pause", RESOURCE.getIconSVG("transport_pause",ICON_SIZE,ICON_SIZE), model),
                 "PostVis.btnPause.tooltip");
         stopButton = addActionToToolbar(toolbar,
-                new ActionStop("stop", resources.getIcon("stop.png", iconWidth, iconHeight), model),
+                new ActionStop("stop", RESOURCE.getIconSVG("transport_stop",ICON_SIZE,ICON_SIZE), model),
                 "PostVis.btnStop.tooltip");
 
 
@@ -82,7 +86,7 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
 
         // Pedestrian-related options
         addToggleActionToToolbar(toolbar,
-                new ActionVisualization("show_pedestrian", resources.getIcon("pedestrian.png", iconWidth, iconHeight),
+                new ActionVisualization("show_pedestrian", RESOURCE.getIconSVG("show_pedestrians",ICON_SIZE,ICON_SIZE),
                         model) {
                     @Override
                     public void actionPerformed(ActionEvent e1) {
@@ -92,7 +96,7 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
                 }, "ProjectView.btnShowPedestrian.tooltip");
         addToggleActionToToolbar(toolbar,
                 new ActionVisualization("show_trajectory",
-                        resources.getIcon("trajectories.png", iconWidth, iconHeight), model) {
+                        RESOURCE.getIconSVG("trajectories",ICON_SIZE,ICON_SIZE), model) {
                     @Override
                     public void actionPerformed(ActionEvent e1) {
                         model.config.setShowTrajectories(!model.config.isShowTrajectories());
@@ -101,7 +105,7 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
                 }, "ProjectView.btnShowTrajectories.tooltip");
         addToggleActionToToolbar(toolbar,
                 new ActionVisualization("show_direction",
-                        resources.getIcon("walking_direction.png", iconWidth, iconHeight), model) {
+                        RESOURCE.getIconSVG("walking_direction",ICON_SIZE,ICON_SIZE), model) {
                     @Override
                     public void actionPerformed(ActionEvent e1) {
                         model.config.setShowWalkdirection(!model.config.isShowWalkdirection());
@@ -110,7 +114,7 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
                 }, "ProjectView.btnShowWalkingDirection.tooltip");
         addToggleActionToToolbar(toolbar,
                 new ActionVisualization("show_groups",
-                        resources.getIcon("group.png", iconWidth, iconHeight), model) {
+                        RESOURCE.getIconSVG("group",ICON_SIZE,ICON_SIZE), model) {
                     @Override
                     public void actionPerformed(ActionEvent e1) {
                         model.config.setShowGroups(!model.config.isShowGroups());
@@ -118,7 +122,7 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
                     }
                 }, "ProjectView.btnShowGroupInformation.tooltip");
         addToggleActionToToolbar(toolbar,
-                new ActionVisualization("show_contacts", resources.getIcon("contacts.png", iconWidth, iconHeight),
+                new ActionVisualization("show_contacts",RESOURCE.getIconSVG("contacts",ICON_SIZE,ICON_SIZE),
                         model) {
                     @Override
                     public void actionPerformed(ActionEvent e1) {
@@ -138,7 +142,7 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
                 toolbar,
                 new ActionVisualization(
                         "show_aerosolClouds",
-                        resources.getIcon("aerosolCloud_icon.png", iconWidth, iconHeight),
+                        RESOURCE.getIconSVG("aerosol",ICON_SIZE,ICON_SIZE),
                         model) {
                     @Override
                     public void actionPerformed(ActionEvent e1) {
@@ -156,10 +160,10 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
         // "Measuring" tools
         addToggleActionToToolbar(toolbar,
                 new ActionSwapSelectionMode("draw_voronoi_diagram",
-                        resources.getIcon("voronoi.png", iconWidth, iconHeight), model),
+                        RESOURCE.getIconSVG("voronoi",ICON_SIZE,ICON_SIZE), model),
                 "ProjectView.btnDrawVoronoiDiagram.tooltip");
         addToggleActionToToolbar(toolbar,
-                new ActionVisualization("show_grid", resources.getIcon("grid.png", iconWidth, iconHeight), model) {
+                new ActionVisualization("show_grid", RESOURCE.getIconSVG("grid",ICON_SIZE,ICON_SIZE), model) {
                     @Override
                     public void actionPerformed(ActionEvent e1) {
                         model.config.setShowGrid(!model.config.isShowGrid());
@@ -168,7 +172,7 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
                 }, "ProjectView.btnShowGrid.tooltip");
         addToggleActionToToolbar(
                 toolbar,
-                new ActionVisualization("show_density", resources.getIcon("density.png", iconWidth, iconHeight),
+                new ActionVisualization("show_density", RESOURCE.getIconSVG("density",ICON_SIZE,ICON_SIZE),
                         model) {
                     @Override
                     public void actionPerformed(ActionEvent e1) {
@@ -178,31 +182,28 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
                 }, "ProjectView.btnShowDensity.tooltip");
         addToggleActionToToolbar(
                 toolbar,
-                new ActionShowPotentialField("show_potentialField", resources.getIcon("potentialField.png", iconWidth,
-                        iconHeight), model),
+                new ActionShowPotentialField("show_potentialField", RESOURCE.getIconSVG("potential",ICON_SIZE,ICON_SIZE), model),
                 "ProjectView.btnShowPotentialfield.tooltip");
         toolbar.addSeparator(new Dimension(5, 50));
 
         // Recording and snapshot options
-        ActionRecording recordAction = new ActionRecording("record", resources.getIcon("record.png", iconWidth,
-                iconHeight), renderer);
+        ActionRecording recordAction = new ActionRecording("record", RESOURCE.getIconSVG("record",ICON_SIZE,ICON_SIZE), renderer);
 
 
         JButton recordButton = addActionToToolbar(toolbar, recordAction, "PostVis.btnRecord.tooltip");
         recordAction.setButton(recordButton);
 
         ArrayList<Action> imgOptions = new ArrayList<>();
-        AbstractAction pngImg = new ActionGeneratePNG(Messages.getString("ProjectView.btnPNGSnapshot.tooltip"), resources.getIcon("camera_png.png", iconWidth, iconHeight),
+        AbstractAction pngImg = new ActionGeneratePNG(Messages.getString("ProjectView.btnPNGSnapshot.tooltip"),RESOURCE.getIconSVG("camera_png", ICON_SIZE,ICON_SIZE),
                 renderer, model);
-        AbstractAction svgImg = new ActionGenerateSVG(Messages.getString("ProjectView.btnSVGSnapshot.tooltip"), resources.getIcon("camera_svg.png", iconWidth, iconHeight),
+        AbstractAction svgImg = new ActionGenerateSVG(Messages.getString("ProjectView.btnSVGSnapshot.tooltip"),RESOURCE.getIconSVG("camera_svg", ICON_SIZE,ICON_SIZE),
                 renderer, model);
-        AbstractAction tikzImg = new ActionGenerateTikz(Messages.getString("ProjectView.btnTikZSnapshot.tooltip"), resources.getIcon("camera_tikz.png", iconWidth, iconHeight),
+        AbstractAction tikzImg = new ActionGenerateTikz(Messages.getString("ProjectView.btnTikZSnapshot.tooltip"), RESOURCE.getIconSVG("camera_tikz", ICON_SIZE,ICON_SIZE),
                 renderer, model);
-        AbstractAction inetImg = new ActionGenerateINETenv(Messages.getString("ProjectView.btnINETSnapshot.tooltip"), resources.getIcon("camera_tikz.png", iconWidth, iconHeight),
+        AbstractAction inetImg = new ActionGenerateINETenv(Messages.getString("ProjectView.btnINETSnapshot.tooltip"), RESOURCE.getIconSVG("camera_tikz", ICON_SIZE,ICON_SIZE),
                 renderer, model);
 
-        AbstractAction polyImg = new ActionGeneratePoly(Messages.getString("ProjectView.btnPolySnapshot.tooltip"), resources.getIcon("camera_poly.png", iconWidth, iconHeight),
-                ResourceStrings.TOPOGRAPHY_CREATOR_BTN_GENERATE_POLY_TOOLTIP, model);
+        AbstractAction polyImg = new ActionGeneratePoly(model);
 
         imgOptions.add(pngImg);
         imgOptions.add(svgImg);
@@ -212,7 +213,7 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
 
         ActionVisualizationMenu imgDialog = new ActionVisualizationMenu(
                 "camera_menu",
-                resources.getIcon("camera.png", iconWidth, iconHeight),
+                RESOURCE.getIconSVG("camera", ICON_SIZE,ICON_SIZE),
                 model, null, imgOptions);
         addActionMenuToToolbar(toolbar, imgDialog, Messages.getString("ProjectView.btnSnapshot.tooltip"));
 
@@ -220,7 +221,7 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
 
         addActionToToolbar(
                 toolbar,
-                new ActionVisualization("settings", resources.getIcon("settings.png", iconWidth, iconHeight), model) {
+                new ActionVisualization("settings", RESOURCE.getIconSVG("settings",ICON_SIZE,ICON_SIZE), model) {
                     @Override
                     public void actionPerformed(ActionEvent e1) {
                         DialogFactory.createSettingsDialog(model).setVisible(true);

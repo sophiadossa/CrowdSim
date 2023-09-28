@@ -1,5 +1,6 @@
 package org.vadere.gui.topographycreator.control;
 
+import org.vadere.gui.components.utils.ResourceStrings;
 import org.vadere.gui.components.utils.Resources;
 import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 import org.vadere.state.scenario.Topography;
@@ -19,9 +20,9 @@ public class ActionResetTopography extends TopographyAction {
 
 	private final UndoableEditSupport undoSupport;
 
-	public ActionResetTopography(String name, String iconPath,String shortDescription, IDrawPanelModel panelModel,
+	public ActionResetTopography(IDrawPanelModel panelModel,
 			UndoableEditSupport undoSupport) {
-		super(name, iconPath, shortDescription, panelModel);
+		super("reset scenario", ResourceStrings.ICONS_TOPOGRAPHY_RESET, ResourceStrings.TOPOGRAPHY_CREATOR_BTN_NEW_TOPOGRAPHY_TOOLTIP, panelModel);
 		this.undoSupport = undoSupport;
 	}
 

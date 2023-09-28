@@ -1,6 +1,7 @@
 package org.vadere.gui.topographycreator.control;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.vadere.gui.components.utils.ResourceStrings;
 import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 import org.vadere.simulator.projects.migration.GeometryCleaner;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
@@ -24,9 +25,9 @@ public class ActionMergeObstacles extends TopographyAction {
 	private final UndoableEditSupport undoSupport;
 	private static final Logger logger = Logger.getLogger(ActionMergeObstacles.class);
 
-	public ActionMergeObstacles(String name, String icon,String shortDescription, IDrawPanelModel panelModel,
+	public ActionMergeObstacles(IDrawPanelModel panelModel,
 	                            UndoableEditSupport undoSupport) {
-		super(name, icon, shortDescription, panelModel);
+		super("mergeObstacles", ResourceStrings.ICONS_MERGE_PNG, ResourceStrings.TOPOGRAPHY_CREATOR_BTN_MERGE_OBSTACLES_TOOLTIP,panelModel);
 		this.undoSupport = undoSupport;
 	}
 
