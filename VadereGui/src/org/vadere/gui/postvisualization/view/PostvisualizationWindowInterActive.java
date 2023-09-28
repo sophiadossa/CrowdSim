@@ -1,5 +1,6 @@
 package org.vadere.gui.postvisualization.view;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import org.jetbrains.annotations.NotNull;
 import org.vadere.gui.components.control.ActionGeneratePoly;
 import org.vadere.gui.components.control.simulation.*;
@@ -374,13 +375,7 @@ public class PostvisualizationWindowInterActive extends PostvisualizationWindow 
     }
 
     public static void start() {
-        try {
-            // Set Java L&F from system
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
-                 | IllegalAccessException e) {
-            IOUtils.errorBox("The system look and feel could not be loaded.", "Error setLookAndFeel");
-        }
+        FlatLightLaf.setup();
 
         EventQueue.invokeLater(() -> {
             JFrame frame = new JFrame();

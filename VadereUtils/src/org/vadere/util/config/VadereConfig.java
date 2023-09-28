@@ -242,6 +242,7 @@ public class VadereConfig {
 		defaultConfig.put("Gui.node.radius", "0.3");
 		defaultConfig.put("Gui.dataProcessingViewMode", "gui");
 		defaultConfig.put("Gui.toolbar.size", "40");
+		defaultConfig.put("Gui.scale", "1.0");
 		defaultConfig.put("Gui.lastSavePoint", defaultSearchDirectory);
 		defaultConfig.put("History.lastUsedProject", "");
 		defaultConfig.put("History.recentProjects", "");

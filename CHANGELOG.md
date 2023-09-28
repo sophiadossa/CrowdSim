@@ -5,6 +5,7 @@
 ## In Progress:
 
 ### Added
+- Added config parameter `Gui.scale` in the Vadere config file. This parameter allows setting the GUI scaling for HiDPI screens.
 
 ### Removed
 

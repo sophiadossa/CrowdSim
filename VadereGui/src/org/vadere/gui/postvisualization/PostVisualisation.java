@@ -9,6 +9,8 @@ import org.vadere.util.io.VadereArgumentParser;
 import org.vadere.util.logging.Logger;
 import org.vadere.util.logging.StdOutErrLog;
 
+import static org.vadere.gui.components.utils.SwingUtils.applySystemGUIScale;
+
 public class PostVisualisation {
 	private static Logger logger = Logger.getLogger(PostVisualisation.class);
 
@@ -33,7 +35,7 @@ public class PostVisualisation {
 		}
 
 		Messages.loadLanguageFromPreferences(VadereApplication.class);
-
+		applySystemGUIScale();
 		PostvisualizationWindowInterActive.start();
 	}
 }
