@@ -1,17 +1,30 @@
 package org.vadere.state.psychology.perception.types;
 
 /**
+ * <p>
  * A timeframe in which one ore more stimuli can occur.
- *
+ * </p>
+ * <p>
  * This information is required by a stimulus controller
  * which injects the actual stimuli into the simulation loop.
+ * </p>
  */
 public class Timeframe {
-
+    /**
+     * <i>startTime</i> is the time when the stimuli are injected.
+     */
     private double startTime;
+    /**
+     * <i>endTime</i> is the time when the stimuli are not injected anymore.
+     */
     private double endTime;
-
+    /**
+     * <i>repeat</i> indicates whether the stimuli are injected repeatedly.
+     */
     private boolean repeat;
+    /**
+     * <i>waitTimeBetweenRepetition</i> is the time between two repetitions.
+     */
     private double waitTimeBetweenRepetition;
 
     public Timeframe() {

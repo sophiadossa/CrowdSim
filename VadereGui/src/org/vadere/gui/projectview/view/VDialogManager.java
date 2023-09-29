@@ -2,8 +2,8 @@ package org.vadere.gui.projectview.view;
 
 
 import org.apache.commons.configuration2.Configuration;
+import org.vadere.gui.components.control.HelpTextView;
 import org.vadere.gui.components.utils.Messages;
-import org.vadere.gui.projectview.VadereApplication;
 import org.vadere.util.config.VadereConfig;
 import org.vadere.util.io.IOUtils;
 import org.vadere.util.logging.Logger;
@@ -12,7 +12,9 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.util.prefs.Preferences;
+
+import static org.vadere.util.other.Strings.removeAttribute;
+import static org.vadere.util.other.Strings.splitCamelCase;
 
 public class VDialogManager {
 
@@ -114,6 +116,24 @@ public class VDialogManager {
 		JOptionPane.showMessageDialog(
 				ProjectView.getMainWindow(),
 				jsp, title, messageType);
+	}
+
+	public static void showHelpDialogForClass(Class<?> clazz){
+		JDialog dialog = new JDialog(ProjectView.getMainWindow(),"Help: " + splitCamelCase(removeAttribute(clazz.getSimpleName())));
+		JScrollPane jsp = new JScrollPane(HelpTextView.create(clazz.getName()));
+		jsp.setPreferredSize(new Dimension(800, 600));
+		dialog.add(jsp);
+		dialog.pack();
+		dialog.setVisible(true);
+	}
+
+	public static void showHelpDialogForClass(String clazzName){
+		JDialog dialog = new JDialog(ProjectView.getMainWindow(),"Help: " + splitCamelCase(removeAttribute(clazzName.substring(clazzName.lastIndexOf('.') + 1))));
+		JScrollPane jsp = new JScrollPane(HelpTextView.create(clazzName));
+		jsp.setPreferredSize(new Dimension(800, 600));
+		dialog.add(jsp);
+		dialog.pack();
+		dialog.setVisible(true);
 	}
 
 	public static boolean continueSavingDespitePossibleJsonError() {

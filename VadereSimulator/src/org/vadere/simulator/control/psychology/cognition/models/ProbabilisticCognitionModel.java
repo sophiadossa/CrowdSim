@@ -18,6 +18,18 @@ import org.vadere.util.logging.Logger;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Models probabilistic route choice behavior.
+ * If an agent has received a route recommendation (you need to specify the route recommendation using a {@link InformationStimulus}),
+ * the agent will make a probabilistic route choice.
+ * Imagine there are two targets: if target 1 is recommended ("take target 1"),
+ * the agent takes target 1 with a probability of 80% and target 2 with a probability of 20%.
+ * The probabilites need to be specified in {@link AttributesRouteChoiceDefinition}.
+ * Please note:
+ *    - the appeal "take target 1" must be similar in the {@link InformationStimulus} and the {@link AttributesRouteChoiceDefinition}.
+ *    - the agent responds to the first appeal only
+ */
+
 public class ProbabilisticCognitionModel extends AProbabilisticModel {
 
     private static Logger logger = Logger.getLogger(ProbabilisticCognitionModel.class);
@@ -160,6 +172,8 @@ public class ProbabilisticCognitionModel extends AProbabilisticModel {
 
     protected boolean pedestrianCannotMove(Pedestrian pedestrian) {
         boolean cannotMove = false;
+        //TODO: this method should be moved to the perception layer
+
 
         FootstepHistory footstepHistory = pedestrian.getFootstepHistory();
         int requiredFootSteps = 2;

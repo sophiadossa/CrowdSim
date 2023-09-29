@@ -17,16 +17,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-/**
- * Suppose a threat (a {@link Threat}) occurred.
- *
- * Check following conditions for a pedestrian:
- * <ol>
- *     <li>Is pedestrian inside threat area.</li>
- *     <li>Is pedestrian outside threat area.</li>
- *     <li>If pedestrian is outside threat area, test if other pedestrians are nearby
- *     who have perceived the threat. If so, imitate their behavior if they are in-group members.</li>
- * </ol>
+/*
+ * This model models how agents decide what to do when they perceive a {@link Threat}).
  */
 public class ThreatCognitionModel implements ICognitionModel {
 
@@ -111,6 +103,7 @@ public class ThreatCognitionModel implements ICognitionModel {
     }
 
     private void testIfInsideOrOutsideThreatArea(Pedestrian pedestrian, Threat latestThreat) {
+        //TODO: refactor. This method should be moved to the perception layer since it actually models perception behavior
         VPoint threatOrigin = topography.getTarget(latestThreat.getOriginAsTargetId()).getShape().getCentroid();
         double distanceToThreat = threatOrigin.distance(pedestrian.getPosition());
 

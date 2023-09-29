@@ -1,5 +1,9 @@
 package org.vadere.state.attributes;
 
+import org.checkerframework.framework.qual.Unused;
+import org.vadere.annotation.helptext.HelpIgnore;
+import org.vadere.util.reflection.VadereAttribute;
+
 import java.util.Objects;
 import java.util.Random;
 
@@ -10,18 +14,60 @@ import java.util.Random;
 public class AttributesSimulation extends Attributes {
 
 	/** Store the members of this class under this key in the JSON file. */
+	@VadereAttribute(exclude = true)
+	@HelpIgnore
 	public static final String JSON_KEY = "attributesSimulation";
-
+	/**
+	 * <i>finishTime</i> is the time in seconds when the simulation should stop.
+	 */
 	private double finishTime = 500;
-	/** Progress of simulation time between two simulation steps in a row. */
+	/**
+	 * <i>simTimeStepLength</i> is the length of one simulation time step in seconds.
+	 */
 	private double simTimeStepLength = 0.4;
+	/**
+	 * <i>realTimeSimTimeRatio</i> is the ratio between real time and simulation time.
+	 */
 	private double realTimeSimTimeRatio = 0.1;
+	/**
+	 * <i>writeSimulationData</i> indicates whether the simulation output data should be written to the filesystem.
+	 */
 	private boolean writeSimulationData = true;
+	/**
+	 * <i>visualizationEnabled</i> enables visualization of the potential fields and enables hardware independent rendering.
+	 */
 	private boolean visualizationEnabled = true;
+	/**
+	 * <i>printFPS</i> is not used currently
+	 */
 	private boolean printFPS = false;
+	/**
+	 * <i>digitsPerCoordinate</i> is the number of digits after the decimal point for the coordinates.
+	 */
 	private int digitsPerCoordinate = 2;
+	/**
+	 * <i>useFixedSeed</i> indicates whether a fixed seed should be used for the simulation.
+	 * <br>
+	 * A seed defines how the random number generator in Vadere determines random numbers.
+	 * Random numbers are used, e.g., by the optimal steps model when the next step of an agent
+	 * is calculated. If useFixedSeed is true and a simulation is repeated without altering any parameters,
+	 * the result remains exactly the same. If useFixedSeed is false, e.g., the pedestrians’
+	 * spawning positions, their trajectories, etc. may vary
+	 */
 	private boolean useFixedSeed = true;
+	/**
+	 * <i>fixedSeed</i> determines the random numbers used in the simulation uniquely
+	 * <br>
+	 * See <i>useFixedSeed</i>. Only plays a role if useFixedSeed is true.
+	 */
 	private long fixedSeed = new Random().nextLong();
+	/**
+	 * <i>simulationSeed</i> is the seed used for the simulation.
+	 * <br>
+	 * Editing this parameter has no effect on a simulation. It only returns the seed that has been used
+	 * for simulation in the scenario output file (if <i>useFixedSeed</i> is true, simulationSeed equals <i>fixedSeed</i>;
+	 * if <i>useFixed</i> is false, <i>simulationSeed</i> is some arbitrary number).
+	 */
 	private long simulationSeed;
 
 	// Getter...

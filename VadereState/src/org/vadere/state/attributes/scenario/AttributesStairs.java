@@ -1,23 +1,24 @@
 package org.vadere.state.attributes.scenario;
 
+import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.Stairs;
 import org.vadere.util.geometry.shapes.VShape;
 import org.vadere.util.geometry.shapes.Vector2D;
 import org.vadere.util.logging.Logger;
 
 /**
- * Attributes of {@link Stairs} objects.
- * The attributes "treads" specifies how many treads the stair should be comprised of, counting only
- * the small platforms that are NOT on the ground or on the next floor.
- * Upward direction specifies in which direction the treads should head toward. This way a polygon
- * can also be used.
- * Upward direction must not be normalized (it will be normalized to 1.0 in the constructor).
- * 
+ * Stairs is a {@link ScenarioElement} which spawns agents.
  *
  */
 public class AttributesStairs extends AttributesVisualElement {
-
+	/**
+	 * <i>treadCount</i> specifies how many treads the stair should be comprised of, counting only the small platforms that are NOT on the ground or on the next floor.
+	 */
 	private Integer treadCount = 1;
+	/**
+	 * <i>upwardDirection</i> specifies in which direction the treads should head toward. This way a polygon can also be used.
+	 * Upward direction must not be normalized (it will be normalized to 1.0 in the constructor).
+	 */
 	private Vector2D upwardDirection = new Vector2D(1.0, 0.0);
 
 	public AttributesStairs() { }

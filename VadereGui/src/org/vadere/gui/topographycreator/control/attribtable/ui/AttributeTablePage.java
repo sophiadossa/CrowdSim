@@ -1,7 +1,5 @@
 package org.vadere.gui.topographycreator.control.attribtable.ui;
 
-import org.jetbrains.annotations.NotNull;
-import org.vadere.gui.topographycreator.control.AttributeHelpView;
 import org.vadere.gui.topographycreator.control.attribtable.JAttributeTable;
 import org.vadere.gui.topographycreator.control.attribtable.JCollapsablePanel;
 import org.vadere.gui.topographycreator.control.attribtable.cells.CellNameDelegateWrapper;
@@ -16,9 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.lang.reflect.Field;
 
 
 /** This class is supposed to be used as the gui container for on single class archetype **/
@@ -35,15 +30,14 @@ public class AttributeTablePage extends JPanel implements AttributeTreeModel.Val
     private final JAttributeTable view;
     AttributeTreeModel.TreeNode model;
 
-    public AttributeTablePage(AttributeTreeModel.TreeNode model, String title, JAttributeTable.Styler pageStyler) {
+    public AttributeTablePage(AttributeTreeModel.TreeNode model, Class<?> refClass, JAttributeTable.Styler pageStyler) {
         super(new BorderLayout());
         this.setBackground(Color.white);
 
         this.model = model;
 
         container = new JCollapsablePanel(
-                title,
-                JCollapsablePanel.Style.HEADER
+                refClass
         );
         view = new JAttributeTable(model, pageStyler);
         container.add(view);
@@ -55,12 +49,6 @@ public class AttributeTablePage extends JPanel implements AttributeTreeModel.Val
         focusTraversalPolicy.add(view.getFocusOrder());
         focusTraversalPolicy.addListener();
 
-    }
-
-
-    @NotNull
-    public static String generateHeaderName(Class clazz) {
-        return clazz.getSimpleName().replaceFirst("Attributes", "");
     }
 
     public void updateModel(Object object) throws TreeException, IllegalAccessException {
@@ -124,18 +112,6 @@ public class AttributeTablePage extends JPanel implements AttributeTreeModel.Val
             style.getColumn("attr").setCellRenderer(attrEdlegate);
             style.getColumn("attr").setCellEditor(attrEdlegate);
             style.setEditingColumn(1);
-
-            /** initialize the listener to update the AttributeHelpView**/
-            style.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    SwingUtilities.invokeLater(() -> {
-                        var field = (Field) style.getModel().getValueAt(style.rowAtPoint(e.getPoint()), 0);
-                        if(field!=null)
-                            AttributeHelpView.getInstance().loadHelpFromField(field);
-                    });
-                }
-            });
 
             /** this section is supposed enable the resizing of the editor cells**/
             style.addComponentListener(new ComponentAdapter() {

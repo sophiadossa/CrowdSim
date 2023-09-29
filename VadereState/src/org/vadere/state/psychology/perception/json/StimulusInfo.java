@@ -9,32 +9,62 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * This class bundles one {@link Timeframe} and a list of {@link Stimulus} objects.
- * I.e., multiple stimuli can occur in a specified timeframe.
- *
- * This class is just a wrapper to get a convenient JSON de-/serialization.
- * The JSON serialization should look like this:
- *
- *      {
- *           "timeframe": {
- *               "startTime":...,
- *               "endTime":...,
- *               "repeat":...,
- *               "waitTimeBetweenRepetition":...
- *           },
- *           "stimuli": [
- *               { "type":"ElapsedTime" },
- *               {"type":"WaitInArea", "area": ... },
- *               ...
- *           ]
- *      }
+ * <p>
+ * StimulusInfo describes the stimuli that are injected into the simulation.
+ * It contains a timeframe, a list of stimuli, a location and a subpopulation filter.
+ * This makes it possible to inject stimuli at a specific time, at a specific location.
+ * </p>
+ * <p>
+ * Example: <br>
+ * <code>
+ * {<br>
+ *   "stimulusInfos" : [ {<br>
+ *     "timeframe" : {<br>
+ *       "startTime" : 0.0,<br>
+ *       "endTime" : 10.0,<br>
+ *       "repeat" : false,<br>
+ *       "waitTimeBetweenRepetition" : 0.0<br>
+ *     },<br>
+ *     "location" : {<br>
+ *       "areas" : [ {<br>
+ *         "x" : 0.0,<br>
+ *         "y" : 0.0,<br>
+ *         "width" : 1000.0,<br>
+ *         "height" : 500.0,<br>
+ *         "type" : "RECTANGLE"<br>
+ *       } ]<br>
+ *     },<br>
+ *     "subpopulationFilter" : {<br>
+ *       "affectedPedestrianIds" : [ ]<br>
+ *     },<br>
+ *     "stimuli" : [ {<br>
+ *       "type" : "Threat",<br>
+ *       "originAsTargetId" : -1,<br>
+ *       "loudness" : 1.0<br>
+ *     } ]<br>
+ *   } ]<br>
+ * }
+ * </code>
+ * </p>
  */
 public class StimulusInfo {
 
     // Member Variables
+    /**
+     * <i>timeframe</i> describes the time at which the stimuli are injected.
+     */
     private Timeframe timeframe;
+    /**
+     * <i>location</i> describes the location at which the stimuli are injected. It is a list of areas.
+     */
     private Location location;
+    /**
+     * <i>subpopulationFilter</i> describes the subpopulation that is affected by the stimuli.
+     */
     private SubpopulationFilter subpopulationFilter;
+    /**
+     * <i>stimuli</i> is a list of stimuli that are injected.
+     */
     private List<Stimulus> stimuli;
 
     public StimulusInfo() {

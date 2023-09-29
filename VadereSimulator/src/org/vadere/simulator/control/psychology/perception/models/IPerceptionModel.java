@@ -10,10 +10,17 @@ import org.vadere.state.scenario.Topography;
 import java.util.HashMap;
 import java.util.List;
 
-/**
+/*
  * Interface for a perception model.
  *
- * A perception model decides which {@link Stimulus} is most important for a
+ * A perception model models the perception of an agent.
+ * An agent perceives stimuli from the environment like for example a sound or visual information (see {@link Stimulus} for stimuli available).
+ * Basically, the perception model behaves like a filter for stimuli.
+ * Only stimuli whose intensity exceed a certain threshold are forwarded to the {@link org.vadere.simulator.control.psychology.cognition.models.ICognitionModel} .
+ * Please find the Sensory threshold theory for background on the theory.
+ * Note that any function could be implemented to model the sensory process.
+ * In {@link SimplePerceptionModel} and {@link MultiPerceptionModel}, we model the sensory process in a very simplistic way.
+ * Please see the respective model descriptions.
  * {@link Pedestrian} at a specific simulation step based on pedestrian's
  * attributes or its surrounding. It is designed as an interface so that
  * different models can be used for different scenarios (by specifying in the

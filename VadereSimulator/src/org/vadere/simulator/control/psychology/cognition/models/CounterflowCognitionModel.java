@@ -10,7 +10,11 @@ import org.vadere.state.scenario.Topography;
 import java.util.Collection;
 import java.util.Random;
 
-/**
+/*
+ * Models the behavior of people in a counterflow.
+ * Use this model if you are using the BHM locomotion model.
+ * Use the {@link CooperativeCognitionModel}, if you are using the Optimal Steps Model.
+ *
  * The {@link CounterflowCognitionModel} enables a pedestrian to evade if
  * counter-flowing agents are detected. The locomotion layer must implemenet
  * the specific evasion behavior (e.g. tangentially).

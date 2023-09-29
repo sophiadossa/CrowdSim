@@ -2,7 +2,8 @@ package org.vadere.state.attributes.distributions;
 
 
 /**
- * This is the parameter structure used with a single spawn distribution.
+ * Single Spawn Distribution is a distribution that only allows one event to occur.
+ *
  * @author Lukas Gradl (lgradl@hm.edu), Ludwig Jaeck
  */
 
@@ -16,7 +17,7 @@ public class AttributesSingleSpawnDistribution extends AttributesDistribution {
 	}
 
 	/**
-	 * The attribute spawnTime describes the time the event occurs.
+	 * spawnTime describes the time the event occurs.
 	 */
 	Double spawnTime = 0.0;
 

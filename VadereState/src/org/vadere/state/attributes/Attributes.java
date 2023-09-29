@@ -1,6 +1,7 @@
 package org.vadere.state.attributes;
 
 
+import org.vadere.annotation.helptext.HelpIgnore;
 import org.vadere.util.reflection.VadereAttribute;
 
 import java.io.IOException;
@@ -29,6 +30,7 @@ import java.io.IOException;
 @VadereAttribute
 public abstract class Attributes extends DefaultSealable implements Cloneable {
 	@VadereAttribute(exclude = true)
+	@HelpIgnore
 	/** Used for default ID values of some scenario elements. */
 	public static final int ID_NOT_SET = -1;
 

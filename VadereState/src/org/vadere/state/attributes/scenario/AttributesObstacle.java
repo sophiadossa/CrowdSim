@@ -1,9 +1,13 @@
 package org.vadere.state.attributes.scenario;
 
+import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.util.geometry.shapes.VShape;
-
 import java.util.Objects;
 
+/**
+ * An Obstacle is a {@link ScenarioElement} which blocks agents and cannot be passed by them.
+ * <warning-box>If used with a OptimalStepsModel a width / height of &lt; 0.1 may lead to problems of agents ignoring it.</warning-box>
+ */
 public class AttributesObstacle extends AttributesVisualElement{
 
 	public AttributesObstacle() {}

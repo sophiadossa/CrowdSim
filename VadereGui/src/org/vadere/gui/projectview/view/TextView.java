@@ -15,6 +15,8 @@ import org.vadere.gui.projectview.model.IScenarioChecker;
 import org.vadere.simulator.projects.Scenario;
 import org.vadere.simulator.projects.dataprocessing.DataProcessingJsonManager;
 import org.vadere.simulator.projects.io.JsonConverter;
+import org.vadere.state.attributes.AttributesPsychology;
+import org.vadere.state.attributes.AttributesSimulation;
 import org.vadere.state.attributes.ModelDefinition;
 import org.vadere.state.psychology.perception.json.StimulusInfoStore;
 import org.vadere.state.psychology.perception.presettings.StimulusPresettings;
@@ -27,6 +29,8 @@ import org.vadere.util.logging.Logger;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +40,8 @@ import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.*;
@@ -359,6 +365,46 @@ public class TextView extends JPanel implements IJsonView {
 	}
 
 	private void generatePresettingsMenu(final AttributeType attributeType) {
+		if (attributeType == AttributeType.SIMULATION) {
+			JMenuBar presetMenuBar = new JMenuBar();
+			JMenu mnPresetHelpMenu = new JMenu(Messages.getString("ProjectView.mnHelp.text"));
+			mnPresetHelpMenu.addMenuListener(new MenuListener() {
+				@Override
+				public void menuSelected(MenuEvent e) {
+					VDialogManager.showHelpDialogForClass(AttributesSimulation.class);
+				}
+
+				@Override
+				public void menuDeselected(MenuEvent e) {
+				}
+
+				@Override
+				public void menuCanceled(MenuEvent e) {
+				}
+			});
+			presetMenuBar.add(mnPresetHelpMenu);
+			panelTop.add(presetMenuBar);
+		}
+		if (attributeType == AttributeType.PSYCHOLOGY) {
+			JMenuBar presetMenuBar = new JMenuBar();
+			JMenu mnPresetHelpMenu = new JMenu(Messages.getString("ProjectView.mnHelp.text"));
+			mnPresetHelpMenu.addMenuListener(new MenuListener() {
+				@Override
+				public void menuSelected(MenuEvent e) {
+					VDialogManager.showHelpDialogForClass(AttributesPsychology.class);
+				}
+
+				@Override
+				public void menuDeselected(MenuEvent e) {
+				}
+
+				@Override
+				public void menuCanceled(MenuEvent e) {
+				}
+			});
+			presetMenuBar.add(mnPresetHelpMenu);
+			panelTop.add(presetMenuBar);
+		}
 		if (attributeType == AttributeType.PERCEPTION) {
 			JMenuBar presetMenuBar = new JMenuBar();
 			JMenu mnPresetMenu = new JMenu(Messages.getString("TextView.Button.LoadPresettings"));
@@ -392,8 +438,7 @@ public class TextView extends JPanel implements IJsonView {
 
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							VDialogManager.showMessageDialogWithBodyAndTextEditorPane("Help", clazz.getName(),
-									HelpTextView.create(clazz.getName()), JOptionPane.INFORMATION_MESSAGE);
+							VDialogManager.showHelpDialogForClass(clazz.getName());
 						}
 					})));
 

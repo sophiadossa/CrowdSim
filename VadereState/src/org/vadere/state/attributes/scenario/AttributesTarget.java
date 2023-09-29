@@ -9,30 +9,34 @@ import org.vadere.state.util.Views;
 import org.vadere.util.geometry.shapes.VShape;
 import org.vadere.util.reflection.VadereAttribute;
 /**
- * Attributes of a {@link Target}.
- * @author Ludwig Jaeck
+ * A <i>Target</i> in Vadere is a scenario element that serves as a destination for {@link Pedestrian}s.
+ * It may absorb {@link Pedestrian}s or it may be used to let them wait for a certain time.
+ * The behaviour of a target is controlled by the {@link AttributesAbsorber} and {@link AttributesWaiter} attributes.
+ * <br>@author Ludwig Jaeck
  */
 public class AttributesTarget extends AttributesVisualElement {
 	/**
-	 * This component controls the absorbing behaviour of this target.
+	 * <i>absorber</i> is the {@link AttributesAbsorber} that controls the absorption behaviour of this target.
 	 */
 	@VadereAttribute
 	@JsonView(Views.CacheViewExclude.class)
 	private AttributesAbsorber absorber = new AttributesAbsorber(true, 0.1);
-
+	/**
+	 * <i>waiter</i> is the {@link AttributesWaiter} that controls the waiting behaviour of this target.
+	 */
 	@VadereAttribute
 	@JsonView(Views.CacheViewExclude.class)
 	private AttributesWaiter waiter = new AttributesWaiter();
 	/**
-	 * This attribute stores the free flow speed an agent has after leaving this target. If set to -1, the free flow
+	 * <i>leavingSpeed</i> stores the free flow speed an agent has after leaving this target. If set to -1, the free flow
 	 * speed is not altered by the waiter.
 	 */
 	@VadereAttribute
 	@JsonView(Views.CacheViewExclude.class)
 	private Double leavingSpeed = -1.0;
 	/**
-	 * This attributes stores the number of agents the target can process at the same time.<br>
-	 * <b>NOTE:</b> If set to zero the target can process any number of agents at the same time.
+	 * <i>parallelEvents</i> is the number of events that can be processed in parallel. Hereby meaning specifically the waiting agents.
+	 * If AttributesWaiter.individualWaiting is true, and parallelEvents is 0 or less, then an infinite number of agents can be processed.
 	 */
 	@VadereAttribute
 	@JsonView(Views.CacheViewExclude.class) // ignore when determining if floor field cache is valid

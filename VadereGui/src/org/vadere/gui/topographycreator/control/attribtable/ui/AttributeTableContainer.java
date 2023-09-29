@@ -1,10 +1,7 @@
 package org.vadere.gui.topographycreator.control.attribtable.ui;
 
-import org.reflections.Reflections;
 import org.vadere.gui.components.view.ISelectScenarioElementListener;
-import org.vadere.gui.topographycreator.control.AttributeHelpView;
 import org.vadere.gui.topographycreator.control.attribtable.ViewListener;
-import org.vadere.gui.topographycreator.control.attribtable.tree.TreeAdapter;
 import org.vadere.gui.topographycreator.control.attribtable.tree.TreeException;
 import org.vadere.gui.topographycreator.control.attribtable.tree.TreeModelCache;
 import org.vadere.gui.topographycreator.model.TopographyCreatorModel;
@@ -16,13 +13,9 @@ import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.util.observer.NotifyContext;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Set;
 
 import static org.vadere.gui.topographycreator.control.attribtable.util.Layouts.initGridBagConstraint;
 
@@ -30,14 +23,9 @@ import static org.vadere.gui.topographycreator.control.attribtable.util.Layouts.
  * AttributeTableContainer is the root element for the attribute table component stack. It serves as teh interface between the
  * TopographyCreatorModel and the AttributeTree nodes. When instantiated it will scan the project directory 'org.vadere' to
  * find any class subclassing AttributesScenarioElement and make the AttributeTableView precreate a Model/Page for each class.
- *
- * AttributeTableContainer has two swing subcomponents: the AttributeTableView which is a view displaying a AttributeTablePage
- * for the currently selected ScenarioElement received from the TopographyCreatorModel and a JTextPane which displays the help text
- * for the currently selected attribute in the UI
  */
 public class AttributeTableContainer extends JPanel implements ISelectScenarioElementListener, Observer, ViewListener {
     AttributeTableView attrView;
-    JTextPane helpView;
     private final NotifyContext ctx = new NotifyContext(this.getClass());
     ScenarioElement selectedElement;
     TopographyCreatorModel panelModel;
@@ -51,27 +39,12 @@ public class AttributeTableContainer extends JPanel implements ISelectScenarioEl
     public AttributeTableContainer(final TopographyCreatorModel defaultModel) {
         super(new GridBagLayout());
         attrView = new AttributeTableView(this);
-        helpView = AttributeHelpView.getInstance();
 
         this.panelModel = defaultModel;
 
-        var minimalHelpViewSize = new Dimension(1, Toolkit.getDefaultToolkit().getScreenSize().height / 10);
-
-        helpView.setMinimumSize(minimalHelpViewSize);
-        helpView.setBorder(new LineBorder(UIManager.getColor("Component.borderColor")));
-
-        helpView.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                helpView.setPreferredSize(new Dimension(100, 100));
-            }
-        });
-
         var gbcPage = initGridBagConstraint(1.0);
-        var gbcHelp = initGridBagConstraint(0.0);
 
         this.add(new JScrollPane(attrView), gbcPage);
-        this.add(helpView, gbcHelp);
 
         var cache  = (TreeModelCache) VadereContext.getCtx("GUI").get(VadereContext.TREE_NODE_CTX);
         for(var clazz : cache.getSubTypeOff(AttributesScenarioElement.class)){

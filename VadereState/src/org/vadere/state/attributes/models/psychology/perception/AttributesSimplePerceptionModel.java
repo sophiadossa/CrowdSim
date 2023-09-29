@@ -6,7 +6,33 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * An agent perceives multiple stimuli from the environment like for example a sound or visual information.
+ * <br>(see {@link org.vadere.state.psychology.perception.types.Stimulus} for stimuli available).<br><br>
+ * We assume that some stimuli are more important than other stimuli.
+ * For example a Threat like a fire is more important than a waiting signal in a queue.
+ * We assume that only the most important stimulus has an intensity that exceeds the sensory threshold.
+ */
 public class AttributesSimplePerceptionModel extends AttributesPerceptionModel {
+    /** <p>
+     *  <i>priority</i> specifies the ranking of the stimuli.
+     *  </p>
+     *  <p>
+     *  Example: <br>
+     *  <code>
+     *  "priority" : {<br>
+     *           "1" : "InformationStimulus",<br>
+     *           "2" : "ChangeTargetScripted",<br>
+     *           "3" : "ChangeTarget",<br>
+     *           "4" : "Threat",<br>
+     *           "5" : "Wait",<br>
+     *           "6" : "WaitInArea",<br>
+     *           "7" : "DistanceRecommendation"<br>
+     *  }
+     *  </code>
+     *  </p>
+     *
+     */
     Map<Integer, String> priority;
 
     public AttributesSimplePerceptionModel() {

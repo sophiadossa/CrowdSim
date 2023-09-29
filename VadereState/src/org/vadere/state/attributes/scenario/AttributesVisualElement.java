@@ -3,19 +3,30 @@ package org.vadere.state.attributes.scenario;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.vadere.state.attributes.AttributesScenarioElement;
 import org.vadere.state.util.Views;
+import org.vadere.util.geometry.shapes.VCircle;
+import org.vadere.util.geometry.shapes.VPolygon;
 import org.vadere.util.geometry.shapes.VRectangle;
 import org.vadere.util.geometry.shapes.VShape;
 import org.vadere.util.reflection.VadereAttribute;
 
+/**
+ * A <i>Visual Element</i> in Vadere is any scenario element in the topography that can be drawn in the topography editor.
+ * Each visual element has a shape and a visibility flag.
+ */
 public class AttributesVisualElement extends AttributesScenarioElement {
     /**
-     * This attribute stores the shape of a scenario element.<br>
-     * Possible types are: <i>Rectangle,Polygon,Circle</i>
+     * <i>shape</i> is the geometric shape of the scenario element.
+     * In the topography editor, the shape can be changed by the user.
+     * Available shapes are:
+     * <ul>
+     *     <li><b>{@link VRectangle}</b> which is defined by its sw origin, width and height</li>
+     *     <li><b>{@link VPolygon}</b> which is defined by a list of points</li>
+     *     <li><b>{@link VCircle}</b> which is defined by its center origin and radius</li>
+     * </ul>
      */
     protected VShape shape;
     /**
-     * This attribute stores the visibility state of a scenario element. It is only used for the
-     * topography editor and won't influence a simulation result.
+     * Use <i>visible</i> to show/hide a scenario element in the topography editor.
      */
     @JsonView(Views.CacheViewExclude.class)
     protected Boolean visible;

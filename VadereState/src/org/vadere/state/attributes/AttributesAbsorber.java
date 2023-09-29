@@ -8,7 +8,7 @@ import org.vadere.util.reflection.VadereAttribute;
  */
 public class AttributesAbsorber extends AttributesEnabled {
     /**
-     * This attribute stores the min. distance an agent needs to be away from the absorbing area to be absorbed.
+     * <i>deletionDistance</i> is the distance from the absorbing area boundary at which an agent is deleted.
      */
     @VadereAttribute
     @JsonView(Views.CacheViewExclude.class)

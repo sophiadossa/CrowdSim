@@ -1,17 +1,21 @@
 package org.vadere.state.attributes;
 
+import org.vadere.annotation.helptext.HelpIgnore;
+import org.vadere.util.reflection.VadereAttribute;
+
 import java.util.Objects;
 
-/**
- * This class encapsulates psychology-related simulation attributes.
- */
 public class AttributesPsychology extends Attributes {
 
 	/** Store the members of this class under this key in the JSON file. */
+	@HelpIgnore
 	public static final String JSON_KEY = "attributesPsychology";
 
 	/** Allows agents to change their behavior (e.g. from TARGET_ORIENTIED to COOPERATIVE if it is too dense) */
 	private boolean usePsychologyLayer = false;
+	/**
+	 * <i>psychologyLayer</i> represents the psychology layer of the simulation.
+	 */
 	private AttributesPsychologyLayer psychologyLayer = new AttributesPsychologyLayer();
 
 	// Getter

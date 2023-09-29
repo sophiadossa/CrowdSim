@@ -6,13 +6,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * <p>
  * A location in which one ore more stimuli can be perceived.
- *
+ * </p>
+ * <p>
  * This information is required by a stimulus controller
  * which injects the actual stimuli into the simulation loop.
+ * </p>
  */
 public class Location {
-
+    /**
+     * <i>areas</i> is a list of areas in which the stimuli are injected.
+     */
     private List<VShape> areas;
 
     public Location(){
