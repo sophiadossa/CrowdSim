@@ -5,7 +5,7 @@ public class AttributesPedestrianRepulsionPotentialStrategy extends AttributesCo
     /* Parameter values, see Mayr, Koester: Social distancing with the Optimal Steps Model*/
 
     private double personalSpaceWidthFactor = 1.6444;
-    private double personalSpaceWidthIntercept = 0.4845;
+    private double personalSpaceWidthIntercept = 0.7477;
     private double socialDistanceLowerBound = 1.25;
     private double socialDistanceUpperBound = 2.0;
     private double personalSpaceStrength = 850.0;
