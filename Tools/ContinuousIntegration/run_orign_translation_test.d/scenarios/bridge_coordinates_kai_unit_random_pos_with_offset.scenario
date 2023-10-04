@@ -1,8 +1,8 @@
 {
   "name" : "bridge_coordinates_kai_unit_random_pos_with_offset",
   "description" : "",
-  "release" : "2.6",
-  "commithash" : "117a3f85b8dc6a6329ca9fa2eb2d93fa60ba70a4",
+  "release" : "3.0",
+  "commithash" : "a200b4ddd066a581da3fd86d600a9c689f60a145",
   "processWriters" : {
     "files" : [ {
       "type" : "org.vadere.simulator.projects.dataprocessing.outputfile.TimestepPedestrianIdOutputFile",
