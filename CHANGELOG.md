@@ -20,6 +20,8 @@
 ### Other
 
 ## v3.0 (2023-10-04)
+Release 3.0 provides a stable version for the new generation of Vadere developers.
+This is the reason for increasing the major release number instead of the minor release number.
 
 ### Added
 - Added config parameter `Gui.scale` in the Vadere config file. This parameter allows setting the GUI scaling for HiDPI screens.
