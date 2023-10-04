@@ -138,7 +138,7 @@
           },
           "org.vadere.state.attributes.models.psychology.cognition.AttributesSocialDistancingCognitionModel" : {
             "repulsionFactor" : 1.6444,
-            "repulsionIntercept" : 0.4845,
+            "repulsionIntercept" : 0.7477,
             "minDistance" : 1.25,
             "maxDistance" : 2.0
           }

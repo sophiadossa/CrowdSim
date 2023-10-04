@@ -14,7 +14,7 @@ public class AttributesSocialDistancingCognitionModel extends AttributesCognitio
      * <i> repulsionIntercept</i> sum of the parameters found with regression 0.0658c + 0.6161
      * where the corridor width c is fixed c = 2
      */
-    private double repulsionIntercept  = 0.4845;
+    private double repulsionIntercept  = 0.7477;
     /**
      * <minDistance> minimum distance for social distancing
      */
