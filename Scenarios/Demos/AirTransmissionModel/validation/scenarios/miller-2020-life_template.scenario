@@ -1,8 +1,8 @@
 {
   "name" : "miller-2020-life_template",
-  "description" : "Superspreading event during a choir rehearsal following miller-2020-life;\n\nS. L. Miller, W. W. Nazaroff, J. L. Jimenez, A. Boerstra, G. Buonanno, S. J. Dancer, J. Kurnitski, L. C. Marr, L. Morawska, and C. Noakes. Transmission of SARSCoV-2 by inhalation of respiratory aerosol in the skagit valley chorale superspreading event. Indoor Air, 31(2): 314â€“323, 2020. doi:10.1111/ina.12751.",
-  "release" : "2.6",
-  "commithash" : "117a3f85b8dc6a6329ca9fa2eb2d93fa60ba70a4",
+  "description" : "Superspreading event during a choir rehearsal following miller-2020-life;\n\nS. L. Miller, W. W. Nazaroff, J. L. Jimenez, A. Boerstra, G. Buonanno, S. J. Dancer, J. Kurnitski, L. C. Marr, L. Morawska, and C. Noakes. Transmission of SARSCoV-2 by inhalation of respiratory aerosol in the skagit valley chorale superspreading event. Indoor Air, 31(2): 314–323, 2020. doi:10.1111/ina.12751.",
+  "release" : "3.0",
+  "commithash" : "a200b4ddd066a581da3fd86d600a9c689f60a145",
   "processWriters" : {
     "files" : [ {
       "type" : "org.vadere.simulator.projects.dataprocessing.outputfile.PedestrianIdOutputFile",

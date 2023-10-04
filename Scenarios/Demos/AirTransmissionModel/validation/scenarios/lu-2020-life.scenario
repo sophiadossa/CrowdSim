@@ -1,8 +1,8 @@
 {
   "name" : "lu-2020-life",
-  "description" : "Superspreading event in a restaurant following lu-2021-life;\n\nJ. Lu, J. Gu, K. Li, C. Xu, W. Su, Z. Lai, D. Zhou,\nC. Yu, B. Xu, and Z. Yang. COVID-19 outbreak associated\nwith air conditioning in restaurant, guangzhou,\nchina, 2020. Emerging Infectious Diseases, 26(7):1628â€“\n1631, 2020. doi:10.3201/eid2607.200764.",
-  "release" : "2.6",
-  "commithash" : "117a3f85b8dc6a6329ca9fa2eb2d93fa60ba70a4",
+  "description" : "Superspreading event in a restaurant following lu-2021-life;\n\nJ. Lu, J. Gu, K. Li, C. Xu, W. Su, Z. Lai, D. Zhou,\nC. Yu, B. Xu, and Z. Yang. COVID-19 outbreak associated\nwith air conditioning in restaurant, guangzhou,\nchina, 2020. Emerging Infectious Diseases, 26(7):1628–\n1631, 2020. doi:10.3201/eid2607.200764.",
+  "release" : "3.0",
+  "commithash" : "a200b4ddd066a581da3fd86d600a9c689f60a145",
   "processWriters" : {
     "files" : [ {
       "type" : "org.vadere.simulator.projects.dataprocessing.outputfile.EventtimePedestrianIdOutputFile",

@@ -3,9 +3,7 @@
 **Note:** Before writing into this file, read the guidelines in [Writing Changelog Entries.md](Documentation/contributing/Writing Changelog Entries.md).
 
 ## In Progress:
-
 ### Added
-- Added config parameter `Gui.scale` in the Vadere config file. This parameter allows setting the GUI scaling for HiDPI screens.
 
 ### Removed
 
@@ -21,7 +19,26 @@
 
 ### Other
 
-## v2.6
+## v3.0 (2023-10-04)
+Release 3.0 provides a stable version for the new generation of Vadere developers.
+This is the reason for increasing the major release number instead of the minor release number.
+
+### Added
+- Added config parameter `Gui.scale` in the Vadere config file. This parameter allows setting the GUI scaling for HiDPI screens.
+- Added documentation for psychology layer models
+
+### Changed
+- GUI appearance: applied same style for icons, improve visibility
+- GUI help: added help menu in and make documentation accessible
+- vadere-postvis: adapted the same scheme as in the vadere-gui
+
+### Fixed
+- Fixed bug in `VShapeCellEditor`
+
+### Performance
+- Accelerated GUI output folder loading
+
+## v2.6 (2023-08-23)
 
 ### Removed
 - Removed `lostMembers` from `AttributesCGM` because the extension of the Centroid Group Model has not been validated.

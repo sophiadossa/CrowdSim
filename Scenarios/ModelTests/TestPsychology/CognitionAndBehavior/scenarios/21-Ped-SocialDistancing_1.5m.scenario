@@ -1,8 +1,8 @@
 {
   "name" : "21-Ped-SocialDistancing_1.5m",
   "description" : "",
-  "release" : "2.6",
-  "commithash" : "117a3f85b8dc6a6329ca9fa2eb2d93fa60ba70a4",
+  "release" : "3.0",
+  "commithash" : "a200b4ddd066a581da3fd86d600a9c689f60a145",
   "processWriters" : {
     "files" : [ {
       "type" : "org.vadere.simulator.projects.dataprocessing.outputfile.EventtimePedestrianIdOutputFile",
@@ -138,7 +138,7 @@
           },
           "org.vadere.state.attributes.models.psychology.cognition.AttributesSocialDistancingCognitionModel" : {
             "repulsionFactor" : 1.6444,
-            "repulsionIntercept" : 0.4845,
+            "repulsionIntercept" : 0.7477,
             "minDistance" : 1.25,
             "maxDistance" : 2.0
           }
