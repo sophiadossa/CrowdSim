@@ -124,6 +124,7 @@ import java.util.stream.Collectors;
  * <li>AttributesAerosolCloudShapeProcessor -> AttributesAerosolCloudDataProcessor</li>
  * <li>Output file: aerosolCloudShapes.txt -> aerosolCloudData.txt</li>
  * <li>PedestrianPathogenLoadProcessor -> PedestrianDegreeOfExposureProcessor.</li>
+ * <li>PedestrianPathogenLoadMaxProcessor -> PedestrianMaxDegreeOfExposureProcessor.</li>
  * </ul>
  *
  */
@@ -232,6 +233,7 @@ public class TargetVersionV2_1 extends SimpleJsonTransformation {
 
     private void renameProcessorWriters(JsonNode scenarioFile) throws MigrationException {
         renameProcessorFieldName(scenarioFile, "type", "PedestrianPathogenLoadProcessor", "PedestrianDegreeOfExposureProcessor");
+        renameProcessorFieldName(scenarioFile, "type", "PedestrianPathogenLoadMaxProcessor", "PedestrianMaxDegreeOfExposureProcessor");
         renameProcessorFieldName(scenarioFile, "type", "AerosolCloudShapeProcessor", "AerosolCloudDataProcessor");
         renameProcessorFieldName(scenarioFile, "attributesType", "AttributesAerosolCloudShapeProcessor", "AttributesAerosolCloudDataProcessor");
         renameFileFieldName(scenarioFile, "filename", "aerosolCloudShapes", "aerosolCloudData");
