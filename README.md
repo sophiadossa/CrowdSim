@@ -89,7 +89,7 @@ With the following steps, you can run a simulation with one of the built-in exam
 ### Dependencies
 
 * Java 17 or above (OpenJDK recommended)
-* Maven 3.0
+* Maven 3.9
 * Git
 * OpenCL (optional but recommended)
 
