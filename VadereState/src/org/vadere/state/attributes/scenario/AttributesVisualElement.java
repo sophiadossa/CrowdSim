@@ -26,7 +26,12 @@ public class AttributesVisualElement extends AttributesScenarioElement {
      */
     protected VShape shape;
     /**
-     * Use <i>visible</i> to show/hide a scenario element in the topography editor.
+     * Use <i>visible</i> to show/hide a scenario element in the topography creator.
+     * Making a scenario element invisible allows the user to click scenario elements (in the GUI)
+     * that are otherwise hidden in the layer below.
+     * This attribute does not affect the visibility of scenario elements in the simulation
+     * results (online- / post-visualisation). Please use the settings dialog of the online- /
+     * post-visualization to show/hide scenario elements in the simulation results.
      */
     @JsonView(Views.CacheViewExclude.class)
     protected Boolean visible;
