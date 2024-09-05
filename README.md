@@ -60,10 +60,19 @@ The ZIP file contains:
 
 ### Getting Started
 
-Either run the Vadere simulator by
+Running the graphical user interface: Either run the Vadere simulator by
 
-- Double-clicking `vadere-gui.jar` (after installing [Java](http://www.vadere.org/getting-started/))
-- Entering `path/to/openjdk/java -jar vadere-gui.jar`
+- double-clicking `vadere-gui.jar` (after installing [Java](http://www.vadere.org/getting-started/))
+- entering `path/to/openjdk/java -jar path/to/vadere-gui.jar` in the terminal
+
+Running only projects or scenarios using the terminal (without graphical user interface):
+
+- Enter `path/to/openjdk/java -jar path/to/vadere-console.jar <required and optional command line arguments>` in the terminal.  
+Example: `java -jar vadere-console.jar scenario-run -f path/to/scenariofile -o path/to/outputfile`
+- For more details about valid command line arguments enter:  
+`path/to/openjdk/java -jar path/to/vadere-console.jar --help` or  
+`path/to/openjdk/java -jar path/to/vadere-console.jar <subcommand, e.g. scenario-run> --help`
+
 
 ### Scenario Files
 
@@ -71,9 +80,9 @@ Either run the Vadere simulator by
 @author Aleksandar Ivanov(ivanov0@hm.edu)
 -->
 
-You can find some example scenarios under [Scenarios/Demos](./Scenarios/Demos)
+You can find some example scenarios under [Scenarios/Demos](./Scenarios/Demos).
 
-For more info see [Scenario File Specification](./Documentation/scenario/scenario-file-specification.md)
+For more info see [Scenario File Specification](./Documentation/scenario/scenario-file-specification.md).
 
 ### Run Built-In Examples
 
