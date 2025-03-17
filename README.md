@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ![Vadere Logo](vadere.png "Vadere Logo")
 
 ---
@@ -128,3 +129,7 @@ See [CONTRIBUTING.md](https://gitlab.lrz.de/vadere/vadere/blob/master/CONTRIBUTI
 This software is licensed under the GNU Lesser General Public License ([LGPL](https://gitlab.lrz.de/vadere/vadere/blob/master/LICENSE)).
 
 For more information: http://www.gnu.org/licenses/lgpl.html
+=======
+# CrowdSim
+Designing intelligent agents for a crowd simulation.
+>>>>>>> 9f0490870ad2da09639560b27a5ca22f8ab9945e
